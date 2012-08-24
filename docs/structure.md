@@ -1,12 +1,12 @@
 Project structure
 =================
 
+* **docs/** - project documentation
+    * **wireframe/** - website wireframe
+    * **features.md** - file containing app features description
+    * **structure.md** - file containing files/folders structure description
+    * **db_design.sql** - sql file containing database design    
 * **src/** - source code
-    * **docs/** - project documentation
-        * **wireframe/** - website wireframe
-        * **features.md** - file containing app features description
-        * **structure.md** - file containing files/folders structure description
-        * **db_design.sql** - sql file containing database design
     * **webroot/** - VIEW LOGIC
         * **index.php** - file integration and coordinator
         * **templates** - web app aspect, different themes
