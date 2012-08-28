@@ -3,9 +3,10 @@ Project structure
 
 * **docs/** - project documentation
     * **wireframe/** - website wireframe
+    * **roadmap/** - project roadmap
+    * **database** - database documentation related files
     * **features.md** - file containing app features description
     * **structure.md** - file containing files/folders structure description
-    * **db_design.sql** - sql file containing database design    
 * **src/** - source code
     * **webroot/** - VIEW LOGIC
         * **index.php** - file integration and coordinator
