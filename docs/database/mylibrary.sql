@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 30, 2012 at 02:12 PM
+-- Generation Time: Aug 30, 2012 at 03:00 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.6
 
@@ -94,7 +94,8 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `password` char(30) DEFAULT NULL,
   `id_rights` mediumint(9) NOT NULL,
   `ban_status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
