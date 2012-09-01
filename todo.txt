@@ -1,0 +1,7 @@
+2.9.2012 to do list
+	
+	A way to add users multiple rights, such as delete book, add book,
+ add a picture, add meta-data etc.
+	
+	
+	
