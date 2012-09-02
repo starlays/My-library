@@ -1,7 +1,10 @@
 2.9.2012 to do list
 	
-	A way to add users multiple rights, such as delete book, add book,
+	[SOLVED] A way to add users multiple rights, such as delete book, add book,
  add a picture, add meta-data etc.
-	
+
+3.9.2012
+	skype conversation with flavius
+	SKELETON - a document containing abstract description of these files
 	
 	
