@@ -4,7 +4,7 @@
  add a picture, add meta-data etc.
 
 3.9.2012
-	skype conversation with flavius
-	SKELETON - a document containing abstract description of these files
-	
+	[ALTERED]skype conversation with flavius
+	[ALTERED]SKELETON - a document containing abstract description of these files
+	Solving mysql tables connections
 	
