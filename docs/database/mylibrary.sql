@@ -27,7 +27,7 @@ CREATE TABLE `Author` (
   `value` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `Author` (
 
 LOCK TABLES `Author` WRITE;
 /*!40000 ALTER TABLE `Author` DISABLE KEYS */;
+INSERT INTO `Author` VALUES (1,'Autor 1'),(2,'Autor 2'),(3,'Autor 3'),(4,'Autor 4');
 /*!40000 ALTER TABLE `Author` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,10 +62,10 @@ CREATE TABLE `Books` (
   KEY `id_rate` (`id_rate`,`id_insert_user`),
   KEY `id_author` (`id_author`),
   KEY `id_insert_user` (`id_insert_user`),
-  CONSTRAINT `Books_ibfk_4` FOREIGN KEY (`id_rate`) REFERENCES `Rating` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Books_ibfk_1` FOREIGN KEY (`id_author`) REFERENCES `Author` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Books_ibfk_3` FOREIGN KEY (`id_insert_user`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `Books_ibfk_3` FOREIGN KEY (`id_rate`) REFERENCES `Rating` (`id`),
+  CONSTRAINT `Books_ibfk_1` FOREIGN KEY (`id_author`) REFERENCES `Author` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `Books_ibfk_2` FOREIGN KEY (`id_insert_user`) REFERENCES `Users` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,6 +74,7 @@ CREATE TABLE `Books` (
 
 LOCK TABLES `Books` WRITE;
 /*!40000 ALTER TABLE `Books` DISABLE KEYS */;
+INSERT INTO `Books` VALUES (3,'Book 1',2,'test book 1','2012-09-06','/test/path','/test.path',2,3),(4,'Book 2',3,'test book 2','2012-09-12','/test/path','/test/path',3,1);
 /*!40000 ALTER TABLE `Books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +90,7 @@ CREATE TABLE `Rating` (
   `value` char(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +99,7 @@ CREATE TABLE `Rating` (
 
 LOCK TABLES `Rating` WRITE;
 /*!40000 ALTER TABLE `Rating` DISABLE KEYS */;
+INSERT INTO `Rating` VALUES (1,'lowest'),(2,'low'),(3,'medium'),(4,'high'),(5,'highest');
 /*!40000 ALTER TABLE `Rating` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,11 +138,11 @@ CREATE TABLE `User_book_rating` (
   `id_rate` mediumint(9) NOT NULL,
   `id_book` mediumint(9) NOT NULL,
   KEY `id_user` (`id_user`,`id_rate`,`id_book`),
-  KEY `id_rate` (`id_rate`),
   KEY `id_book` (`id_book`),
-  CONSTRAINT `User_book_rating_ibfk_3` FOREIGN KEY (`id_book`) REFERENCES `Books` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `User_book_rating_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `User_book_rating_ibfk_2` FOREIGN KEY (`id_rate`) REFERENCES `Rating` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `id_rate` (`id_rate`),
+  CONSTRAINT `User_book_rating_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `User_book_rating_ibfk_1` FOREIGN KEY (`id_book`) REFERENCES `Books` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `User_book_rating_ibfk_2` FOREIGN KEY (`id_rate`) REFERENCES `Rating` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -149,6 +152,7 @@ CREATE TABLE `User_book_rating` (
 
 LOCK TABLES `User_book_rating` WRITE;
 /*!40000 ALTER TABLE `User_book_rating` DISABLE KEYS */;
+INSERT INTO `User_book_rating` VALUES (2,4,3),(2,4,3),(3,3,4),(3,3,4);
 /*!40000 ALTER TABLE `User_book_rating` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,17 +165,15 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `username` char(15) NOT NULL,
+  `username` char(15) DEFAULT NULL,
   `first_name` char(20) DEFAULT NULL,
   `last_name` char(20) DEFAULT NULL,
   `mail` char(30) DEFAULT NULL,
   `password` char(30) DEFAULT NULL,
-  `id_rights` mediumint(9) NOT NULL,
-  `ban_status` tinyint(1) NOT NULL,
+  `ban_status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `id_rights` (`id_rights`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,6 +182,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+INSERT INTO `Users` VALUES (1,'foo',NULL,NULL,NULL,'foobar',0),(2,'bar',NULL,NULL,NULL,'barfoo',0),(3,'baz',NULL,NULL,NULL,'bazfoo',0);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,11 +196,11 @@ DROP TABLE IF EXISTS `user_book_rights`;
 CREATE TABLE `user_book_rights` (
   `id_user` mediumint(9) NOT NULL,
   `id_book` mediumint(9) NOT NULL,
-  `computed_rights` tinyint(4) NOT NULL,
+  `computed_rights` smallint(4) NOT NULL DEFAULT '1',
   KEY `id_user` (`id_user`,`id_book`),
   KEY `id_book` (`id_book`),
-  CONSTRAINT `user_book_rights_ibfk_2` FOREIGN KEY (`id_book`) REFERENCES `Books` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `user_book_rights_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `user_book_rights_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_book_rights_ibfk_2` FOREIGN KEY (`id_book`) REFERENCES `Books` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -207,6 +210,7 @@ CREATE TABLE `user_book_rights` (
 
 LOCK TABLES `user_book_rights` WRITE;
 /*!40000 ALTER TABLE `user_book_rights` DISABLE KEYS */;
+INSERT INTO `user_book_rights` VALUES (1,4,127),(2,3,111),(2,3,1111),(1,4,111);
 /*!40000 ALTER TABLE `user_book_rights` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -219,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-09-02 21:55:11
+-- Dump completed on 2012-09-03 21:03:27
