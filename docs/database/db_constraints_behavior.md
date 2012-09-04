@@ -1,0 +1,6 @@
+- an author can not be deleted if he has registered books, he has records in Books table
+- an user can not be deleted if he has registered books, he inserted records in Books table
+- if an user is deleted the records relates with the user from tables user_book_rating and user_book_rights will be deleted
+- if an book is removed the records related to that book are deleted from user_book_rights
+- if an rating is removed from rating_value no book will be deleted from books table
+- if an record is removed from user_book_rating no related record will be deleted from rating_value
