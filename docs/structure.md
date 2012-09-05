@@ -10,8 +10,8 @@ Project structure
 * **src/** - source code
     * **webroot/** - VIEW LOGIC
         * **index.php** - file integration and coordinator
-        * **templates** - web app aspect, different themes
-            * **default/** - theme folder
+        * **layout.php** - website style pattern
+        * **style.css** - website stylization file
     * **functions/** - BUSINESS LOGIC
         * **user/** - folder containing **User features** business logic
         * **books** - folder containing **Books features** business logic
