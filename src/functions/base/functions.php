@@ -34,6 +34,3 @@ function render($tpl_flname, $tpl_vars = array()) {
 
     return RENDER_OK;
 }
-
-
-?>
