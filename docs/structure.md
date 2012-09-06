@@ -17,3 +17,4 @@ Project structure
         * **books** - folder containing **Books features** business logic
         * **admin** - folder containing **Admin panel** business logic
         * **mysql** - folder containing **MySql** business logic
+        * **base**  - folder containing **App base** business logic
