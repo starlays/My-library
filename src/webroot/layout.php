@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" type="text/css" href="style.css" />
 
-<title><?php echo $pages[$page]['title']; ?></title>
+<title><?php echo $modules[$page]['title']; ?></title>
 
 </head>
 <body>
@@ -17,7 +17,7 @@
     </div>
 
     <div id="header">
-        <?php build_menu($page, $pages); ?>
+        <?php echo build_menu($page, $modules); ?>
     </div>
 
     <div id="user-area">
