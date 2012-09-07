@@ -45,13 +45,13 @@ function render($tpl_flname, $tpl_vars = array()) {
  */
 function build_menu($active_menu, $menu_values=array()){
     $menu = '<ul>' .PHP_EOL;
-        foreach($menu_values as $metadata => $value){
-            if($active_menu == $metadata){
-                $menu .= '<li>'.$value['title'].'</li>'.PHP_EOL;
+    foreach($menu_values as $metadata=>$values){
+        if($active_menu == $metadata){
+                $menu .= '<li>'.$menu_values[$metadata]['title'].'</li>'.PHP_EOL;
             }
             else{
-                $menu .= '<li><a href="?page='.$value['content'].'">'
-                                        .$value['title'].'</a></li>'.PHP_EOL;
+                $menu .= '<li><a href="?page='.$metadata.'">'
+                    .$menu_values[$metadata]['title'].'</a></li>'.PHP_EOL;
             }
         }
     $menu .= '</ul>' .PHP_EOL;
