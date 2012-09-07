@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" type="text/css" href="style.css" />
 
-<title>Here goes the title</title>
+<title><?php echo $pages[$page]['title']; ?></title>
 
 </head>
 <body>
@@ -17,7 +17,7 @@
     </div>
 
     <div id="header">
-        here goes menu links and seach bar
+        <?php build_menu($page, $pages); ?>
     </div>
 
     <div id="user-area">
