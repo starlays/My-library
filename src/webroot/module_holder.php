@@ -5,7 +5,7 @@ return array (
     'home'  => array (
         'title'     => 'Home page',
         'in_menu'   => TRUE,
-        'content'   => 'BASE_FUNCTION.php'
+        'content'   => 'home.php'
     ),
     'admin' => array (
         'title'     => 'Admin page',
