@@ -1,21 +1,21 @@
 <?php
 /**
-* Error constants
-*/
-const RENDER_OK     = 0;
-const RENDER_ERFLRD = 1;
-const RENDER_ERFLIS = 2;
-const RENDER_EPYVAR = 3;
+ * Error constants
+ */
+const RENDER_ERFLRD = 0;
+const RENDER_ERFLIS = 1;
+const RENDER_EPYVAR = 2;
+const RENDER_OK     = 3;
 
 
 /**
-* Render template file using vars
-*
-* @param $tpl_flname path to the template file
-* @param $tpl_vars send variable to template file
-*
-*/
-
+ * Render template file using received vars
+ *
+ * @param string $tpl_flname path to the template file
+ * @param array  $tpl_vars send variable to template file
+ *
+ * @return integer STATUS_CODE
+ */
 function render($tpl_flname, $tpl_vars = array()) {
     if(!file_exists($tpl_flname)) {
         return RENDER_ERFLIS;
@@ -34,3 +34,29 @@ function render($tpl_flname, $tpl_vars = array()) {
 
     return RENDER_OK;
 }
+
+/**
+ * Builds html menu from given array
+ *
+ * @param string $active_menu
+ * @param array $menu_values
+ *
+ * @return string html menu
+ */
+function build_menu($active_menu, $menu_values=array()){
+    $menu = '<ul>' .PHP_EOL;
+        foreach($menu_values as $metadata => $value){
+            if($active_menu == $metadata){
+                $menu .= '<li>'.$value['title'].'</li>'.PHP_EOL;
+            }
+            else{
+                $menu .= '<li><a href="?page='.$value['content'].'">'
+                                        .$value['title'].'</a></li>'.PHP_EOL;
+            }
+        }
+    $menu .= '</ul>' .PHP_EOL;
+
+    return $menu;
+}
+
+
