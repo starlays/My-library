@@ -26,7 +26,7 @@ else {
 }
 
 if(file_exists($pages_fl) && is_readable($pages_fl)) {
-    $pages = require_once ($pages_fl);
+    $modules = require_once ($pages_fl);
 }
 else {
     echo sprintf('Error: %d', ERR_BASEFN);
@@ -36,7 +36,8 @@ else {
 
 if(isset($_GET['page'])) {
     $required_page = htmlspecialchars($_GET['page']);
-    if(in_array($required_page, $pages)) {
+
+    if(isset($modules[$required_page])) {
         $page = $required_page;
     }
     else {
@@ -47,9 +48,10 @@ else {
     $page = 'home';
 }
 
+
 //variable holding all the vars that will go from BL to VL trough render
 //function
-$tpl_vars = compact('pages', 'page');
+$tpl_vars = compact('modules', 'page');
 
 $render = render($tpl_flname, $tpl_vars);
 
