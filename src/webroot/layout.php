@@ -17,11 +17,11 @@
     </div>
 
     <div id="header">
-        <?php echo build_menu($page, $modules); ?>
+        <?php echo build_menu($page, $modules, 1); ?>
     </div>
 
     <div id="user-area">
-        here goes user area
+        <?php echo build_menu($page, $modules, 2); ?>
     </div>
 </div>
 
