@@ -26,18 +26,18 @@ return array (
         'in_menu'   => 0,
         'content'   => 'mysql.php'
     ),
-	 'register' => array (
-	    'title'     => 'Register',
+     'register' => array (
+        'title'     => 'Register',
         'in_menu'   => 2,
         'content'   => 'register.php'
     ),
-	 'login' => array (
-	    'title'     => 'Login',
+     'login' => array (
+        'title'     => 'Login',
         'in_menu'   => 2,
         'content'   => 'login.php'
     ),
-	 'recover' => array (
-	    'title'     => 'Recover',
+     'recover' => array (
+        'title'     => 'Recover',
         'in_menu'   => 2,
         'content'   => 'recover.php'
     )
