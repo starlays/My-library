@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" type="text/css" href="style.css" />
 
-<title><?php echo $modules[$page]['title']; ?></title>
+<title><?php echo $modules[$page]['title']; //TODO: fix some module don't have all the information?></title>
 
 </head>
 <body>
@@ -26,7 +26,14 @@
 </div>
 
 <div id="books-wrapper">
-    here goes books info
+<?php
+if(check_file($modules[$page]['content'],__MODULES__.$page.DIRECTORY_SEPARATOR)) {
+    include (__MODULES__.$page.DIRECTORY_SEPARATOR.$modules[$page]['content']);
+}
+else {
+    echo sprintf('Error: %s page content is missing! Contact website administrator.', $page);
+}
+?>
 </div>
 
 <div id="footer">
