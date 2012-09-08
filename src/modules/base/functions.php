@@ -45,13 +45,13 @@ function render($tpl_flname, $tpl_vars = array()) {
  * Builds html menu from given array
  *
  * @param string $active_menu
- * @param array $menu_values
- * @param array $menu_number chooses witch module appears 
+ * @param array  $menu_values
+ * @param array  $menu_number chooses witch module appears
  *
  * @return string html menu
  */
-function build_menu($active_menu, $menu_values=array(),$menu_number) {
-	
+function build_menu($active_menu, $menu_values=array(), $menu_number) {
+
     $menu = '<ul id="menu">' .PHP_EOL;
 
     foreach($menu_values as $metadata=>$values) {
