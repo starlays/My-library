@@ -1,8 +1,8 @@
 <?php
-//define app root
-define('__APPROOT__', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 //define root
 define('__ROOT__', dirname(__FILE__).DIRECTORY_SEPARATOR);
+//define app root
+define('__APPROOT__', dirname(__ROOT__).DIRECTORY_SEPARATOR);
 //modules path
 define('__MODULES__', __APPROOT__.DIRECTORY_SEPARATOR.'modules'.DIRECTORY_SEPARATOR);
 //base app functions file
