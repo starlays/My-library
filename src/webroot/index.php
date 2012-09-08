@@ -28,18 +28,13 @@ else {
     exit();
 }
 
+$page = 'home';
 if(isset($_GET['page'])) {
     $required_page = htmlspecialchars($_GET['page']);
 
     if(isset($modules[$required_page]) && $modules[$required_page]['in_menu']) {
         $page = $required_page;
     }
-    else {
-        $page = 'home';
-    }
-}
-else {
-    $page = 'home';
 }
 
 //variable holding all the vars that will go from BL to VL trough render
