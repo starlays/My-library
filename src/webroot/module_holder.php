@@ -7,11 +7,6 @@ return array (
         'in_menu'   => TRUE,
         'content'   => 'home.php'
     ),
-    'admin' => array (
-        'title'     => 'Admin page',
-        'in_menu'   => TRUE,
-        'content'   => 'admin.php'
-    ),
     'books' => array (
         'title'     => 'Books page',
         'in_menu'   => TRUE,
@@ -21,5 +16,15 @@ return array (
         'title'     => 'User page',
         'in_menu'   => TRUE,
         'content'   => 'user.php'
+    ),
+    'admin' => array (
+        'title'     => 'Admin page',
+        'in_menu'   => TRUE,
+        'content'   => 'admin.php'
+    ),
+    'mysql' => array (
+        'in_menu'   => FALSE,
+        'content'   => 'admin.php'
     )
+
 );
