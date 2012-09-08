@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" type="text/css" href="style.css" />
 
-<title><?php echo $modules[$page]['title']; //TODO: fix some module don't have all the information?></title>
+<title><?php echo $modules[$page]['title']; ?></title>
 
 </head>
 <body>
