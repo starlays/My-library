@@ -46,15 +46,16 @@ function render($tpl_flname, $tpl_vars = array()) {
  *
  * @param string $active_menu
  * @param array $menu_values
+ * @param array $menu_number chooses witch module appears 
  *
  * @return string html menu
  */
-function build_menu($active_menu, $menu_values=array()) {
-
+function build_menu($active_menu, $menu_values=array(),$menu_number) {
+	
     $menu = '<ul id="menu">' .PHP_EOL;
 
     foreach($menu_values as $metadata=>$values) {
-        if($menu_values[$metadata]['in_menu']) {
+        if($menu_values[$metadata]['in_menu'] === $menu_number) {
             if($active_menu == $metadata) {
                     $menu .= '<li class="title">'.$menu_values[$metadata]['title'].'</li>'.PHP_EOL;
                 }
