@@ -40,5 +40,10 @@ return array (
         'title'     => 'Recover',
         'in_menu'   => 2,
         'content'   => 'recover.php'
+    ),
+     'logout' => array (
+        'title'     => 'Logout',
+        'in_menu'   => 2,
+        'content'   => 'logout.php'
     )
 );
