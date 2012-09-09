@@ -15,13 +15,15 @@ $tpl_flname = __ROOT__.'layout.php';
 
 // errors holder
 $errors = array();
+// module deps holder
+$loaded_deps = array();
 //base error constants
 const ERR_BASEFN = 10;
 
 if(file_exists($base_fns_file) && is_readable($base_fns_file)
              && file_exists($pages_fl) && is_readable($pages_fl)) {
-     require_once ($base_fns_file);
-     $modules = require_once ($pages_fl);
+     require_once $base_fns_file;
+     $modules = require_once $pages_fl;
 }
 else {
     echo sprintf('Error: %d', ERR_BASEFN);
@@ -30,9 +32,27 @@ else {
 
 $page = require_once __APPROOT__.'router.php';
 
+if(isset($modules[$page]['depend'])) {
+
+    foreach($modules[$page]['depend'] as $dependencie) {
+        $dep_path = __MODULES__.$dependencie.DIRECTORY_SEPARATOR;
+
+        if(isset($modules[$dependencie]['content']) &&
+            check_file($modules[$dependencie]['content'], $dep_path)) {
+                $loaded_deps[] = require_once $dep_path.$modules[$dependencie]['content'];
+        }
+        else {
+            $loaded_deps = array();
+            $errors [] = 'Module '.$page.' dpendencie '.$dependencie.' can\'t be loaded!';
+        }
+    }
+}
+
+var_dump($loaded_deps);
+
 //variable holding all the vars that will go from BL to VL trough render
 //function
-$tpl_vars = compact('modules', 'page');
+$tpl_vars = compact('modules', 'page', 'errors');
 
 $render = render($tpl_flname, $tpl_vars);
 
