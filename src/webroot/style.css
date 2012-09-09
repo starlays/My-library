@@ -42,8 +42,8 @@ li.menu{display:inline;margin:2px;}
     margin-bottom:5px;
     }
 #books-wrapper {
+    clear: both;
     margin-top:90px;
-    width:99%;
 }
 #footer {
     position: absolute;
