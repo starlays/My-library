@@ -33,6 +33,11 @@ if(check_file($modules[$page]['content'],__MODULES__.$page.DIRECTORY_SEPARATOR))
 else {
     echo sprintf('Error: %s page content is missing! Contact website administrator.', $page);
 }
+if(isset($errors)) {
+    foreach($errors as $error) {
+        echo sprintf('Error: %s', $error);
+    }
+}
 ?>
 </div>
 </div>

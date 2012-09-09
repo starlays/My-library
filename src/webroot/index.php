@@ -9,19 +9,19 @@ define('__MODULES__', __APPROOT__.DIRECTORY_SEPARATOR.'modules'.DIRECTORY_SEPARA
 $base_fns_file  = __APPROOT__.'modules'.DIRECTORY_SEPARATOR.'base'
                                         .DIRECTORY_SEPARATOR.'functions.php';
 //modules holder
-$pages_fl = __ROOT__.'module_holder.php';
+$pages_fl = __APPROOT__.'module_holder.php';
 //layout file used for VL
-$tpl_flname = __ROOT__.'layout.php';
-
+$tpl_flname = __APPROOT__.'layout.php';
 // errors holder
 $errors = array();
 //base error constants
-const ERR_BASEFN = 10;
+const ERR_BASEFN    = 10;
+const ERR_LDMODDEP  = 11;
 
 if(file_exists($base_fns_file) && is_readable($base_fns_file)
              && file_exists($pages_fl) && is_readable($pages_fl)) {
-     require_once ($base_fns_file);
-     $modules = require_once ($pages_fl);
+     require_once $base_fns_file;
+     $modules = require_once $pages_fl;
 }
 else {
     echo sprintf('Error: %d', ERR_BASEFN);
@@ -32,7 +32,19 @@ $page = require_once __APPROOT__.'router.php';
 
 //variable holding all the vars that will go from BL to VL trough render
 //function
-$tpl_vars = compact('modules', 'page');
+$load_deps = require_once __APPROOT__.'dependency_loader.php';
+
+if(isset($load_deps)){
+    foreach($load_deps as $load_dep) {
+        require_once $load_dep;
+    }
+}
+else {
+    echo sprintf('Error: %d', ERR_LDMODDEP);
+    exit();
+}
+
+$tpl_vars = compact('modules', 'page', 'errors');
 
 $render = render($tpl_flname, $tpl_vars);
 
