@@ -1,8 +1,8 @@
 <?php
-//define app root
-define('__APPROOT__', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 //define root
 define('__ROOT__', dirname(__FILE__).DIRECTORY_SEPARATOR);
+//define app root
+define('__APPROOT__', dirname(__ROOT__).DIRECTORY_SEPARATOR);
 //modules path
 define('__MODULES__', __APPROOT__.DIRECTORY_SEPARATOR.'modules'.DIRECTORY_SEPARATOR);
 //base app functions file
@@ -28,19 +28,7 @@ else {
     exit();
 }
 
-if(isset($_GET['page'])) {
-    $required_page = htmlspecialchars($_GET['page']);
-
-    if(isset($modules[$required_page]) && $modules[$required_page]['in_menu']) {
-        $page = $required_page;
-    }
-    else {
-        $page = 'home';
-    }
-}
-else {
-    $page = 'home';
-}
+$page = require_once __APPROOT__.'router.php';
 
 //variable holding all the vars that will go from BL to VL trough render
 //function
