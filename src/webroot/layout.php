@@ -23,7 +23,7 @@
     <div id="user-area">
         <?php echo build_menu($page, $modules, 2); ?>
     </div>
-</div>
+
 
 <div id="books-wrapper">
 <?php
@@ -35,7 +35,7 @@ else {
 }
 ?>
 </div>
-
+</div>
 <div id="footer">
     here goes copyright info
 </div>
