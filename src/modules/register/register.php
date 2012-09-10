@@ -1,4 +1,4 @@
-<form action="<?php __MODULES__.$_GET['page'].DIRECTORY_SEPARATOR.'register_bl.php'?>" method='POST'>
+<form action='' method='POST'>
 
 <fieldset>
 <legend> Register Info: </legend>
@@ -12,3 +12,7 @@
 <input type='submit' name='register' value='Register' />
 
 </form>
+<?php 
+//TODO: security, sanitize, auto require dependencies!
+require_once __MODULES__.$page.DIRECTORY_SEPARATOR.'register_BL.php';
+?>
