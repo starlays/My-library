@@ -3,28 +3,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
 <link rel="stylesheet" type="text/css" href="style.css" />
-
 <title><?php echo $modules[$page]['title']; ?></title>
-
 </head>
 <body>
 <div id="wrapper">
-
     <div id="picture">
         <p>Picture</p>
     </div>
-
     <div id="header">
         <?php echo build_menu($page, $modules, 1); ?>
     </div>
-
     <div id="user-area">
         <?php echo build_menu($page, $modules, 2); ?>
     </div>
-
-
 <div id="books-wrapper">
 <?php
 if(check_file($modules[$page]['content_VL'],__MODULES__.$page.DIRECTORY_SEPARATOR)) {
@@ -41,8 +33,8 @@ if(isset($errors)) {
 ?>
 </div>
 </div>
-<div id="footer">
-    here goes copyright info
-</div>
+    <div id="footer">
+        here goes copyright info
+    </div>
 <body>
 </html>
