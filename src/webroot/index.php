@@ -12,8 +12,6 @@ $base_fns_file  = __APPROOT__.'modules'.DIRECTORY_SEPARATOR.'base'
 $pages_fl = __APPROOT__.'module_holder.php';
 //layout file used for VL
 $tpl_flname = __APPROOT__.'layout.php';
-// errors holder
-$errors = array();
 //base error constants
 const ERR_BASEFN    = 10;
 const ERR_LDMODDEP  = 11;
@@ -53,7 +51,7 @@ $moduleBL = require_once __APPROOT__.'moduleBL_loader.php';
 
 if($moduleBL !== MODLDBL_NO_BL) {
     if($moduleBL !== NULL) {
-        require_once $moduleBL;
+        $page_vl_vars = require_once $moduleBL;
     }
     else {
         echo sprintf('Error: %d', ERR_LDMODBL);
@@ -61,7 +59,7 @@ if($moduleBL !== MODLDBL_NO_BL) {
     }
 }
 
-$tpl_vars = compact('modules', 'page', 'errors');
+$tpl_vars = compact('modules', 'page', 'page_vl_vars');
 
 $render = render($tpl_flname, $tpl_vars);
 
