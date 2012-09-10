@@ -1,3 +1,10 @@
 <?php
-//here be mysql connect to database and connection link return
-return 'test';
+
+$host        =    'localhost';
+$user        =    '';
+$pass        =    '';
+$tablename   =    'mylibrary';
+
+$mysql_link = mysqli_connect($host, $user, $pass, $tablename);
+
+return $mysql_link;
