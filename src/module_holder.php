@@ -28,7 +28,7 @@ return array (
     ),
     'mysql' => array (
         'in_menu'       => 0,
-        'content_VL'    => 'mysql.php'
+        'content_BL'    => 'mysql.php'
     ),
      'register' => array (
         'title'         => 'Register',
