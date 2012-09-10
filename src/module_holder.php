@@ -34,12 +34,14 @@ return array (
         'title'         => 'Register',
         'in_menu'       => 2,
         'content_VL'    => 'register.php',
+		'content_BL'    => 'register_BL.php',
         'depend'        => array('mysql')
     ),
      'login' => array (
         'title'         => 'Login',
         'in_menu'       => 2,
         'content_VL'    => 'login.php',
+		'content_BL'    => 'login_BL.php',
         'depend'        => array('mysql')
     ),
      'recover' => array (
