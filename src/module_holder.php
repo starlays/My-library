@@ -11,6 +11,7 @@ return array (
         'title'         => 'Books page',
         'in_menu'       => 1,
         'content_VL'    => 'books.php',
+        'content_BL'    => 'books_bl.php',
         'depend'        => array('mysql')
     ),
     'user'  => array (
