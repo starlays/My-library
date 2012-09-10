@@ -52,4 +52,8 @@ li.menu{display:inline;margin:2px;}
     right:5px;
     clear: both;
 }
+fieldset{
+	width:100px;
+	margin:10px;
+}
 
