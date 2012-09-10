@@ -27,8 +27,8 @@
 
 <div id="books-wrapper">
 <?php
-if(check_file($modules[$page]['content'],__MODULES__.$page.DIRECTORY_SEPARATOR)) {
-    include (__MODULES__.$page.DIRECTORY_SEPARATOR.$modules[$page]['content']);
+if(check_file($modules[$page]['content_VL'],__MODULES__.$page.DIRECTORY_SEPARATOR)) {
+    include (__MODULES__.$page.DIRECTORY_SEPARATOR.$modules[$page]['content_VL']);
 }
 else {
     echo sprintf('Error: %s page content is missing! Contact website administrator.', $page);

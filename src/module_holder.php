@@ -3,53 +3,53 @@
 
 return array (
     'home'  => array (
-        'title'     => 'Home page',
-        'in_menu'   => 1,
-        'content'   => 'home.php'
+        'title'         => 'Home page',
+        'in_menu'       => 1,
+        'content_VL'    => 'home.php'
     ),
     'books' => array (
-        'title'     => 'Books page',
-        'in_menu'   => 1,
-        'content'   => 'books.php',
-        'depend'    => array('mysql')
+        'title'         => 'Books page',
+        'in_menu'       => 1,
+        'content_VL'    => 'books.php',
+        'depend'        => array('mysql')
     ),
     'user'  => array (
-        'title'     => 'User page',
-        'in_menu'   => 1,
-        'content'   => 'user.php',
-        'depend'    => array('mysql')
+        'title'         => 'User page',
+        'in_menu'       => 1,
+        'content_VL'    => 'user.php',
+        'depend'        => array('mysql')
     ),
     'admin' => array (
-        'title'     => 'Admin page',
-        'in_menu'   => 1,
-        'content'   => 'admin.php',
-        'depend'    => array('mysql')
+        'title'         => 'Admin page',
+        'in_menu'       => 1,
+        'content_VL'    => 'admin.php',
+        'depend'        => array('mysql')
     ),
     'mysql' => array (
-        'in_menu'   => 0,
-        'content'   => 'mysql.php'
+        'in_menu'       => 0,
+        'content_VL'    => 'mysql.php'
     ),
      'register' => array (
-        'title'     => 'Register',
-        'in_menu'   => 2,
-        'content'   => 'register.php',
-        'depend'    => array('mysql')
+        'title'         => 'Register',
+        'in_menu'       => 2,
+        'content_VL'    => 'register.php',
+        'depend'        => array('mysql')
     ),
      'login' => array (
-        'title'     => 'Login',
-        'in_menu'   => 2,
-        'content'   => 'login.php',
-        'depend'    => array('mysql')
+        'title'         => 'Login',
+        'in_menu'       => 2,
+        'content_VL'    => 'login.php',
+        'depend'        => array('mysql')
     ),
      'recover' => array (
-        'title'     => 'Recover',
-        'in_menu'   => 2,
-        'content'   => 'recover.php',
-        'depend'    => array('mysql')
+        'title'         => 'Recover',
+        'in_menu'       => 2,
+        'content_VL'    => 'recover.php',
+        'depend'        => array('mysql')
     ),
      'logout' => array (
-        'title'     => 'Logout',
-        'in_menu'   => 2,
-        'content'   => 'logout.php'
+        'title'         => 'Logout',
+        'in_menu'       => 2,
+        'content_VL'   => 'logout.php'
     )
 );
