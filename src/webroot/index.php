@@ -17,6 +17,9 @@ $errors = array();
 //base error constants
 const ERR_BASEFN    = 10;
 const ERR_LDMODDEP  = 11;
+const ERR_LDMODBL   = 12;
+//constant returned if the module has no BL file
+const MODLDBL_NO_BL = 14;
 
 if(file_exists($base_fns_file) && is_readable($base_fns_file)
              && file_exists($pages_fl) && is_readable($pages_fl)) {
@@ -28,7 +31,21 @@ else {
     exit();
 }
 
+//get the page from router
 $page = require_once __APPROOT__.'router.php';
+
+//load module BL
+$moduleBL = require_once __APPROOT__.'moduleBL_loader.php';
+
+if($moduleBL !== MODLDBL_NO_BL) {
+    if($moduleBL !== NULL) {
+        require_once $moduleBL;
+    }
+    else {
+        echo sprintf('Error: %d', ERR_LDMODBL);
+        exit();
+    }
+}
 
 //variable holding all the vars that will go from BL to VL trough render
 //function
