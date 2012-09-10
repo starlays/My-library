@@ -34,19 +34,6 @@ else {
 //get the page from router
 $page = require_once __APPROOT__.'router.php';
 
-//load module BL
-$moduleBL = require_once __APPROOT__.'moduleBL_loader.php';
-
-if($moduleBL !== MODLDBL_NO_BL) {
-    if($moduleBL !== NULL) {
-        require_once $moduleBL;
-    }
-    else {
-        echo sprintf('Error: %d', ERR_LDMODBL);
-        exit();
-    }
-}
-
 //variable holding all the vars that will go from BL to VL trough render
 //function
 $load_deps = require_once __APPROOT__.'dependency_loader.php';
@@ -59,6 +46,19 @@ if(isset($load_deps)){
 else {
     echo sprintf('Error: %d', ERR_LDMODDEP);
     exit();
+}
+
+//load module BL
+$moduleBL = require_once __APPROOT__.'moduleBL_loader.php';
+
+if($moduleBL !== MODLDBL_NO_BL) {
+    if($moduleBL !== NULL) {
+        require_once $moduleBL;
+    }
+    else {
+        echo sprintf('Error: %d', ERR_LDMODBL);
+        exit();
+    }
 }
 
 $tpl_vars = compact('modules', 'page', 'errors');
