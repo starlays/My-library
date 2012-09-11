@@ -14,5 +14,23 @@
 </form>
 <?php 
 //TODO: security, sanitize,  show errors
-
+if(is_numeric($page_vl_vars)) {
+    switch($page_vl_vars) {
+        case ERR_FIELDMISS:
+            echo 'Fields marked with * are necessary.';
+            break;
+        case ERR_MYSQLCONN:
+            echo 'Connection Failed';
+            break;
+        case ERR_PASSNOMATCH:
+            echo 'The passwords are not matching';
+            break;
+        case ERR_USEREXISTS:
+            echo 'This user already exists';
+            break;
+        case MSG_REGOK:
+            echo 'Registration Successful';
+            break;
+    }
+}
 ?>
