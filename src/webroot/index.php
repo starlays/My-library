@@ -48,6 +48,7 @@ else {
 
 //load module BL
 $moduleBL = require_once __APPROOT__.'moduleBL_loader.php';
+$page_vl_vars = NULL;
 
 if($moduleBL !== MODLDBL_NO_BL) {
     if($moduleBL !== NULL) {
