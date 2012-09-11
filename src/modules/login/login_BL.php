@@ -15,7 +15,7 @@ if(isset($_POST['login'])){
 		$_SESSION['is_logged_in'] = 1;
 	}
 	else {
-		echo 'userul nu exista';
+		return 'The user/password are not valid';
 	}
 }
 mysqli_close($mysql_link);
