@@ -18,6 +18,7 @@ return array (
         'title'         => 'User page',
         'in_menu'       => 1,
         'content_VL'    => 'user.php',
+        'content_BL'    => 'user_bl.php',
         'depend'        => array('mysql')
     ),
     'admin' => array (
