@@ -13,6 +13,6 @@
 
 </form>
 <?php 
-//TODO: security, sanitize, auto require dependencies!
-require_once __MODULES__.$page.DIRECTORY_SEPARATOR.'register_BL.php';
+//TODO: security, sanitize, auto require dependencies, show errors
+
 ?>
