@@ -1,6 +1,6 @@
 <?php
 //TODO: security, sanitize, auto require dependencies!
-require_once __MODULES__.'mysql'.DIRECTORY_SEPARATOR.'mysql.php';
+//TODO: use only one retrun and a error holder!
 if(isset($_POST['register'])){
 	$reginfo = array($_POST['fn'], $_POST['ln'], $_POST['usr'], $_POST['mail'], 
 		$_POST['pwd'], $_POST['rpwd']);
@@ -11,17 +11,17 @@ if(isset($_POST['register'])){
 	
 	if(0 === $ckuser){
 		if($pwd === $rpwd){
-			$flag = mysqli_query($mysql_link, "INSERT INTO `users`
+			$query = "INSERT INTO `users`
 				(`username`, `first_name`, `last_name`, `mail`, `password`) 
 				VALUES 
 				('$usr','$fn','$ln','$mail','$pwd')"
-			);
+			$flag = mysqli_query($mysql_link, $query);
 			if($flag){ 
-				return "Registration Succesfull"; 
+				return 'Registration Succesfull'; 
 				mysqli_close($mysql_link);
 			}
 			else { 
-				return "error in registration".mysqli_error($mysql_link); 
+				return 'error in registration'.mysqli_error($mysql_link); 
 			}
 		}
 		else {
