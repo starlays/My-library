@@ -53,6 +53,6 @@ return array (
      'logout' => array (
         'title'         => 'Logout',
         'in_menu'       => 2,
-        'content_VL'   => 'logout.php'
-    )
+        'content_VL'   => 'logout.php',
+    ),
 );
