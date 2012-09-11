@@ -87,3 +87,38 @@ function check_file($file, $path_file) {
         return FALSE;
     }
 }
+
+/**
+ * Check if the elements of the given array are !empty
+ *
+ * @param array $array, the array to check
+ *
+ * @return bool
+ */
+function isEmpty($array) {
+    foreach($array as $input){
+        if(empty($input)){
+            $var = FALSE;
+            break;
+        }
+        else {
+            $var = TRUE;
+        }
+    }
+    return $var;
+}
+/**
+ * Validate user input data
+ *
+ * @param array $array, the array to check
+ *
+ * @return array
+ */
+function datafilter($array) {
+    $var = array();
+    foreach($array as $input){
+        $var[] = strip_tags($input);
+    }
+    return $var;
+}
+
