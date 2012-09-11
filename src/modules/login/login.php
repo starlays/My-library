@@ -4,7 +4,7 @@ session_start();
 
 // Check, if user is already login, then jump to secured page
 if (isset($_SESSION['is_logged_in'])) {
-	header('Location: index.php');
+    header('Location: index.php');
 }
 
 ?>
@@ -19,5 +19,15 @@ if (isset($_SESSION['is_logged_in'])) {
 
 </form>
 <?php 
-//TODO: security, sanitize, show errors
+//TODO: security
+if(is_numeric($page_vl_vars)) {
+    switch($page_vl_vars) {
+        case ERR_PASSNOMATCH:
+            echo 'The user/password are not valid';
+            break;
+        case ERR_USRPWD:
+            echo 'Please enter u`r credentials';
+            break;
+    }
+}
 ?>
