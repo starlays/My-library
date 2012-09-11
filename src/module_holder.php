@@ -35,7 +35,7 @@ return array (
         'title'         => 'Register',
         'in_menu'       => 2,
         'content_VL'    => 'register.php',
-	'content_BL'    => 'register_BL.php',
+		'content_BL'    => 'register_BL.php',
         'depend'        => array('mysql')
     ),
      'login' => array (
