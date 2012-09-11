@@ -1,3 +1,13 @@
+<?php 
+
+session_start();
+
+// Check, if user is already login, then jump to secured page
+if (isset($_SESSION['is_logged_in'])) {
+	header('Location: index.php');
+}
+
+?>
 <form action='' method='POST'>
 
 <fieldset>
@@ -9,5 +19,5 @@
 
 </form>
 <?php 
-//TODO: security, sanitize, auto require dependencies!
+//TODO: security, sanitize, show errors
 ?>
