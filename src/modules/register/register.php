@@ -13,6 +13,6 @@
 
 </form>
 <?php 
-//TODO: security, sanitize, auto require dependencies, show errors
+//TODO: security, sanitize,  show errors
 
 ?>
