@@ -14,7 +14,7 @@ if(isset($_POST['usr_add_book'])) {
             
             $book_title    = mysqli_real_escape_string($mysql_link, $_POST['book_title']);
             $book_descript = mysqli_real_escape_string($mysql_link, $_POST['book_descript']);
-            $book_insdate  = mysql_real_escape_string($mysql_link, $_POST['book_insdate']);
+            $book_insdate  = mysqli_real_escape_string($mysql_link, $_POST['book_insdate']);
  
 $sql = "INSERT INTO `mylibrary`.`books` 
     (`id`, `title`, `id_author`, `description`, `insert_date`, `cvr_img_path`, `e_book_path`, `id_rate`, `id_insert_user`)
