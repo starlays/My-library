@@ -40,7 +40,7 @@ if(isset($_POST['usr_add_book'])) {
            INSERT INTO `books` (`title`, `id_author`, `description`, `insert_date`,
            `cvr_img_path`, `e_book_path`, `id_rate`, `id_insert_user`)
            VALUES ( '$book_title', (SELECT `id` FROM `authors` WHERE name='$book_author'), 
-           '$book_descript', $book_insdate, $book_cvrimg, '$book_ebook', 1, 2);"; 
+           '$book_descript', '$book_insdate', '$book_cvrimg', '$book_ebook', 1, 2);"; 
             //TODO: fix use id, now is inserted manualy
           
             //use MySQL transactions to be on the safe side
