@@ -25,6 +25,12 @@ if(is_numeric($page_vl_vars)) {
     switch($page_vl_vars) {
         case USER_ADBOOK_EYFLD:
             echo 'Fields marked with * are necesary.';
+            break;
+        case USER_NODB_INSERT:
+            echo 'Can\'t insert informations in to database';
+            break;
+        case USER_DB_INSERT:
+            echo 'Book added';
     }
 }
 ?>
