@@ -1,6 +1,5 @@
 <?php
-//TODO: security, 
-//TODO: use only one retrun and a error holder!
+//TODO: data validation
 const ERR_MYSQLCONN    = 50;
 const ERR_PASSNOMATCH   = 51;
 const ERR_USEREXISTS    = 52;
