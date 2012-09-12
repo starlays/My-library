@@ -1,9 +1,10 @@
 <?php
 //define root
-define('__ROOT__', dirname(__FILE__).DIRECTORY_SEPARATOR);
+define('__WEBROOT__', __DIR__.DIRECTORY_SEPARATOR);
 //define app root
-define('__APPROOT__', dirname(__ROOT__).DIRECTORY_SEPARATOR);
+define('__APPROOT__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR);
 //modules path
+chdir(__APPROOT__);
 define('__MODULES__', __APPROOT__.'modules'.DIRECTORY_SEPARATOR);
 //base app functions file
 $base_fns_file  = __APPROOT__.'modules'.DIRECTORY_SEPARATOR.'base'
