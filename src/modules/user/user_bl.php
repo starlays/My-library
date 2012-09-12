@@ -46,11 +46,12 @@ if(isset($_POST['usr_add_book'])) {
             //use MySQL transactions to be on the safe side
             mysqli_autocommit($mysql_link, FALSE);
             $insert_error = FALSE;
+            
             //is the recived author in our database?
             if($result = mysqli_query($mysql_link, $sql_getauthor)) {
                 $db_author = mysqli_fetch_row($result);
                 
-                if(!in_array($book_author,$db_author)) {
+                if(!is_array($db_author)) {
                     if(!mysqli_query($mysql_link, $sql_author)) {
                         $insert_error = TRUE;
                     }
