@@ -41,9 +41,12 @@ return array (
      'login' => array (
         'title'         => 'Login',
         'in_menu'       => 2,
+        'pre-processing'      => array(
+            'session' => 'session_start.php',
+        ),
         'content_VL'    => 'login.php',
         'content_BL'    => 'login_BL.php',
-        'depend'        => array('mysql')
+        'depend'        => array('mysql'),
     ),
      'recover' => array (
         'title'         => 'Recover',
@@ -54,6 +57,8 @@ return array (
      'logout' => array (
         'title'         => 'Logout',
         'in_menu'       => 2,
-        'content_VL'   => 'logout.php',
+        'prost-processing'    => array(
+            'session' => 'session_destroy.php',
+        ),
     ),
 );
