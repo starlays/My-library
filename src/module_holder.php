@@ -57,8 +57,9 @@ return array (
      'logout' => array (
         'title'         => 'Logout',
         'in_menu'       => 2,
-        'prost-processing'    => array(
+        'pre-processing'      => array(
             'session' => 'session_destroy.php',
         ),
+        'content_VL'    => 'logout.php',
     ),
 );
