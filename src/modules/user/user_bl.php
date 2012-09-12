@@ -77,6 +77,12 @@ if(isset($_POST['usr_add_book'])) {
         return USER_ADBOOK_EYFLD;
     }
 }
+elseif(isset($_POST['delete_book'])) {
+    // here process delete book
+}
+elseif(isset($_POST['search_book'])) {
+    // here process search book
+}
 else {
     return NULL;
 }
