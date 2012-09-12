@@ -19,7 +19,7 @@ return array (
         'in_menu'       => 1,
         'content_VL'    => 'user.php',
         'content_BL'    => 'user_bl.php',
-        'depend'        => array('mysql')
+        'depend'        => array('mysql', 'books')
     ),
     'admin' => array (
         'title'         => 'Admin page',
