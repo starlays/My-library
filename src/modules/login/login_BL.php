@@ -1,8 +1,8 @@
 <?php
-//TODO: security,
-//TODO: use only one retrun and a error holder!
+//TODO: data validation
 const ERR_PASSNOMATCH   = 60;
 const ERR_USRPWD    = 61;
+const MSG_LOGINOK = 62;
 $err = NULL;
 $msg = NULL;
 
@@ -19,8 +19,18 @@ if(isset($_POST['login'])){
         $ckuser = mysqli_num_rows($qresult);
         
         if(0 < $ckuser){
-            session_start();
+        
+            $userdata = mysqli_fetch_row($qresult);
+            
             $_SESSION['is_logged_in'] = 1;
+            $_SESSION['fn'] = $userdata[2];
+            $_SESSION['ln'] = $userdata[3];
+            
+            unset($userdata);
+    
+            mysqli_close($mysql_link);
+            
+            $msg = MSG_LOGINOK;
         }
         else {
             $err = ERR_PASSNOMATCH;
@@ -36,5 +46,4 @@ if(empty($err)){
 else {
     return $err;
 }
-mysqli_close($mysql_link);
 
