@@ -33,21 +33,28 @@ if(isset($_POST['usr_add_book'])) {
         //optional informatin default value processing
         $book_cvrimg = empty($book_cvrimg) ? NULL : $book_cvrimg;
         $book_ebook = empty($book_ebook) ? NULL : $book_ebook;
-        
+        //TODO: fix bug: when a optional field are missing insert NULL not string
+        $sql_getauthor= "SELECT `name` FROM `authors` WHERE name='$book_author'";
         $sql_author   = "INSERT INTO `authors` (`name`) VALUES ('$book_author');";
         $sql_add_book = "
            INSERT INTO `books` (`title`, `id_author`, `description`, `insert_date`,
            `cvr_img_path`, `e_book_path`, `id_rate`, `id_insert_user`)
            VALUES ( '$book_title', (SELECT `id` FROM `authors` WHERE name='$book_author'), 
-           '$book_descript', '$book_insdate', '$book_cvrimg', '$book_ebook', 1, 2);"; 
+           '$book_descript', $book_insdate, $book_cvrimg, '$book_ebook', 1, 2);"; 
             //TODO: fix use id, now is inserted manualy
           
             //use MySQL transactions to be on the safe side
             mysqli_autocommit($mysql_link, FALSE);
             $insert_error = FALSE;
-            
-            if(!mysqli_query($mysql_link, $sql_author)) {
-                $insert_error = TRUE;
+            //is the recived author in our database?
+            if($result = mysqli_query($mysql_link, $sql_getauthor)) {
+                $db_author = mysqli_fetch_row($result);
+                
+                if(!in_array($book_author,$db_author)) {
+                    if(!mysqli_query($mysql_link, $sql_author)) {
+                        $insert_error = TRUE;
+                    }
+                 }
             }
             if(!mysqli_query($mysql_link, $sql_add_book)) {
                 $insert_error = TRUE;
@@ -69,6 +76,12 @@ if(isset($_POST['usr_add_book'])) {
     else {
         return USER_ADBOOK_EYFLD;
     }
+}
+elseif(isset($_POST['delete_book'])) {
+    // here process delete book
+}
+elseif(isset($_POST['search_book'])) {
+    // here process search book
 }
 else {
     return NULL;
