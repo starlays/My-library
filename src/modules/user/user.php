@@ -1,10 +1,14 @@
 <div>
-    <form action='' method='POST'>
-    <fieldset>
-    <legend> Delete book: </legend>
-    Select a book from a drop down or mark a book from the book listing
-    </fieldset>
-    <input type='submit' name='delete_book' value='Remove book' />
+    <form action="" method="post">
+    Which book do you want to delete?<br />
+    <?php
+    foreach($books as $book) {
+            if(isset($book['book_title'])) {
+                 echo '<input type="checkbox" name="rm_books[]" value="',$book['book_title'],'" />',$book['book_title'],'<br />';
+            }
+     }
+    ?>
+    <input type="submit" name="delete_book" value="Remove selected book/s!" />
     </form>
 </div>
 <div>
