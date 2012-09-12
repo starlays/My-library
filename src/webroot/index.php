@@ -71,8 +71,14 @@ if($moduleBL !== MODLDBL_NO_BL) {
     }
 }
 
-
-$tpl_vars = compact('modules', 'page', 'page_vl_vars');
+//TODO: fix this improvization {
+if(isset($books)) {
+    $tpl_vars = compact('modules', 'page', 'page_vl_vars', 'books');
+}
+else {
+    $tpl_vars = compact('modules', 'page', 'page_vl_vars');
+}
+// }
 
 $render = render($tpl_flname, $tpl_vars);
 
