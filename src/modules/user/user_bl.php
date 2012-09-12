@@ -79,7 +79,14 @@ if(isset($_POST['usr_add_book'])) {
     }
 }
 elseif(isset($_POST['delete_book'])) {
-    // here process delete book
+    if(isset($_POST['rm_books'])) {
+        $rm_books = datafilter($_POST['rm_books']);
+        $rm_books = implode(',', $rm_books);
+
+        $sql_dbooks = "DELETE FROM `books` WHERE `title` IN ('$rm_books');";
+        mysqli_query($mysql_link, $sql_dbooks);
+        mysqli_close($mysql_link);
+    }
 }
 elseif(isset($_POST['search_book'])) {
     // here process search book
