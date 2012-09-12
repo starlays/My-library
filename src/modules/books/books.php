@@ -2,14 +2,11 @@
 <?php
 if(isset($page_vl_vars) && is_array($page_vl_vars)) {
     foreach($page_vl_vars as $informations) {
+        echo '<div id="group_book">';
         foreach($informations as $metadata => $data){
-        echo <<<EOT
-            <div id="$metadata">
-                $metadata : $data
-            </div>
-EOT;
-        echo PHP_EOL;
+            echo   $metadata, ' : ',$data, ' ';
         }
+        echo '</div>';
     }
 }
 else { 
