@@ -13,7 +13,7 @@ if(isset($_POST['register'])){
 		$_POST['pwd'], $_POST['rpwd']);
     if(isEmpty($reginfo)) {
         list($fn,$ln,$usr,$mail,$pwd,$rpwd) = datafilter($reginfo); 
-        $query = "SELECT * FROM users WHERE username='$usr'";
+        $query = "SELECT * FROM users WHERE username='$usr';";
         $qresult = mysqli_query($mysql_link, $query);
         $ckuser = mysqli_num_rows($qresult);
         
@@ -22,7 +22,7 @@ if(isset($_POST['register'])){
                 $query = "INSERT INTO `users`
                     (`username`, `first_name`, `last_name`, `mail`, `password`) 
                     VALUES 
-                    ('$usr','$fn','$ln','$mail','$pwd')";
+                    ('$usr','$fn','$ln','$mail','$pwd');";
                 $flag = mysqli_query($mysql_link, $query);
                 if($flag){ 
                     $msg = MSG_REGOK; 
