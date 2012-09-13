@@ -14,14 +14,15 @@ if(isset($_POST['login'])){
     
         list($usr,$pwd) = datafilter($reginfo);
         
-        $query = "SELECT * FROM users WHERE username='$usr' AND password='$pwd'";
+        $query = "SELECT * FROM users WHERE username='$usr' AND password='$pwd';";
         $qresult = mysqli_query($mysql_link,$query);
         $ckuser = mysqli_num_rows($qresult);
         
         if(0 < $ckuser){
         
             $userdata = mysqli_fetch_row($qresult);
-            
+
+            $_SESSION['uID'] = $userdata[0];
             $_SESSION['is_logged_in'] = 1;
             $_SESSION['fn'] = $userdata[2];
             $_SESSION['ln'] = $userdata[3];
