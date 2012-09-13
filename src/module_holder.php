@@ -17,6 +17,9 @@ return array (
     'user'  => array (
         'title'         => 'User page',
         'in_menu'       => 1,
+        'pre-processing'      => array(
+            'session' => 'session_start.php',
+        ),
         'content_VL'    => 'user.php',
         'content_BL'    => 'user_bl.php',
         'depend'        => array('mysql', 'books')
@@ -43,6 +46,7 @@ return array (
         'in_menu'       => 2,
         'pre-processing'      => array(
             'session' => 'session_start.php',
+            'login' => 'login_check.php',
         ),
         'content_VL'    => 'login.php',
         'content_BL'    => 'login_BL.php',
