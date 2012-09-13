@@ -33,6 +33,17 @@ else {
 //get the page from router
 $page = require_once __APPROOT__.'router.php';
 
+//load pre-process files
+$load_preprocess_files = require_once __APPROOT__.'pre_process_loader.php';
+
+if(!empty($load_preprocess_files)){
+    foreach($load_preprocess_files as $preprocess_file){
+        if($preprocess_file !== NULL){
+            require_once $preprocess_file;
+        }
+    }
+}
+
 //variable holding all the vars that will go from BL to VL trough render
 //function
 $load_deps = require_once __APPROOT__.'dependency_loader.php';
@@ -61,7 +72,14 @@ if($moduleBL !== MODLDBL_NO_BL) {
     }
 }
 
-$tpl_vars = compact('modules', 'page', 'page_vl_vars');
+//TODO: fix this improvization {
+if(isset($books)) {
+    $tpl_vars = compact('modules', 'page', 'page_vl_vars', 'books');
+}
+else {
+    $tpl_vars = compact('modules', 'page', 'page_vl_vars');
+}
+// }
 
 $render = render($tpl_flname, $tpl_vars);
 

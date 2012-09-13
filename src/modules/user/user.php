@@ -1,10 +1,14 @@
 <div>
-    <form action='' method='POST'>
-    <fieldset>
-    <legend> Delete book: </legend>
-    Select a book from a drop down or mark a book from the book listing
-    </fieldset>
-    <input type='submit' name='delete_book' value='Remove book' />
+    <form action="" method="post">
+    Which book do you want to delete?<br />
+    <?php
+    foreach($books as $book) {
+            if(isset($book['book_title'])) {
+                 echo '<input type="checkbox" name="rm_books[]" value="',$book['book_title'],'" />',$book['book_title'],'<br />';
+            }
+     }
+    ?>
+    <input type="submit" name="delete_book" value="Remove selected books!" />
     </form>
 </div>
 <div>
@@ -43,4 +47,14 @@ if(is_numeric($page_vl_vars)) {
      </fieldset>
     <input type='submit' name='search_book' value='Search book' />
     </form>
+    <?php
+    if(is_array($page_vl_vars)) {
+        echo 'Book Name: '.$page_vl_vars[0].'<br />';
+        echo 'Author Name: '.$page_vl_vars[1].'<br />';
+        echo 'Description: '.$page_vl_vars[2].'<br />';
+        echo 'Added Date: '.$page_vl_vars[3].'<br />';
+        echo 'Cover img.: '.$page_vl_vars[4].'<br />';
+        echo 'e-Book Path: '.$page_vl_vars[5].'<br />';
+    }
+    ?>
 </div>

@@ -10,7 +10,6 @@ if($mysql_link) {
     if($result = mysqli_query($mysql_link, $SQL)) {
         if($books = mysqli_fetch_all($result, MYSQLI_ASSOC)) {
             mysqli_free_result($result);
-            mysqli_close($mysql_link);
             return $books;            
         }  
     }   
