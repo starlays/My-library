@@ -3,7 +3,6 @@
 const USER_ADBOOK_EYFLD = 40;
 const USER_NODB_INSERT  = 41;
 const USER_DB_INSERT    = 42;
-
 //add book business logic
 if(isset($_POST['usr_add_book'])) {
     $required_info = array($_POST['book_title'], $_POST['book_author'], 
@@ -36,12 +35,17 @@ if(isset($_POST['usr_add_book'])) {
         //TODO: fix bug: when a optional field are missing insert NULL not string
         $sql_getauthor= "SELECT `name` FROM `authors` WHERE name='$book_author'";
         $sql_author   = "INSERT INTO `authors` (`name`) VALUES ('$book_author');";
+        // WARNING:!!! we must not allow unregistred user to add book, uID will
+        // not be set!!!
+        $uID = $_SESSION['uID'];
         $sql_add_book = "
            INSERT INTO `books` (`title`, `id_author`, `description`, `insert_date`,
            `cvr_img_path`, `e_book_path`, `id_rate`, `id_insert_user`)
            VALUES ( '$book_title', (SELECT `id` FROM `authors` WHERE name='$book_author'), 
-           '$book_descript', '$book_insdate', '$book_cvrimg', '$book_ebook', 1, 2);"; 
-            //TODO: fix use id, now is inserted manualy
+           '$book_descript', '$book_insdate', '$book_cvrimg', '$book_ebook', 1, '$uID');"; 
+            //TODO: i thing the new added book should have 1 at
+            // `id_rate` coresponding with rating_value.id=1 with value=0 or NULL
+            // because it's a new added book that has no rate!
           
             //use MySQL transactions to be on the safe side
             mysqli_autocommit($mysql_link, FALSE);
@@ -89,7 +93,16 @@ elseif(isset($_POST['delete_book'])) {
     }
 }
 elseif(isset($_POST['search_book'])) {
-    // here process search book
+    if(isset($_POST['search_title'])) {
+        $search_title = $_POST['search_title'];
+        $sql_sbooks = "SELECT title AS book_title, name AS author_name, description AS book_description,
+        insert_date AS book_insert_date, cvr_img_path AS book_cvr_img_path, e_book_path AS book_ebook_path
+         FROM `books` INNER JOIN `authors` ON books.id_author = authors.id  WHERE title REGEXP '".$search_title."';";
+        
+        $query = mysqli_query($mysql_link, $sql_sbooks);
+        return mysqli_fetch_row($query);
+        mysqli_close($mysql_link);
+    }
 }
 else {
     return NULL;
