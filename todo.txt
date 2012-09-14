@@ -1,0 +1,14 @@
+2.9.2012 to do list
+
+    [SOLVED] A way to add users multiple rights, such as delete book, add book,
+ add a picture, add meta-data etc.
+
+3.9.2012
+    [ALTERED]skype conversation with flavius
+    [SOLVED]SKELETON - a document containing abstract description of these 
+        files
+    [SOLVED]Solving mysql tables connections
+5.9.2012
+    [SOLVED] design of layout.php and style.css files
+    [In Progress]BL and VL base files and documentation
+
