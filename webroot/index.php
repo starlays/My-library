@@ -1,5 +1,45 @@
 <?php
-//define root
+/**
+ * @file index.php
+ * @brief Application main file and integrator
+ * @author Lazar Florentin <florentin[dot]lazar[at]gmail[dot]com>
+ * @author Dicu George <john.doe@example.com>
+ * 
+ * @mainpage
+ * 
+ * @section About
+ * Project developed while learning php programming under the organization
+ * <a href="http://yet-another-project.github.com/" title="YAP - ROPHP">
+ * Yet another project: RO PHP BOOK</a>
+ * Project manager: Flavius Aspra
+ * 
+ * @section Modules
+ * All the pages are considered modules. Modules alawys have an presentation
+ * file (view logic) that outputs data basing on the vars recived from the module
+ * processing file (business logic)
+ * 
+ * @section Resources modules
+ * This type of "modules" are mainly resurce provider files
+ * 
+ * @section License
+ * (C) Copyright 2011 PauLLiK
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see http://www.gnu.org/licenses/.
+ */
+/**
+ * @defgroup GLOBALCONSTANTS this are the application global constants
+ * @{
+ */
 define('__WEBROOT__', __DIR__.DIRECTORY_SEPARATOR);
 //define app root
 define('__APPROOT__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR);
@@ -19,7 +59,9 @@ const ERR_LDMODDEP  = 11;
 const ERR_LDMODBL   = 12;
 //constant returned if the module has no BL file
 const MODLDBL_NO_BL = 14;
-
+/**
+ * @}
+ */
 if(file_exists($base_fns_file) && is_readable($base_fns_file)
              && file_exists($pages_fl) && is_readable($pages_fl)) {
      require_once $base_fns_file;
