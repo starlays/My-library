@@ -41,24 +41,43 @@
  * @{
  */
 define('__WEBROOT__', __DIR__.DIRECTORY_SEPARATOR);
-//define app root
+/**
+ * define app root
+ */
 define('__APPROOT__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR);
-//modules path
+/**
+ * modules path
+ */
 chdir(__APPROOT__);
 define('__MODULES__', __APPROOT__.'modules'.DIRECTORY_SEPARATOR);
-//base app functions file
+/**
+ * base app functions file
+ */
 $base_fns_file  = __APPROOT__.'modules'.DIRECTORY_SEPARATOR.'base'
                                         .DIRECTORY_SEPARATOR.'functions.php';
-//modules holder
+/**
+ * modules holder
+ */
 $pages_fl = __APPROOT__.'module_holder.php';
-//layout file used for VL
+/**
+ * resource holder
+ */
+$resources_fl = __APPROOT__.'resource_holder.php';
+/**
+ * layout file used for VL
+ */
 $tpl_flname = __APPROOT__.'layout.php';
-//base error constants
-const ERR_BASEFN    = 10;
-const ERR_LDMODDEP  = 11;
-const ERR_LDMODBL   = 12;
-//constant returned if the module has no BL file
-const MODLDBL_NO_BL = 14;
+/**
+ * base error constants
+ */
+const ERR_BASEFN      = 10;
+const ERR_LDMODDEP    = 11;
+const ERR_LDMODBL     = 12;
+const ERR_LDMODDEPRES =14;
+/**
+ * constant returned if the module has no BL file
+ */
+const MODLDBL_NO_BL = 15;
 /**
  * @}
  */
@@ -86,13 +105,26 @@ if(!empty($load_preprocess_files)){
     }
 }
 
-//variable holding all the vars that will go from BL to VL trough render
-//function
+// module resource dependency loader
+$load_resdeps = require_once __APPROOT__.'resources_loader.php';
+
+if(isset($load_resdeps)){
+    foreach($load_resdeps as $load_resdep) {
+        require_once $load_resdep;
+    }
+}
+else {
+    echo sprintf('Error: %d', ERR_LDMODDEPRES);
+    exit();
+}
+
+// module dependency loader
 $load_deps = require_once __APPROOT__.'dependency_loader.php';
+$loaded_deps =array();
 
 if(isset($load_deps)){
     foreach($load_deps as $load_dep) {
-        require_once $load_dep;
+        $loaded_deps[] = require_once $load_dep;
     }
 }
 else {
@@ -100,7 +132,7 @@ else {
     exit();
 }
 
-//load module BL
+//load module BL file
 $moduleBL = require_once __APPROOT__.'moduleBL_loader.php';
 $page_vl_vars = NULL;
 
@@ -114,14 +146,7 @@ if($moduleBL !== MODLDBL_NO_BL) {
     }
 }
 
-//TODO: fix this improvization {
-if(isset($books)) {
-    $tpl_vars = compact('modules', 'page', 'page_vl_vars', 'books');
-}
-else {
-    $tpl_vars = compact('modules', 'page', 'page_vl_vars');
-}
-// }
+$tpl_vars = compact('modules', 'page', 'page_vl_vars', 'loaded_deps');
 
 $render = render($tpl_flname, $tpl_vars);
 
