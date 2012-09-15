@@ -51,6 +51,10 @@ define('__APPROOT__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'src'.DIRECTORY_S
 chdir(__APPROOT__);
 define('__MODULES__', __APPROOT__.'modules'.DIRECTORY_SEPARATOR);
 /**
+ * resources path
+ */
+define('__RESOURCES__', __APPROOT__.'resources'.DIRECTORY_SEPARATOR);
+/**
  * base app functions file
  */
 $base_fns_file  = __APPROOT__.'modules'.DIRECTORY_SEPARATOR.'base'
@@ -81,10 +85,12 @@ const MODLDBL_NO_BL = 15;
 /**
  * @}
  */
+
 if(file_exists($base_fns_file) && is_readable($base_fns_file)
              && file_exists($pages_fl) && is_readable($pages_fl)) {
      require_once $base_fns_file;
-     $modules = require_once $pages_fl;
+     $modules   = require_once $pages_fl;
+     $resources = require_once $resources_fl;
 }
 else {
     echo sprintf('Error: %d', ERR_BASEFN);
