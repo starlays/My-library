@@ -30,10 +30,6 @@ return array (
         'content_VL'    => 'admin.php',
         'depend'        => array('mysql')
     ),
-    'mysql' => array (
-        'in_menu'       => 0,
-        'content_BL'    => 'mysql.php'
-    ),
      'register' => array (
         'title'         => 'Register',
         'in_menu'       => 2,
