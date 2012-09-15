@@ -12,30 +12,31 @@ return array (
         'in_menu'       => 1,
         'content_VL'    => 'books.php',
         'content_BL'    => 'books_bl.php',
-        'depend'        => array('mysql')
+        'resources'     => array('mysql')
     ),
     'user'  => array (
         'title'         => 'User page',
         'in_menu'       => 1,
-        'pre-processing'      => array(
-            'session' => 'session_start.php',
+        'pre-processing'=> array(
+               'session'=>'session_start.php',
         ),
         'content_VL'    => 'user.php',
         'content_BL'    => 'user_bl.php',
-        'depend'        => array('mysql', 'books')
+        'depend'        => array('books'),
+        'resources'     => array('mysql')
     ),
     'admin' => array (
         'title'         => 'Admin page',
         'in_menu'       => 1,
         'content_VL'    => 'admin.php',
-        'depend'        => array('mysql')
+        'resources'     => array('mysql')
     ),
      'register' => array (
         'title'         => 'Register',
         'in_menu'       => 2,
         'content_VL'    => 'register.php',
         'content_BL'    => 'register_BL.php',
-        'depend'        => array('mysql')
+        'resources'     => array('mysql')
     ),
      'login' => array (
         'title'         => 'Login',
@@ -46,13 +47,13 @@ return array (
         ),
         'content_VL'    => 'login.php',
         'content_BL'    => 'login_BL.php',
-        'depend'        => array('mysql'),
+        'resources'     => array('mysql'),
     ),
      'recover' => array (
         'title'         => 'Recover',
         'in_menu'       => 2,
         'content_VL'    => 'recover.php',
-        'depend'        => array('mysql')
+        'resources'     => array('mysql')
     ),
      'logout' => array (
         'title'         => 'Logout',
