@@ -1,5 +1,7 @@
 <?php
-list($mysql_host, $mysql_user, $mysql_pass, $DB) = require_once __APPROOT__ . '..' . DIRECTORY_SEPARATOR .'config' . DIRECTORY_SEPARATOR . 'mysql_credentials.php';
+list($mysql_host, $mysql_user, $mysql_pass, $DB) = 
+        require_once __APPROOT__ . '..' . DIRECTORY_SEPARATOR .'config' 
+                                . DIRECTORY_SEPARATOR . 'mysql_credentials.php';
 
 $mysql_link = mysqli_connect($mysql_host, $mysql_user, $mysql_pass, $DB);
 
