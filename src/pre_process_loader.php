@@ -1,5 +1,5 @@
 <?php
-$pre_process_toload = array();
+$pre_processes_toload = array();
 
 if(isset($modules[$page]['pre-processing'])) {
     foreach($modules[$page]['pre-processing'] as $preprocmodule => $preprocfile){
@@ -7,12 +7,12 @@ if(isset($modules[$page]['pre-processing'])) {
         $preprocess_path = __MODULES__.$preprocmodule.DIRECTORY_SEPARATOR;
 
         if(check_file($modules[$page]['pre-processing'][$preprocmodule],$preprocess_path)) {
-            $pre_process_toload[] = $preprocess_path.$modules[$page]['pre-processing'][$preprocmodule];
+            $pre_processes_toload[] = $preprocess_path.$modules[$page]['pre-processing'][$preprocmodule];
         }
         else {
-            $pre_process_toload[] = NULL;
+            $pre_processes_toload[] = NULL;
         }
     }
 }
 
-return $pre_process_toload;
+return $pre_processes_toload;
