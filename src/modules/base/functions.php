@@ -89,6 +89,22 @@ function check_file($file, $path_file) {
 }
 
 /**
+ * Check if the given directory exists and is writable
+ *
+ * @param string $dir directory that will be checked
+ *
+ * @return bool
+ */
+function check_dir($dir) {
+    if(file_exists($dir) && is_dir($dir) && is_writable($dir)) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
  * Check if the elements of the given array are !empty
  *
  * @param array $array, the array to check
