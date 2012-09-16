@@ -1,5 +1,7 @@
-Estimari starlays:
------------------
+v0.2.0 - v0.4.0 
+===============
+
+Starlays:
 
 1. Fix main file, index.php:
     - move resource data providers in a separate folder
@@ -13,7 +15,8 @@ Estimari starlays:
 4. Implement admin pannel and add an new user account (4h/day 2 days)
 5. Fix TODO's from main modules (4h/day 2 days)
 
-Total mh:   480
+Total mh:   52
+
 Total days: 15 + 3(no activity) = 18
 
 Estimated V0.4.0 2/10/2012
