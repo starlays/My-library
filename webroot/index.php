@@ -45,15 +45,19 @@ define('__WEBROOT__', __DIR__.DIRECTORY_SEPARATOR);
  * define app root
  */
 define('__APPROOT__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR);
+chdir(__APPROOT__);
 /**
  * modules path
  */
-chdir(__APPROOT__);
 define('__MODULES__', __APPROOT__.'modules'.DIRECTORY_SEPARATOR);
 /**
  * resources path
  */
 define('__RESOURCES__', __APPROOT__.'resources'.DIRECTORY_SEPARATOR);
+/**
+ * uploads location
+ */
+define('__UPLOADS__', __APPROOT__.'uploads'.DIRECTORY_SEPARATOR);
 /**
  * base app functions file
  */
@@ -77,23 +81,35 @@ $tpl_flname = __APPROOT__.'layout.php';
 const ERR_BASEFN      = 10;
 const ERR_LDMODDEP    = 11;
 const ERR_LDMODBL     = 12;
-const ERR_LDMODDEPRES =14;
+const ERR_LDMODDEPRES = 14;
 /**
  * constant returned if the module has no BL file
  */
-const MODLDBL_NO_BL = 15;
+const MODLDBL_NO_BL   = 15;
+/**
+ * constant returned if the upload direcotry is missing
+ */
+const ERR_UPLDDIR     = 16;
 /**
  * @}
  */
 
 if(file_exists($base_fns_file) && is_readable($base_fns_file)
-             && file_exists($pages_fl) && is_readable($pages_fl)) {
+        && file_exists($pages_fl) && is_readable($pages_fl)
+        && file_exists($resources_fl) && is_readable($resources_fl)) {
      require_once $base_fns_file;
      $modules   = require_once $pages_fl;
      $resources = require_once $resources_fl;
 }
 else {
     echo sprintf('Error: %d', ERR_BASEFN);
+    exit();
+}
+/**
+ * Check if UPLOADS dir is exists and it is writable
+ */
+if(!check_dir(__UPLOADS__)) {
+    echo sprintf('Error: %d', ERR_UPLDDIR);
     exit();
 }
 
