@@ -122,3 +122,27 @@ function datafilter($array) {
     return $var;
 }
 
+/**
+ * Convert M to bytes
+ * 
+ * @param string $convert_val
+ *
+ * @return bytes representation
+ */
+function return_bytes($convert_val) {
+    $convert_val = trim($convert_val);
+    $last = $convert_val[strlen($convert_val)-1];
+
+    switch($last) {
+        case 'g':
+        case 'G':
+            $convert_val *= 1024;
+        case 'm':
+        case 'M':
+            $convert_val *= 1024;
+        case 'k':
+        case 'K':
+            $convert_val *= 1024;
+    }
+    return $convert_val;
+}
