@@ -15,4 +15,4 @@ if(isset($modules[$page]['prost-processing'])) {
     }
 }
 
-return $pre_processes_toload;
+return $post_processes_toload;
