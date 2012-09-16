@@ -2,11 +2,15 @@
     <form action="" method="post">
     Which book do you want to delete?<br />
     <?php
-    foreach($books as $book) {
-            if(isset($book['book_title'])) {
-                 echo '<input type="checkbox" name="rm_books[]" value="',$book['book_title'],'" />',$book['book_title'],'<br />';
+    foreach($loaded_deps as $books) {
+        if(is_array($books)){
+            foreach($books as $book) {
+                if(isset($book['book_title'])) {
+                     echo '<input type="checkbox" name="rm_books[]" value="',$book['book_title'],'" />',$book['book_title'],'<br />';
+                }
             }
-     }
+        }
+    }
     ?>
     <input type="submit" name="delete_book" value="Remove selected books!" />
     </form>
