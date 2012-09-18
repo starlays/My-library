@@ -43,11 +43,9 @@ return array (
         'in_menu'       => 2,
         'pre-processing'      => array(
             'session' => 'session_start.php',
-            'login' => 'login_check.php',
         ),
         'content_VL'    => 'login.php',
-        'content_BL'    => 'login_BL.php',
-        'resources'     => array('mysql'),
+        'resources'     => array('mysql','login','autologin'),
     ),
      'recover'  => array (
         'title'         => 'Recover',
