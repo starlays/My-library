@@ -35,8 +35,7 @@ return array (
         'title'         => 'Register',
         'in_menu'       => 2,
         'content_VL'    => 'register.php',
-        'content_BL'    => 'register_BL.php',
-        'resources'     => array('mysql')
+        'resources'     => array('mysql','register')
     ),
      'login'    => array (
         'title'         => 'Login',
