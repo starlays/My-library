@@ -11,4 +11,7 @@ return array (
     'autologin' => array (
         'resource_file' => 'autologin.php',
     ),
+    'register' => array (
+        'resource_file' => 'register_bl.php',
+    ),
 );
