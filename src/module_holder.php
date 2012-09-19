@@ -43,8 +43,8 @@ return array (
         'pre-processing'      => array(
             'session' => 'session_start.php',
         ),
-        'content_VL'    => 'login.php',
         'resources'     => array('mysql','login','autologin'),
+        'content_VL'    => 'login.php',
     ),
      'recover'  => array (
         'title'         => 'Recover',
@@ -63,7 +63,12 @@ return array (
     'upload'   => array(
         'title'      => 'File upload',
         'in_menu'    => 1,
+        'pre-processing'      => array(
+            'session' => 'session_start.php',
+        ),
         'content_VL' => 'upload.php',
-        'content_BL' => 'upload_bl.php'
+        'content_BL' => 'upload_bl.php',
+        'resources'     => array('mysql','login','autologin'),
+        
     )
 );
