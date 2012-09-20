@@ -62,7 +62,7 @@ define('__UPLOADS__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'uploads'.DIRECTO
 /**
  * base app functions file
  */
-$base_fns_file  = __APPROOT__.'modules'.DIRECTORY_SEPARATOR.'base'
+$base_fns_file  = __APPROOT__.'resources'.DIRECTORY_SEPARATOR.'base'
                                         .DIRECTORY_SEPARATOR.'functions.php';
 /**
  * modules holder
