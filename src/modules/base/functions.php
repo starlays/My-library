@@ -162,3 +162,22 @@ function return_bytes($convert_val) {
     }
     return $convert_val;
 }
+
+/**
+ * Retrive associative data in an array
+ * 
+ * @param resource $mysql_link an resource link to the database
+ * @param string $sql the SQL qery that will be passed to MySQL
+ * 
+ * @return array $informations the associative array
+ */
+function retrive_assoc($mysql_link, $sql = NULL) {
+     $result = mysqli_query($mysql_link,$sql);
+     
+     if($informations = mysqli_fetch_assoc($result)) {
+         return $informations;
+     }
+     else{
+         return FALSE;
+     }
+}
