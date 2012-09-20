@@ -56,8 +56,9 @@ define('__MODULES__', __APPROOT__.'modules'.DIRECTORY_SEPARATOR);
 define('__RESOURCES__', __APPROOT__.'resources'.DIRECTORY_SEPARATOR);
 /**
  * uploads location
+ * Note: upload dir must be owned by your apache user
  */
-define('__UPLOADS__', __APPROOT__.'..'.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR);
+define('__UPLOADS__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR);
 /**
  * base app functions file
  */
