@@ -69,7 +69,7 @@ function insert_new_usr($mysql_link, $userinformations = array()) {
  * @return bool TRUE if the user is logged in FALSE otherwise
  */
 function is_usr_logged($username, $ses_key) {
-    if(isset($_SESSION[$username]) && isset($_SESSION[$ses_key])) {
+    if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])) {
         return TRUE;
     }
     else {
