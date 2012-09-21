@@ -85,7 +85,7 @@ function is_usr_logged($username, $ses_key) {
  * @return string the unique sha1 string
  */
 function generate_unique_str($username=NULL) {
-        return sha1($username.uniqid());
+        return sha1($username);
 }
 
 /**
