@@ -1,53 +1,36 @@
 <?php
-//TODO: data validation
-const ERR_MYSQLCONN    = 50;
-const ERR_PASSNOMATCH   = 51;
-const ERR_USEREXISTS    = 52;
-const ERR_FIELDMISS    = 53;
-const MSG_REGOK    = 54;
-$err = NULL;
-$msg = NULL;
+/**
+ * Constant retun when user is logged in
+ */
+const REGISTER_SUCCESS = 55;
+/**
+ * Error constants for module authentication 
+ */
+const ERR_PASSNOMATCH  = 57;
+const ERR_USEREXISTS   = 58;
+const ERR_FIELDMISS    = 59;
 
 if(isset($_POST['register'])){
-	$reginfo = array($_POST['fn'], $_POST['ln'], $_POST['usr'], $_POST['mail'], 
-		$_POST['pwd'], $_POST['rpwd']);
-    if(isEmpty($reginfo)) {
-        list($fn,$ln,$usr,$mail,$pwd,$rpwd) = datafilter($reginfo); 
-        $query = "SELECT * FROM users WHERE username='$usr';";
-        $qresult = mysqli_query($mysql_link, $query);
-        $ckuser = mysqli_num_rows($qresult);
-        
-        if(0 === $ckuser){
-            if($pwd === $rpwd){
-                $query = "INSERT INTO `users`
-                    (`username`, `first_name`, `last_name`, `mail`, `password`) 
-                    VALUES 
-                    ('$usr','$fn','$ln','$mail','$pwd');";
-                $flag = mysqli_query($mysql_link, $query);
-                if($flag){ 
-                    $msg = MSG_REGOK; 
-                    mysqli_close($mysql_link);
-                }
-                else { 
-                    $err = ERR_MYSQLCONN; 
+    $reginfo = array($_POST['fn'], $_POST['ln'], $_POST['usr'], $_POST['mail'], 
+            $_POST['pwd'], $_POST['rpwd']);
+
+    if(!isEmpty_array_vals($reginfo)) {
+        if($_POST['pwd'] === $_POST['rpwd']) {
+            if(!user_exists($mysql_link, $username)) {
+                if(insert_new_usr($mysql_link, $reginfo)){
+                    
+                    return REGISTER_SUCCESS;
                 }
             }
             else {
-                $err = ERR_PASSNOMATCH;
+                return ERR_USEREXISTS;
             }
         }
         else {
-            $err = ERR_USEREXISTS;
+            return ERR_PASSNOMATCH;
         }
     }
     else {
-        $err = ERR_FIELDMISS;
+        return ERR_FIELDMISS;
     }
 }
-if(empty($err)){
-    return $msg;
-}
-else {
-    return $err;
-}
-?>
