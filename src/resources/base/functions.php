@@ -105,24 +105,21 @@ function check_dir($dir) {
 }
 
 /**
- * Check if the elements of the given array are !empty
+ * Check if the elements of the given array are empty
  *
- * @param array $array, the array to check
+ * @param array $checked_array the array to check
  *
- * @return bool
+ * @return bool TRUE if an element of the array is empty otherwise FALSE
  */
-function isEmpty($array) {
-    foreach($array as $input){
+function isEmpty_array_vals($checked_array) {
+    foreach($checked_array as $input){
         if(empty($input)){
-            $var = FALSE;
-            break;
-        }
-        else {
-            $var = TRUE;
+            return TRUE;
         }
     }
-    return $var;
+    return FALSE;
 }
+
 /**
  * Validate user input data
  *
