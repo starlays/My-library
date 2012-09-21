@@ -97,7 +97,7 @@ function generate_unique_str($username=NULL) {
  */
 function initialize_session() {
     if(!isset($_SESSION)){
-        session_start();
+        return session_start();
     }
     else {
         return FALSE;
