@@ -1,5 +1,5 @@
 <?php
-if(!is_usr_logged($_SESSION['username'], $_SESSION['ses_key'])){
+if(!(isset($_SESSION['username']) && isset($_SESSION['ses_key']))){
     echo "<form action='' method='POST'>
         <fieldset>
         <legend> Login : </legend>
