@@ -1,5 +1,9 @@
 <?php
 /**
+ * Constant retun when user is logged in
+ */
+const LOGIN_SUCCESS      = 54;
+/**
  * Error constants for module authentication 
  */
 const ERR_AUTH_MISSINFO  = 50;
@@ -28,6 +32,8 @@ if(isset($_POST['login'])){
 
                     unset($userdata);
                     mysqli_close($mysql_link);
+
+                    return LOGIN_SUCCESS;
                 }
                 else {
                     return ERR_AUTH_STARTSESS;
