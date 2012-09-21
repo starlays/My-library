@@ -24,8 +24,8 @@ if(isset($_POST['login'])){
                 if(initialize_session()) {
                     $ses_key = generate_unique_str($username);
 
-                    $_SESSION[$ses_key]     = $ses_key;
-                    $_SESSION[$username]    = $username;
+                    $_SESSION['ses_key']    = $ses_key;
+                    $_SESSION['username']   = $username;
                     $_SESSION['user_ID']    = $userdata['uid'];
                     $_SESSION['first_name'] = $userdata['first_name'];
                     $_SESSION['last_name']  = $userdata['last_name'];
