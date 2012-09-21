@@ -5,13 +5,10 @@ return array (
     'mysql' => array (
         'resource_file' => 'mysql.php',
     ),
-    'login' => array (
-        'resource_file' => 'login_bl.php',
+    'authentication' => array (
+        'resource_file' => 'authentication.php',
     ),
-    'autologin' => array (
-        'resource_file' => 'autologin.php',
-    ),
-    'register' => array (
-        'resource_file' => 'register_bl.php',
+    'base' => array (
+        'resource_file' => 'functions.php',
     ),
 );
