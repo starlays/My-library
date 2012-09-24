@@ -20,10 +20,10 @@
 function user_exists($mysql_link, $username=NULL, $password=NULL) {
     
     $SQL = "SELECT username FROM `users` WHERE username='$username'";
-    
-    if(func_num_args()===2) {
+  
+    if(func_num_args()===3) {
         if(is_string(func_get_arg(2))) {
-            $SQL.= " AND password='$pass'";
+            $SQL.= " AND password='$password'";
         }
     }
     $qresult = mysqli_query($mysql_link, $SQL);
