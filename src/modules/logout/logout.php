@@ -1,4 +1,4 @@
-<?
+<?php
 
 if(is_numeric($page_vl_vars)) {
     switch($page_vl_vars) {
