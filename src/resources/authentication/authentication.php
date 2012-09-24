@@ -115,6 +115,7 @@ function destroy_session() {
     if(isset($_SESSION)){
         //TODO: see php manual, add session cookie deletion
         // after that destroy the session
+        session_start();
         session_destroy();
     }
     else {
