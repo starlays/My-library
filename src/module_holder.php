@@ -52,6 +52,7 @@ return array (
         'title'         => 'Logout',
         'in_menu'       => 2,
         'content_VL'    => 'logout.php',
+        'content_BL'    => 'logout_bl.php',
         'resources'     => array('authentication')
     ),
     'upload'   => array(
