@@ -109,7 +109,7 @@ function initialize_session() {
  *
  * @param void
  *
- * @return mixed bool FALSE on error or destroy the session
+ * @return bool TRUE on success otherwise FALSE
  */
 function destroy_session() {
     if(session_start()) {
@@ -118,6 +118,7 @@ function destroy_session() {
             // after that destroy the session
             session_unset();
             session_destroy();
+            return TRUE;
         }
         else {
             return FALSE;
