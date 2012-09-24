@@ -112,13 +112,7 @@ function initialize_session() {
  * @return mixed bool FALSE on error or destroy the session
  */
 function destroy_session() {
-    if(isset($_SESSION)){
-        //TODO: see php manual, add session cookie deletion
-        // after that destroy the session
-        session_start();
-        session_destroy();
-    }
-    else {
-        return FALSE;
-    }
+    session_start();
+    session_unset();
+    session_destroy();
 }
