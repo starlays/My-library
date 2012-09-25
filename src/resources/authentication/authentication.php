@@ -64,19 +64,18 @@ function insert_new_usr($mysql_link, $userinformations = array()) {
  * Check to see if the user is logged in
  *
  * @param $username the user that is beeing checked
- * @param $sha_key the unique key of the user generated per session
  *
  * @return bool TRUE if the user is logged in FALSE otherwise
  */
-function is_usr_logged($username, $ses_key) {
-    if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])) {
+function is_usr_logged($username) {
+    if($_SESSION['ses_key'] === generate_unique_str($username)) {
         return TRUE;
     }
     else {
         return FALSE;
     }
-
 }
+
 /**
  * Generate unique string
  *
