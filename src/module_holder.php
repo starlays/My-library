@@ -12,7 +12,7 @@ return array (
         'in_menu'       => 1,
         'content_VL'    => 'books.php',
         'content_BL'    => 'books_bl.php',
-        'resources'     => array('mysql')
+        'resources'     => array('mysql', 'authentication')
     ),
     'user'      => array (
         'title'         => 'User page',
@@ -60,6 +60,6 @@ return array (
         'in_menu'    => 1,
         'content_VL' => 'upload.php',
         'content_BL' => 'upload_bl.php',
-        'resources'     => array('mysql', 'authentication')
+        'resources'     => array('mysql', 'authentication', 'upload')
     )
 );
