@@ -2,13 +2,16 @@
 // all available resource providers are listed here
 
 return array (
-    'mysql' => array (
-        'resource_file' => 'mysql.php',
+    'mysql'          => array (
+        'resource_file' => 'mysql.php'
     ),
     'authentication' => array (
-        'resource_file' => 'authentication.php',
+        'resource_file' => 'authentication.php'
     ),
-    'base' => array (
-        'resource_file' => 'functions.php',
+    'base'           => array (
+        'resource_file' => 'functions.php'
     ),
+    'upload'         => array(
+        'resource_file' => 'upload.php'
+    )
 );
