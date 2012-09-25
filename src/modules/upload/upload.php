@@ -16,14 +16,10 @@ if(is_numeric($page_vl_vars)) {
         case UPLD_NOT_LOGGED_IN:
             echo 'You are not logged in!';
             break;
-        case UPLD_ERR_NOWRITEDIR:
-            echo sprintf('Can\'t write in to user upload dir! Error: %d', UPLD_ERR_NOWRITEDIR);
-            break;
-        case UPLD_ERR_MKDIR:
-            echo sprintf('Can\'t create user upload dir! Error: %d', UPLD_ERR_MKDIR);
+        case UPLD_ERR_UPLDFILE:
+            echo sprintf('File upload error: %d', UPLD_ERR_NOWRITEDIR);
             break;
         case UPLD_SUCCESS:
             echo 'Your file was uploaded!';
     }
-
 }
