@@ -40,7 +40,10 @@ if(is_numeric($page_vl_vars)) {
         case USER_NODB_INSERT:
             echo 'Can\'t insert informations in to database';
             break;
-        case USER_DB_INSERT:
+         case USER_ERR_UPLOAD:
+            echo 'Can\'t upload the given files!';
+            break;
+        case USER_DB_INSERT_OK:
             echo 'Book added';
     }
 }
