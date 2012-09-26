@@ -2,7 +2,7 @@
 //error const
 const USER_ADBOOK_EYFLD   = 40;
 const USER_NODB_INSERT    = 41;
-const USER_DB_INSERT      = 42;
+const USER_DB_INSERT_OK   = 42;
 const USER_SESSIONOTSTART = 43;
 const USER_ERR_UPLOAD     = 44;
 
@@ -48,8 +48,11 @@ if(initialize_session()) {
             $required_info[] = $cvr_upld_dir;
             $required_info[] = $ebook_upld_dir;
             
-            if(!add_book($mysql_link, $required_info, $uID)){
+            if(add_book($mysql_link, $required_info, $uID)){
                 
+                return USER_DB_INSERT_OK;
+            }
+            else {
                 return USER_NODB_INSERT;
             }
         }
