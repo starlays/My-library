@@ -47,7 +47,6 @@ function inser_author($mysql_link, $author){
     
     if(mysqli_query($mysql_link, $sql_ins_author)) {
         mysqli_commit($mysql_link);
-        mysqli_close($mysql_link);
         
         return TRUE;
     }
@@ -87,7 +86,7 @@ function add_book($mysql_link, $book_infos, $user_id) {
             return FALSE;
         }
     }
-    
+
     if(mysqli_query($mysql_link, $sql_add_book)) {
         mysqli_commit($mysql_link);
         mysqli_close($mysql_link);
