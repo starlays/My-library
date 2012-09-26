@@ -26,6 +26,8 @@ return array (
         'title'         => 'Admin page',
         'in_menu'       => 1,
         'content_VL'    => 'admin.php',
+        'content_BL'    => 'admin_bl.php',
+        'depend'        => array('register'),
         'resources'     => array('mysql', 'authentication')
     ),
      'register' => array (
