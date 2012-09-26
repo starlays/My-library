@@ -44,14 +44,13 @@ function user_exists($mysql_link, $username=NULL, $password=NULL) {
  * @return bool TRUE on success FALSE on failure
  */
 function insert_new_usr($mysql_link, $userinformations = array()) {
-    list($username, $firstname, $lastname,$email, $password)=$userinformations;
+    list($firstname, $lastname, $username, $email, $password)=$userinformations;
 
     $SQL = "INSERT INTO `users`
     (`username`, `first_name`, `last_name`, `mail`, `password`)
     VALUES
-    '$username','$firstname','$lastname','$email','$password'";
-
-    if($mysqli_query($mysql_link, $SQL)) {
+    ('$username','$firstname','$lastname','$email','$password');";
+    if(mysqli_query($mysql_link, $SQL)){
         return TRUE;
     }
     else {
