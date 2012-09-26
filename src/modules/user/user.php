@@ -16,15 +16,18 @@
     </form>
 </div>
 <div>
-    <form action='' method='POST'>
+    <form action='' method='POST' enctype="multipart/form-data">
     <fieldset>
     <legend> Add book: </legend>
     <label for='bktitle'>*Title:</label><input id='bktitle' name='book_title' type='text' />
     <label for='bkauthor'>*Author:</label><input id='bkauthor' name='book_author' type='text' />
     <label for='bkdesc'>*Description:</label><input id='bkdesc' name='book_descript' type='text' />
     <label for='bkdate'>*Date:</label><input id='bkdate' name='book_insdate' type='text' value="<?php echo date("Y-m-d"); ?>"/>
-    <label for='bkcvr'>Cover image:</label><input id='bkcvr' name='book_cvrimg' type='text' />
-    <label for='bkebook'>E-book:</label><input id='bkebook' name='book_ebook' type='text' />
+    </fieldset>
+    <fieldset>
+    <legend> Book atachements: </legend>
+    <label for='bkcvr'>Cover image:</label><input id='bkcvr' name='book_cvrimg' type='file' />
+    <label for='bkebook'>E-book:</label><input id='bkebook' name='book_ebook' type='file' />
     </fieldset>
     <input type='submit' name='usr_add_book' value='Add book' />
     </form>
