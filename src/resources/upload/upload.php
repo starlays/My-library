@@ -34,7 +34,7 @@ function user_upload($upld_file, $file_upld_dir) {
                  }
              }
              if(move_uploaded_file($upld_file['tmp_name'], 
-                     $file_upld_dir.DIRECTORY_SEPARATOR.$upld_file['name'])) {
+                     $file_upld_dir.D_S.$upld_file['name'])) {
 
                  return TRUE;
              }
