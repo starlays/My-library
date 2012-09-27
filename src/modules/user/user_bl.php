@@ -6,7 +6,7 @@ const USER_DB_INSERT_OK   = 42;
 const USER_SESSIONOTSTART = 43;
 const USER_ERR_UPLOAD     = 44;
 
-if(initialize_session()) {
+initialize_session();
 
     if(isset($_POST['usr_add_book'])) {
         $book_cvrimg = NULL;
@@ -86,7 +86,3 @@ if(initialize_session()) {
     else {
         return NULL;
     }
-}
-else {
-    return USER_SESSIONOTSTART;
-}
