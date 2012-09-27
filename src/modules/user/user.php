@@ -32,8 +32,26 @@ echo '<input type="submit" name="delete_book" value="Remove selected books!" />
     <label for="bkebook">E-book:</label><input id=""bkebook" name="book_ebook" type="file" />
     </fieldset>
     <input type="submit" name="usr_add_book" value="Add book" />
+    </form>
+    </div>
+    <div>
+    <form action="" method="POST">
+    <fieldset>
+    <legend> Search book: </legend>
+    <label for="bktitle">Book title:</label><input id="bktitle" name="search_title" type="text" /><br />
+     </fieldset>
+    <input type="submit" name="search_book" value="Search book" />
     </form>';
 }
+if(is_array($page_vl_vars)) {
+        echo 'Book Name: '.$page_vl_vars[0].'<br />';
+        echo 'Author Name: '.$page_vl_vars[1].'<br />';
+        echo 'Description: '.$page_vl_vars[2].'<br />';
+        echo 'Added Date: '.$page_vl_vars[3].'<br />';
+        echo 'Cover img.: '.$page_vl_vars[4].'<br />';
+        echo 'e-Book Path: '.$page_vl_vars[5].'<br />';
+    }
+echo '</div>';
 if(is_numeric($page_vl_vars)) {
     switch($page_vl_vars) {
         case USER_ADBOOK_EYFLD:
@@ -53,23 +71,6 @@ if(is_numeric($page_vl_vars)) {
     }
 }
 ?>
-</div>
-<div>
-    <form action='' method='POST'>
-    <fieldset>
-    <legend> Search book: </legend>
-    <label for='bktitle'>Book title:</label><input id='bktitle' name='search_title' type='text' /><br />
-     </fieldset>
-    <input type='submit' name='search_book' value='Search book' />
-    </form>
-    <?php
-    if(is_array($page_vl_vars)) {
-        echo 'Book Name: '.$page_vl_vars[0].'<br />';
-        echo 'Author Name: '.$page_vl_vars[1].'<br />';
-        echo 'Description: '.$page_vl_vars[2].'<br />';
-        echo 'Added Date: '.$page_vl_vars[3].'<br />';
-        echo 'Cover img.: '.$page_vl_vars[4].'<br />';
-        echo 'e-Book Path: '.$page_vl_vars[5].'<br />';
-    }
-    ?>
-</div>
+
+    
+
