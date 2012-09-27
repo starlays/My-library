@@ -97,8 +97,8 @@ function initialize_session() {
     if(!isset($_SESSION)){
         return session_start();
     }
-    else {
-        return FALSE;
+   else {
+        return TRUE;
     }
 }
 
