@@ -3,8 +3,10 @@
 // no need to add an if construct, because user module depend on this
 // and that module too starts a sesion!
 // but if this module start as its own it nust start a sesion!
-initialize_session();
-    // if we have an mysql connection retrive the ncessary data out of the database
+if (initialize_session()){
+    if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])
+                                && is_usr_logged($_SESSION['username'])) {
+        // if we have an mysql connection retrive the ncessary data out of the database
     if($mysql_link) {
 
         $uID = $_SESSION['user_ID'];
@@ -29,4 +31,5 @@ initialize_session();
                 return $books;
             }
         }
-    }
+    }}
+}
