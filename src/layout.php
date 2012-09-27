@@ -36,5 +36,5 @@ if(isset($errors)) {
     <div id="footer">
         here goes copyright info
     </div>
-<body>
+</body>
 </html>
