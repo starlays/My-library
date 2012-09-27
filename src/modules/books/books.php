@@ -8,8 +8,8 @@ if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])){
     <label for='title'>Title:</label>
         <input type='radio' name='ordering' value='title' checked='yes'/>
       
-    <label for='author'>Author:</label>
-        <input type='radio' name='ordering' value='authors' />
+    <label for='author'>Authors:</label>
+        <input type='radio' name='ordering' value='name' />
         
     <label for='description'>Description:</label>
         <input type='radio' name='ordering' value='description' /><br />
