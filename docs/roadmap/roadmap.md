@@ -1,21 +1,26 @@
-v0.2.0 - v0.4.0 
+v0.4.0 - v0.6.0 
 ===============
 
-Starlays:
+User features
+--------
 
-1. Fix main file, index.php:
-    - move resource data providers in a separate folder
-    - refactor index.php so it can integrate the new resource data provider (4h/day 2 days)
-    - refactor the way the data recived from modules BL is handled (4h/day 2 days)
-    - analize pre_process and post_process implication (4h/day 1 day)
-    - document main file using doxygen documenting tags (4h/day 1 day)
-2. Implement book cover and e-book upload (4h/day 2 - 3 days)
-3. Sort books by multiple criteria (4h/day 2 days)
-4. Implement admin pannel and add an new user account (4h/day 2 days)
-5. Fix TODO's from main modules (4h/day 2 days)
+1. Account activation (optional if more than one user and not running on localhost) (4h/day 2 days)
+2. E-mail title/author and personal rating to friend/friends (4h/day 2 days) 
 
-Total mh:   52
+Books features
+--------
 
-Total days: 15 + 3(no activity) = 18
+3. Have cover image (2h/day 1 days)
+4. Download book if e-book variant attached (4h/day 2 days) 
 
-Estimated V0.4.0 2/10/2012
+Admin panel
+--------
+
+5. Delete an user (4h/day 2 days)
+6. Send system message to all users (optional if more then one account) (4h/day 2 days)
+
+Total mh:   20
+
+Total days: 11+3(todo,issues) = 14
+
+Estimated V0.6.0 12/10/2012
