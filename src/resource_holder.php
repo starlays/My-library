@@ -13,5 +13,8 @@ return array (
     ),
     'upload'         => array(
         'resource_file' => 'upload.php'
+    ),
+    'books'          => array (
+        'resource_file' => 'books.php'
     )
 );
