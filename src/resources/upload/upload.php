@@ -28,7 +28,7 @@ function user_upload($upld_file, $file_upld_dir) {
              }
              else {
                  umask(0003);
-                 if(!mkdir($file_upld_dir,0774)){
+                 if(!mkdir($file_upld_dir,0774, TRUE)){
 
                      return FALSE;
                  }
