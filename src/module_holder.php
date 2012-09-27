@@ -20,7 +20,7 @@ return array (
         'content_VL'    => 'user.php',
         'content_BL'    => 'user_bl.php',
         'depend'        => array('books'),
-        'resources'     => array('mysql', 'books', 'authentication')
+        'resources'     => array('mysql', 'books', 'upload', 'authentication')
     ),
     'admin'     => array (
         'title'         => 'Admin page',
