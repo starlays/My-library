@@ -120,17 +120,6 @@ if(!check_dir(__UPLOADS__)) {
 //get the page from router
 $page = require_once __APPROOT__.'router.php';
 
-//load pre-process files
-$load_preprocess_files = require_once __APPROOT__.'pre_process_loader.php';
-
-if(!empty($load_preprocess_files)){
-    foreach($load_preprocess_files as $preprocess_file){
-        if($preprocess_file !== NULL){
-            require_once $preprocess_file;
-        }
-    }
-}
-
 // module resource dependency loader
 $load_resdeps = require_once __APPROOT__.'resources_loader.php';
 
