@@ -39,7 +39,7 @@ function is_author($mysql_link, $author){
  * 
  * @return bool TRUE if the user exists otherwise FALSE
  */
-function inser_author($mysql_link, $author){
+function insert_author($mysql_link, $author){
     $sql_ins_author = "INSERT INTO `authors` (`name`) VALUES ('$author');";
     
     //use MySQL transactions to be on the safe side
@@ -81,7 +81,7 @@ function add_book($mysql_link, $book_infos, $user_id) {
     mysqli_autocommit($mysql_link, FALSE);
     
     if(!is_author($mysql_link, $book_author)){
-        if(!inser_author($mysql_link, $book_author)) {
+        if(!insert_author($mysql_link, $book_author)) {
             
             return FALSE;
         }
