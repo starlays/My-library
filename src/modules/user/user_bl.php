@@ -33,9 +33,9 @@ if (initialize_session()){
                 }
 
                 $cvr_upld_dir   =mysqli_real_escape_string($mysql_link,
-                        __UPLOADS__.$_POST['book_title'].DIRECTORY_SEPARATOR.'cvr_img'.DIRECTORY_SEPARATOR);
+                        __UPLOADS__.$_POST['book_title'].D_S.'cvr_img'.D_S);
                 $ebook_upld_dir = mysqli_real_escape_string($mysql_link, 
-                        __UPLOADS__.$_POST['book_title'].DIRECTORY_SEPARATOR.'ebook'.DIRECTORY_SEPARATOR);
+                        __UPLOADS__.$_POST['book_title'].D_S.'ebook'.D_S);
                 
                 if(!is_null($book_cvrimg) && !empty($book_cvrimg['name'])) {
                     if(!user_upload($book_cvrimg, $cvr_upld_dir)){
