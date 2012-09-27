@@ -16,11 +16,11 @@ Books features
 Admin panel
 --------
 
-5. Delete an user (4h/day 2 days)
+5. Delete an user (2h/day 1 days)
 6. Send system message to all users (optional if more then one account) (4h/day 2 days)
 
-Total mh:   20
+Total mh:   18
 
-Total days: 11+3(todo,issues) = 14
+Total days: 10+3(todo,issues) = 13
 
 Estimated V0.6.0 12/10/2012
