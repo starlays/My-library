@@ -2,100 +2,82 @@
 //error const
 const USER_ADBOOK_EYFLD   = 40;
 const USER_NODB_INSERT    = 41;
-const USER_DB_INSERT      = 42;
+const USER_DB_INSERT_OK   = 42;
 const USER_SESSIONOTSTART = 43;
+const USER_ERR_UPLOAD     = 44;
+const USER_NOT_LOGGED_IN  = 45;
 
 if(initialize_session()) {
+    if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])
+                                    && is_usr_logged($_SESSION['username'])) {
+        if(isset($_POST['usr_add_book'])) {
+            $book_cvrimg = NULL;
+            $book_ebook  = NULL;
+            $required_info = array($_POST['book_title'], $_POST['book_author'], 
+                                    $_POST['book_descript'], $_POST['book_insdate']);
 
-    if(isset($_POST['usr_add_book'])) {
-        $required_info = array($_POST['book_title'], $_POST['book_author'], 
-                                $_POST['book_descript'], $_POST['book_insdate']);
-        $optional_info = array($_POST['book_cvrimg'], $_POST['book_ebook']);
-        
-        //TODO: Better form validation, check every case, check if field type is coresponding    
-        if(!isEmpty_array_vals($required_info)) {
-            if($mysql_link){
-            $required_info = datafilter($required_info);
-            $optional_info = datafilter($optional_info);
-            $required_info[] = $optional_info;
+            if(isset($_FILES['book_cvrimg'])) {
+                $book_cvrimg = $_FILES['book_cvrimg'];
+            }
+            if(isset($_FILES['book_ebook'])) {
+                $book_ebook  = $_FILES['book_ebook'];
+            }
+            //TODO: Better form validation, check every case, check if field type is coresponding    
+            if(!isEmpty_array_vals($required_info)) {
 
-            //TODO: Use prepared statements instead of #18-#25
-            foreach($required_info as $data){
-                if(is_array($data)) {
-                    foreach($data as $inner_data){
-                        mysqli_real_escape_string($mysql_link, $inner_data);
+                $required_info = datafilter($required_info);
+
+                //TODO: Use prepared statements instead
+                foreach($required_info as $data) {
+                        mysqli_real_escape_string($mysql_link, $data);
+                }
+
+                $cvr_upld_dir   = __UPLOADS__.$_POST['book_title'].DIRECTORY_SEPARATOR.'cvr_img'.DIRECTORY_SEPARATOR;
+                $ebook_upld_dir = __UPLOADS__.$_POST['book_title'].DIRECTORY_SEPARATOR.'ebook'.DIRECTORY_SEPARATOR;
+
+                if(!is_null($book_cvrimg)) {
+                    if(!user_upload($book_cvrimg, $cvr_upld_dir)){
+                        return USER_ERR_UPLOAD;
                     }
                 }
+                if(!is_null($book_ebook)) {
+                    if(!user_upload($book_ebook, $ebook_upld_dir)){
+                        return USER_ERR_UPLOAD;
+                    }
+                }
+                //optional informatin default value processing
+                $uID = $_SESSION['user_ID'];
+                $required_info[] = $cvr_upld_dir;
+                $required_info[] = $ebook_upld_dir;
+
+                if(add_book($mysql_link, $required_info, $uID)){
+
+                    return USER_DB_INSERT_OK;
+                }
                 else {
-                    mysqli_real_escape_string($mysql_link, $data);
-                }
-            }
-
-            list($book_title, $book_author, $book_descript, $book_insdate,
-                    list($book_cvrimg, $book_ebook)) = $required_info;
-            //optional informatin default value processing
-            $book_cvrimg = empty($book_cvrimg) ? NULL : $book_cvrimg;
-            $book_ebook  = empty($book_ebook) ? NULL : $book_ebook;
-
-            //TODO: fix bug: when a optional field are missing insert NULL not string
-            $sql_getauthor= "SELECT `name` FROM `authors` WHERE name='$book_author'";
-            $sql_author   = "INSERT INTO `authors` (`name`) VALUES ('$book_author');";
-            $uID = $_SESSION['user_ID'];
-            
-            $sql_add_book = "
-               INSERT INTO `books` (`title`, `id_author`, `description`, `insert_date`,
-               `cvr_img_path`, `e_book_path`, `id_rate`, `id_insert_user`)
-               VALUES ( '$book_title', (SELECT `id` FROM `authors` WHERE name='$book_author'), 
-               '$book_descript', '$book_insdate', '$book_cvrimg', '$book_ebook', 1, $uID);"; 
-
-                //use MySQL transactions to be on the safe side
-                mysqli_autocommit($mysql_link, FALSE);
-                $insert_error = FALSE;
-
-                //is the recived author in our database?
-                if($result = mysqli_query($mysql_link, $sql_getauthor)) {
-                    $db_author = mysqli_fetch_row($result);
-
-                    if(!is_array($db_author)) {
-                        if(!mysqli_query($mysql_link, $sql_author)) {
-                            $insert_error = TRUE;
-                        }
-                     }
-                }
-                if(!mysqli_query($mysql_link, $sql_add_book)) {
-                    $insert_error = TRUE;
-                }
-                if($insert_error) {
-                    mysqli_rollback($mysql_link);
-                    mysqli_close($mysql_link);
-
                     return USER_NODB_INSERT;
                 }
-                else {
-                    mysqli_commit($mysql_link);
-                    mysqli_close($mysql_link);
-
-                    return USER_DB_INSERT;
-                }
+            }
+            else {
+                return USER_ADBOOK_EYFLD;
             }
         }
-        else {
-            return USER_ADBOOK_EYFLD;
-        }
-    }
-    elseif(isset($_POST['delete_book'])) {
-        if(isset($_POST['rm_books'])) {
-            $rm_books = datafilter($_POST['rm_books']);
-            $rm_books = implode(',', $rm_books);
+        elseif(isset($_POST['delete_book'])) {
+            if(isset($_POST['rm_books'])) {
+                $rm_books = datafilter($_POST['rm_books']);
+                $rm_books = implode(',', $rm_books);
 
-            $sql_dbooks = "DELETE FROM `books` WHERE `title` IN ('$rm_books');";
-            mysqli_query($mysql_link, $sql_dbooks);
-            mysqli_close($mysql_link);
+                $sql_dbooks = "DELETE FROM `books` WHERE `title` IN ('$rm_books');";
+                mysqli_query($mysql_link, $sql_dbooks);
+                mysqli_close($mysql_link);
+            }
         }
+        
     }
     elseif(isset($_POST['search_book'])) {
         if(isset($_POST['search_title'])) {
             $search_title = $_POST['search_title'];
+
             
             $sql_sbooks = "SELECT title AS book_title, name AS author_name, description AS book_description,
             insert_date AS book_insert_date, cvr_img_path AS book_cvr_img_path, e_book_path AS book_ebook_path
@@ -105,9 +87,9 @@ if(initialize_session()) {
             return mysqli_fetch_row($query);
             mysqli_close($mysql_link);
         }
-    }
+    } 
     else {
-        return NULL;
+        return USER_NOT_LOGGED_IN;
     }
 }
 else {
