@@ -40,30 +40,33 @@
  * @defgroup GLOBALCONSTANTS this are the application global constants
  * @{
  */
-define('__WEBROOT__', __DIR__.DIRECTORY_SEPARATOR);
+const D_S = DIRECTORY_SEPARATOR;
+
+define('__WEBROOT__', __DIR__.D_S);
+
 /**
  * define app root
  */
-define('__APPROOT__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR);
+define('__APPROOT__', dirname(__WEBROOT__).D_S.'src'.D_S);
 chdir(__APPROOT__);
 /**
  * modules path
  */
-define('__MODULES__', __APPROOT__.'modules'.DIRECTORY_SEPARATOR);
+define('__MODULES__', __APPROOT__.'modules'.D_S);
 /**
  * resources path
  */
-define('__RESOURCES__', __APPROOT__.'resources'.DIRECTORY_SEPARATOR);
+define('__RESOURCES__', __APPROOT__.'resources'.D_S);
 /**
  * uploads location
  * Note: upload dir must be owned by your apache user
  */
-define('__UPLOADS__', dirname(__WEBROOT__).DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR);
+define('__UPLOADS__', dirname(__WEBROOT__).D_S.'uploads'.D_S);
 /**
  * base app functions file
  */
-$base_fns_file  = __APPROOT__.'resources'.DIRECTORY_SEPARATOR.'base'
-                                        .DIRECTORY_SEPARATOR.'functions.php';
+$base_fns_file  = __APPROOT__.'resources'.D_S.'base'
+                                        .D_S.'functions.php';
 /**
  * modules holder
  */
