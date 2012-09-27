@@ -79,8 +79,8 @@ function build_menu($active_menu, $menu_values=array(), $menu_number) {
  * @return bool
  */
 function check_file($file, $path_file) {
-    if(file_exists($path_file.DIRECTORY_SEPARATOR.$file)
-         && is_readable($path_file.DIRECTORY_SEPARATOR.$file)) {
+    if(file_exists($path_file.D_S.$file)
+         && is_readable($path_file.D_S.$file)) {
         return TRUE;
     }
     else {
