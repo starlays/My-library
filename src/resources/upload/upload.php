@@ -39,5 +39,8 @@ function user_upload($upld_file, $file_upld_dir) {
                  return TRUE;
              }
          }
+         else {
+             return FALSE;
+         }
     }
 }
