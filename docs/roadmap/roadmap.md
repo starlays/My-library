@@ -23,4 +23,4 @@ Total mh:   18
 
 Total days: 10+3(todo,issues) = 13
 
-Estimated V0.6.0 12/10/2012
+Estimated V0.6.0 11/10/2012
