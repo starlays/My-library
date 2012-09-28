@@ -88,11 +88,16 @@ if (initialize_session()){
                 e_book_path AS book_ebook_path
                  FROM `books` INNER JOIN `authors` ON books.id_author = authors.id 
                  WHERE title REGEXP '".$search_title."';";
+                
+                if($result = mysqli_query($mysql_link, $sql_sbooks)) {
+                    if($books = mysqli_fetch_all($result, MYSQLI_ASSOC)) {
+                        mysqli_free_result($result);
+                        mysqli_close($mysql_link);
 
-                $query = mysqli_query($mysql_link, $sql_sbooks);
-                mysqli_close($mysql_link);
-                return mysqli_fetch_row($query);
-             } 
+                        return $books;
+                    }
+                }
+            }
         }
     }
     else {
