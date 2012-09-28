@@ -127,12 +127,30 @@ function isEmpty_array_vals($checked_array) {
  *
  * @return array
  */
-function datafilter($array) {
-    $var = array();
-    foreach($array as $input){
-        $var[] = strip_tags($input);
+function datafilter($inputs) {
+    $associative_array = FALSE;
+    $result            = array();
+    $array_keys        = array_keys($inputs);
+
+    foreach($array_keys as $key) {
+        if(!is_numeric($key)){
+             $associative_array = TRUE;
+             break;
+        }
     }
-    return $var;
+    
+    if($associative_array) {
+        foreach($inputs as $metadata => $data){
+            $result[$metadata] = strip_tags($data);
+        }
+    }
+    else {
+        foreach($inputs as $data){
+            $result[] = strip_tags($data);
+        }
+    }
+    
+    return $result;
 }
 
 /**
