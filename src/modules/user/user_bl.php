@@ -13,8 +13,12 @@ if (initialize_session()){
         if(isset($_POST['usr_add_book'])) {
             $book_cvrimg = NULL;
             $book_ebook  = NULL;
-            $required_info = array($_POST['book_title'], $_POST['book_author'], 
-                                    $_POST['book_descript'], $_POST['book_insdate']);
+            $required_info = array(
+                'book_title'       => $_POST['book_title'],
+                'book_author'      => $_POST['book_author'], 
+                'book_description' => $_POST['book_descript'], 
+                'book_insdate'     => $_POST['book_insdate']
+            );
 
             if(isset($_FILES['book_cvrimg'])) {
                 $book_cvrimg = $_FILES['book_cvrimg'];
@@ -32,7 +36,7 @@ if (initialize_session()){
                         mysqli_real_escape_string($mysql_link, $data);
                 }
 
-                $cvr_upld_dir   =mysqli_real_escape_string($mysql_link,
+                $cvr_upld_dir   = mysqli_real_escape_string($mysql_link,
                         __UPLOADS__.$_POST['book_title'].D_S.'cvr_img'.D_S);
                 $ebook_upld_dir = mysqli_real_escape_string($mysql_link, 
                         __UPLOADS__.$_POST['book_title'].D_S.'ebook'.D_S);
@@ -49,10 +53,9 @@ if (initialize_session()){
                 }
                 //optional informatin default value processing
                 $uID = $_SESSION['user_ID'];
-                $required_info[] = $cvr_upld_dir;
-                $required_info[] = $ebook_upld_dir;
 
-                if(add_book($mysql_link, $required_info, $uID)){
+                if(add_book($mysql_link, $required_info, 
+                                        $cvr_upld_dir, $ebook_upld_dir, $uID)) {
 
                     return USER_DB_INSERT_OK;
                 }
@@ -87,8 +90,8 @@ if (initialize_session()){
                  WHERE title REGEXP '".$search_title."';";
 
                 $query = mysqli_query($mysql_link, $sql_sbooks);
-                return mysqli_fetch_row($query);
                 mysqli_close($mysql_link);
+                return mysqli_fetch_row($query);
              } 
         }
     }

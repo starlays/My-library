@@ -67,16 +67,15 @@ function insert_author($mysql_link, $author){
  * 
  * @return bool TRUE the book was added otherwise FALSE
  */
-function add_book($mysql_link, $book_infos, $user_id) {
+function add_book($mysql_link, $books_info, $book_cvr_path, $book_ebook_path, $user_id) {
     
-    list($book_title, $book_author, $book_descript, 
-            $book_insdate, $book_cvr_path, $book_ebook_path) = $book_infos;
+    extract($books_info);
     
     $sql_add_book = "
     INSERT INTO `books` (`title`, `id_author`, `description`, `insert_date`,
     `cvr_img_path`, `e_book_path`, `id_rate`, `id_insert_user`)
     VALUES ( '$book_title', (SELECT `id` FROM `authors` WHERE name='$book_author'), 
-    '$book_descript', '$book_insdate', '$book_cvr_path', '$book_ebook_path', 1, $user_id);";
+    '$book_description', '$book_insdate', '$book_cvr_path', '$book_ebook_path', 1, $user_id);";
     //use MySQL transactions to be on the safe side
     mysqli_autocommit($mysql_link, FALSE);
     
