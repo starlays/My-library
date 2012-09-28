@@ -43,14 +43,17 @@ echo '<input type="submit" name="delete_book" value="Remove selected books!" />
     <input type="submit" name="search_book" value="Search book" />
     </form>';
 }
+
 if(is_array($page_vl_vars)) {
-        echo 'Book Name: '.$page_vl_vars[0].'<br />';
-        echo 'Author Name: '.$page_vl_vars[1].'<br />';
-        echo 'Description: '.$page_vl_vars[2].'<br />';
-        echo 'Added Date: '.$page_vl_vars[3].'<br />';
-        echo 'Cover img.: '.$page_vl_vars[4].'<br />';
-        echo 'e-Book Path: '.$page_vl_vars[5].'<br />';
+    foreach($page_vl_vars as $book) {
+            echo 'Book Name: '.  $book['book_title'].'<br />';
+            echo 'Author Name: '.$book['author_name'].'<br />';
+            echo 'Description: '.$book['book_description'].'<br />';
+            echo 'Added Date: '. $book['book_insert_date'].'<br />';
+            echo 'Cover img.: '. $book['book_cvr_img_path'].'<br />';
+            echo 'e-Book Path: '.$book['book_ebook_path'].'<br />';
     }
+}
 echo '</div>';
 if(is_numeric($page_vl_vars)) {
     switch($page_vl_vars) {
