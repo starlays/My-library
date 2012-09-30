@@ -1,8 +1,9 @@
 <?php
-if(!(isset($_SESSION['username']) && isset($_SESSION['ses_key']))){
-    echo "<form action='' method='POST'>
+if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])) {
+    echo "<div>
+    <form action='' method='POST'>
     <fieldset>
-    <legend> Register Info: </legend>
+    <legend> Add New User: </legend>
     <label for='fn'>* First Name:</label><input id='fn' name='fn' type='text' /><br />
     <label for='ln'>* Last Name:</label><input id='ln' name='ln' type='text' /><br />
     <label for='usr'>* Username:</label><input id='usr' name='usr' type='text' /><br />
@@ -10,11 +11,12 @@ if(!(isset($_SESSION['username']) && isset($_SESSION['ses_key']))){
     <label for='pwd'>* Password:</label><input id='pwd' name='pwd' type='password' /><br />
     <label for='rpwd'>* Retype Password:</label><input id='rpwd' name='rpwd' type='password' /><br />
     </fieldset>
-    <input type='submit' name='register' value='Register' />
+    <input type='submit' name='register' value='Add User' />
     </form>";
 }
-if(is_numeric($page_vl_vars)) {
-    switch($page_vl_vars) {
+
+if(is_array($loaded_deps)) {
+    switch($loaded_deps[0]) {
         case ERR_FIELDMISS:
             echo 'Fields marked with * are necessary.';
             break;
@@ -26,7 +28,7 @@ if(is_numeric($page_vl_vars)) {
             break;
         case REGISTER_SUCCESS:
             echo 'Registration Successful';
-            break;
     }
 }
-?>
+echo '</div>';
+

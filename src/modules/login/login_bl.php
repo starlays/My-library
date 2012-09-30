@@ -1,50 +1,48 @@
 <?php
-//TODO: data validation
-const ERR_PASSNOMATCH   = 60;
-const ERR_USRPWD    = 61;
-const MSG_LOGINOK = 62;
-$err = NULL;
-$msg = NULL;
+/**
+ * Constant retun when user is logged in
+ */
+const LOGIN_SUCCESS      = 54;
+/**
+ * Error constants for module authentication 
+ */
+const ERR_AUTH_MISSINFO  = 50;
+const ERR_AUTH_NOUSER    = 51;
+const ERR_AUTH_RETRVINFO = 52;
+const ERR_AUTH_STARTSESS = 53;
 
+initialize_session();
 if(isset($_POST['login'])){
-
     $reginfo = array($_POST['usr'], $_POST['pwd']);
     
-    if(isEmpty($reginfo)) {
-    
-        list($usr,$pwd) = datafilter($reginfo);
-        
-        $query = "SELECT * FROM users WHERE username='$usr' AND password='$pwd';";
-        $qresult = mysqli_query($mysql_link,$query);
-        $ckuser = mysqli_num_rows($qresult);
-        
-        if(0 < $ckuser){
-        
-            $userdata = mysqli_fetch_row($qresult);
+    if(!isEmpty_array_vals($reginfo)) {
+        list($username, $pass) = datafilter($reginfo);
 
-            $_SESSION['uID'] = $userdata[0];
-            $_SESSION['is_logged_in'] = 1;
-            $_SESSION['fn'] = $userdata[2];
-            $_SESSION['ln'] = $userdata[3];
-            
-            unset($userdata);
-    
-            mysqli_close($mysql_link);
-            
-            $msg = MSG_LOGINOK;
+        if(user_exists($mysql_link, $username, $pass)){
+            $SQL = "SELECT id AS uid, username, first_name, last_name, mail AS e_mail
+                    FROM `users` WHERE username='$username' AND password='$pass';";
+            if($userdata = retrive_assoc($mysql_link, $SQL)) {
+                    $ses_key = generate_unique_str($username);
+                    $_SESSION['ses_key']    = $ses_key;
+                    $_SESSION['username']   = $username;
+                    $_SESSION['user_ID']    = $userdata['uid'];
+                    $_SESSION['first_name'] = $userdata['first_name'];
+                    $_SESSION['last_name']  = $userdata['last_name'];
+                    
+                    unset($userdata);
+                    mysqli_close($mysql_link);
+
+                    return LOGIN_SUCCESS;
+            }
+            else {
+                return ERR_AUTH_RETRVINFO;
+            }
         }
         else {
-            $err = ERR_PASSNOMATCH;
+            return ERR_AUTH_NOUSER;
         }
     }
     else {
-        $err = ERR_USRPWD;
+        return ERR_AUTH_MISSINFO;
     }
 }
-if(empty($err)){
-    return $msg;
-}
-else {
-    return $err;
-}
-

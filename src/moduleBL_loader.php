@@ -1,7 +1,7 @@
 <?php
 
 //path to module BL file
-$moduleBL_path = __MODULES__.$page.DIRECTORY_SEPARATOR;
+$moduleBL_path = __MODULES__.$page.D_S;
 
 if(isset($modules[$page]['content_BL'])) {
     if(check_file($modules[$page]['content_BL'],$moduleBL_path)) {
