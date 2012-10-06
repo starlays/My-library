@@ -1,7 +1,6 @@
 <?php
-
-if(is_numeric($page_vl_vars)) {
-    switch($page_vl_vars) {
+if(!is_null($status_code)) {
+    switch($status_code) {
         case LOGOUT_CANNOTSTOP:
             echo sprintf('Can\'t stop the session! Error: %d', LOGOUT_CANNOTSTOP);
             break;

@@ -1,21 +1,18 @@
-<?php
-if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && is_usr_logged($_SESSION['username'])) {
-echo '<div>
+<?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && is_usr_logged($_SESSION['username'])) { ?>
+<div>
       <form action="" method="post">
-      Which book do you want to delete?<br />';
-
-    foreach($loaded_deps as $books) {
-        if(is_array($books)){
-            foreach($books as $book) {
-                if(isset($book['book_title'])) {
-                     echo '<input type="checkbox" name="rm_books[]" value="',$book['book_title'],'" />',$book['book_title'],'<br />';
-                }
-            }
+      Which book do you want to delete?<br />
+<?php
+if(!is_null($books_list) && is_array($books_list)){
+    foreach($books_list as $book) {
+        if(isset($book['book_title'])) {
+             echo '<input type="checkbox" name="rm_books[]" value="',$book['book_title'],'" />',$book['book_title'],'<br />';
         }
     }
-
-echo '<input type="submit" name="delete_book" value="Remove selected books!" />
-    </form>
+}
+?>
+<input type="submit" name="delete_book" value="Remove selected books!" />
+</form>
 </div>
 <div>
     <form action="" method="POST" enctype="multipart/form-data">
@@ -24,7 +21,7 @@ echo '<input type="submit" name="delete_book" value="Remove selected books!" />
     <label for="bktitle">*Title:</label><input id="bktitle" name="book_title" type="text" />
     <label for="bkauthor">*Author:</label><input id="bkauthor" name="book_author" type="text" />
     <label for="bkdesc">*Description:</label><input id="bkdesc" name="book_descript" type="text" />
-    <label for="bkdate">*Date:</label><input id="bkdate" name="book_insdate" type="text" value="'.date("Y-m-d").'"/>
+    <label for="bkdate">*Date:</label><input id="bkdate" name="book_insdate" type="text" value="<?php echo date("Y-m-d"); ?>"/>
     </fieldset>
     <fieldset>
     <legend> Book atachements: </legend>
@@ -41,11 +38,11 @@ echo '<input type="submit" name="delete_book" value="Remove selected books!" />
     <label for="bktitle">Book title:</label><input id="bktitle" name="search_title" type="text" /><br />
      </fieldset>
     <input type="submit" name="search_book" value="Search book" />
-    </form>';
+    </form>
+<?php 
 }
-
-if(is_array($page_vl_vars)) {
-    foreach($page_vl_vars as $book) {
+if(!is_null($searched_books) && is_array($searched_books)) {
+    foreach($searched_books as $book) {
             echo 'Book Name: '.  $book['book_title'].'<br />';
             echo 'Author Name: '.$book['author_name'].'<br />';
             echo 'Description: '.$book['book_description'].'<br />';
@@ -54,9 +51,8 @@ if(is_array($page_vl_vars)) {
             echo 'e-Book Path: '.$book['book_ebook_path'].'<br />';
     }
 }
-echo '</div>';
-if(is_numeric($page_vl_vars)) {
-    switch($page_vl_vars) {
+if(!is_null($status_code)) {
+    switch($status_code) {
         case USER_ADBOOK_EYFLD:
             echo 'Fields marked with * are necesary.';
             break;
@@ -74,6 +70,4 @@ if(is_numeric($page_vl_vars)) {
     }
 }
 ?>
-
-    
-
+</div>

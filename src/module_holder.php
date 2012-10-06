@@ -12,22 +12,20 @@ return array (
         'in_menu'       => 1,
         'content_VL'    => 'books.php',
         'content_BL'    => 'books_bl.php',
-        'resources'     => array('mysql', 'authentication')
+        'resources'     => array('mysql', 'authentication', 'books')
     ),
     'user'      => array (
         'title'         => 'User page',
         'in_menu'       => 1,
         'content_VL'    => 'user.php',
         'content_BL'    => 'user_bl.php',
-        'depend'        => array('books'),
-        'resources'     => array('mysql', 'books', 'upload', 'authentication')
+        'resources'     => array('mysql', 'authentication', 'books', 'upload')
     ),
     'admin'     => array (
         'title'         => 'Admin page',
         'in_menu'       => 1,
         'content_VL'    => 'admin.php',
         'content_BL'    => 'admin_bl.php',
-        'depend'        => array('register'),
         'resources'     => array('mysql', 'authentication')
     ),
      'register' => array (
@@ -58,10 +56,10 @@ return array (
         'resources'     => array('authentication')
     ),
     'upload'   => array(
-        'title'      => 'File upload',
-        'in_menu'    => 1,
-        'content_VL' => 'upload.php',
-        'content_BL' => 'upload_bl.php',
+        'title'         => 'File upload',
+        'in_menu'       => 1,
+        'content_VL'    => 'upload.php',
+        'content_BL'    => 'upload_bl.php',
         'resources'     => array('mysql', 'authentication', 'upload')
     )
 );

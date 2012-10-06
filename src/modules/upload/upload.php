@@ -1,15 +1,16 @@
 <?php
 if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])) {
     $size = return_bytes(ini_get('upload_max_filesize'));
-    echo '<form enctype="multipart/form-data" action="" method="post" >
-	<input type="hidden" name="MAX_FILE_SIZE" value="',$size,'" />
+?>
+<form enctype="multipart/form-data" action="" method="post" >
+	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $size ?>" />
     <input name ="file" type ="file" />
     <input type ="submit" name="file_upload" value ="Send" />
-    </form>';
+</form>
+<?php
 }
-
-if(is_numeric($page_vl_vars)) {
-    switch($page_vl_vars) {
+if(!is_null($status_code)){
+    switch($status_code) {
         case UPLD_ERR_SESSION :
             echo sprintf('Cam\'t start session! Error: %d', UPLD_ERR_SESSION);
             break;

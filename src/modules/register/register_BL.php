@@ -1,5 +1,8 @@
 <?php
 /**
+ * Register module BL file
+ */
+/**
  * Constant retun when user is logged in
  */
 const REGISTER_SUCCESS = 55;
@@ -10,6 +13,10 @@ const ERR_PASSNOMATCH  = 57;
 const ERR_USEREXISTS   = 58;
 const ERR_FIELDMISS    = 59;
 const USER_SESSIONOTSTART = 60;
+/**
+ * Status code container
+ */
+$status_code = NULL;
 
 if(initialize_session()) {
     if(isset($_POST['register'])){
@@ -27,23 +34,24 @@ if(initialize_session()) {
             if($_POST['pwd'] === $_POST['rpwd']) {
                 if(!user_exists($mysql_link, $reginfo['usr'])) {
                     if(insert_new_usr($mysql_link, $reginfo)){
-                        
-                        return REGISTER_SUCCESS;
+                        $status_code = REGISTER_SUCCESS;
                     }
                 }
                 else {
-                    return ERR_USEREXISTS;
+                    $status_code = ERR_USEREXISTS;
                 }
             }
             else {
-                return ERR_PASSNOMATCH;
+                $status_code = ERR_PASSNOMATCH;
             }
         }
         else {
-            return ERR_FIELDMISS;
+            $status_code = ERR_FIELDMISS;
         }
     }
 }
 else {
-    return USER_SESSIONOTSTART;
+    $status_code = USER_SESSIONOTSTART;
 }
+
+return array('status_code' => $status_code);
