@@ -13,8 +13,9 @@ if(!(isset($_SESSION['username']) && isset($_SESSION['ses_key']))){
     <input type='submit' name='register' value='Register' />
     </form>";
 }
-if(is_numeric($page_vl_vars)) {
-    switch($page_vl_vars) {
+
+if(!is_null($status_code)){
+    switch($status_code) {
         case ERR_FIELDMISS:
             echo 'Fields marked with * are necessary.';
             break;
@@ -29,4 +30,3 @@ if(is_numeric($page_vl_vars)) {
             break;
     }
 }
-?>
