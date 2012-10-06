@@ -1,15 +1,36 @@
 <?php
-//error const
+/**
+ * User module BL file
+ */
+/**
+ * Module constants
+ */
 const USER_ADBOOK_EYFLD   = 40;
 const USER_NODB_INSERT    = 41;
 const USER_DB_INSERT_OK   = 42;
 const USER_SESSIONOTSTART = 43;
 const USER_ERR_UPLOAD     = 44;
 const USER_NOT_LOGGED_IN  = 45;
+const USER_NO_ACTION      = 46;
+/**
+ * Book list container
+ */
+$books_list     = NULL;
+/**
+ * Status code container
+ */
+$status_code    = NULL;
+/**
+ * Books searched results container
+ */
+$searched_books = NULL;
 
 if (initialize_session()){
     if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])
                                     && is_usr_logged($_SESSION['username'])) {
+        $uID = $_SESSION['user_ID'];
+        $books_list = retrive_user_books($mysql_link, $uID, 'title', 'ASC');
+
         if(isset($_POST['usr_add_book'])) {
             $book_cvrimg = NULL;
             $book_ebook  = NULL;
@@ -43,28 +64,25 @@ if (initialize_session()){
                 
                 if(!is_null($book_cvrimg) && !empty($book_cvrimg['name'])) {
                     if(!user_upload($book_cvrimg, $cvr_upld_dir)){
-                        return USER_ERR_UPLOAD;
+                        $status_code = USER_ERR_UPLOAD;
                     }
                 }
                 if(!is_null($book_ebook) && !empty($book_ebook['name'])) {
                     if(!user_upload($book_ebook, $ebook_upld_dir)){
-                        return USER_ERR_UPLOAD;
+                        $status_code = USER_ERR_UPLOAD;
                     }
                 }
-                //optional informatin default value processing
-                $uID = $_SESSION['user_ID'];
 
                 if(add_book($mysql_link, $required_info, 
                                         $cvr_upld_dir, $ebook_upld_dir, $uID)) {
-
-                    return USER_DB_INSERT_OK;
+                    $status_code = USER_DB_INSERT_OK;
                 }
                 else {
-                    return USER_NODB_INSERT;
+                    $status_code = USER_NODB_INSERT;
                 }
             }
             else {
-                return USER_ADBOOK_EYFLD;
+                $status_code = USER_ADBOOK_EYFLD; 
             }
         }
         elseif(isset($_POST['delete_book'])) {
@@ -81,29 +99,20 @@ if (initialize_session()){
             if(isset($_POST['search_title'])) {
                 $search_title = $_POST['search_title'];
 
-
-                $sql_sbooks = "SELECT title AS book_title, name AS author_name, 
-                    description AS book_description,
-                insert_date AS book_insert_date, cvr_img_path AS book_cvr_img_path,
-                e_book_path AS book_ebook_path
-                 FROM `books` INNER JOIN `authors` ON books.id_author = authors.id 
-                 WHERE title REGEXP '".$search_title."';";
-                
-                if($result = mysqli_query($mysql_link, $sql_sbooks)) {
-                    if($books = mysqli_fetch_all($result, MYSQLI_ASSOC)) {
-                        mysqli_free_result($result);
-                        mysqli_close($mysql_link);
-
-                        return $books;
-                    }
-                }
+                $searched_books = search_book_bytitle($mysql_link, $search_title);
             }
         }
     }
     else {
-        return USER_NOT_LOGGED_IN;
+        $status_code = USER_NOT_LOGGED_IN;
     }
 }
 else {
-    return USER_SESSIONOTSTART;
+    $status_code = USER_SESSIONOTSTART; 
 }
+
+return array(
+    'books_list'     => $books_list,
+    'status_code'    => $status_code,
+    'searched_books' => $searched_books
+    );
