@@ -55,13 +55,13 @@ function build_menu($active_menu, $menu_values=array(), $menu_number) {
     $menu = '<ul id="menu">' .PHP_EOL;
 
     foreach($menu_values as $metadata=>$values) {
-        if($menu_values[$metadata]['in_menu'] === $menu_number) {
+        if($menu_values[$metadata]['menu_number'] === $menu_number) {
             if($active_menu == $metadata) {
-                    $menu .= '<li class="title">'.$menu_values[$metadata]['title'].'</li>'.PHP_EOL;
+                    $menu .= '<li class="title">'.$menu_values[$metadata]['name'].'</li>'.PHP_EOL;
                 }
                 else{
                     $menu .= '<li class="menu"><a href="?page='.$metadata.'">'
-                        .$menu_values[$metadata]['title'].'</a></li>'.PHP_EOL;
+                        .$menu_values[$metadata]['name'].'</a></li>'.PHP_EOL;
                 }
         }
     }
