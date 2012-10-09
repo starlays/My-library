@@ -196,3 +196,35 @@ function retrive_assoc($mysql_link, $sql = NULL) {
          return FALSE;
      }
 }
+
+/**
+ * Scan a given dir for given mime type
+ * 
+ * @param string $path the path which contains the files
+ * @param array $mime_type an list containing mime type for the 
+ *  
+ * @return array $readed_files an array containing all the files that exists in path
+ */
+function files_scand_dir($path, $mime_type) {
+    $readed_files = NULL;
+    
+    if (!$finfo = finfo_open(FILEINFO_MIME_TYPE)) { /* get the predefinded mime type from extension */
+            return FALSE; /* can't load the extension database */
+    }
+    
+    if ($handle = opendir($path)) {
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                $file_mime = finfo_file($finfo, $path.$entry);
+                 if(in_array($file_mime, $mime_type)) {
+                    $readed_files[] = $path.$entry;
+                }
+            }
+        }
+        closedir($handle);
+    }
+    /* close connection */
+    finfo_close($finfo);
+    
+    return $readed_files;
+}
