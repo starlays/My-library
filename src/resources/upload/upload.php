@@ -44,3 +44,35 @@ function user_upload($upld_file, $file_upld_dir) {
          }
     }
 }
+
+/**
+ * Check if the recived file corresponds to the given mime type
+ * 
+ * @param array $upld_file the uploaded file obtained from the superglobal $_FILES['file']
+ * @param array $mime_type_list an list with accepted mime types
+ * 
+ * @return bool TRUE if the file is an image otherwise FALSE
+ */
+function is_mime_accepted($upld_file, $mime_type_list) {
+   $upld_file_mime = NULL;
+    
+   if(isset($upld_file['type'])) {
+       $upld_file_mime = $upld_file['type'];
+   }
+   else {
+        if (!$finfo = finfo_open(FILEINFO_MIME_TYPE)) { /* get the predefinded mime type from extension */
+            return FALSE; /* can't load the extension database */
+        }
+        /* get mime-type for the uploaded file */
+        $upld_file_mime = finfo_file($finfo, $upld_file['tmp_name']);
+        /* close connection */
+        finfo_close($finfo);
+   }
+    
+    if(!is_null($upld_file_mime) && in_array($upld_file_mime, $mime_type_list)) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
