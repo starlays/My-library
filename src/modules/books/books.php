@@ -33,11 +33,16 @@ else {
         foreach($books as $informations) {
             echo '<div id="group_book">';
             foreach($informations as $metadata => $data){
-                echo   $metadata, ' : ',$data, ' ';
+                if(!is_null($books_covers) && isset($books_covers[$data])) {
+                    foreach($books_covers[$data] as $image) {
+                        echo '<img border="0" src="'.$image.'" width="100" height="100">';
+                    }
+                }
+                else {
+                    echo   $metadata, ' : ',$data, ' ';
+                }
             }
             echo '</div>';
         }
     }
 }
-
-
