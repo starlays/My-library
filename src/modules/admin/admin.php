@@ -35,6 +35,7 @@ if(!is_null($status_code)) {
             echo 'Registration Successful';
     }
 }
+unset($status_code);
 ?>
 </div>
 
