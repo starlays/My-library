@@ -11,7 +11,8 @@ const USER_DB_INSERT_OK   = 42;
 const USER_SESSIONOTSTART = 43;
 const USER_ERR_UPLOAD     = 44;
 const USER_NOT_LOGGED_IN  = 45;
-const USER_NO_ACTION      = 46;
+const USER_CVR_MIME_ERR   = 46;
+const USER_EBOOK_MIME_ERR = 47;
 /**
  * Book list container
  */
@@ -24,6 +25,23 @@ $status_code    = NULL;
  * Books searched results container
  */
 $searched_books = NULL;
+/**
+ * Cvr image status code container
+ */
+$cvr_img_status = NULL;
+/**
+ * Ebook status code container
+ */
+$ebook_status = NULL;
+/**
+ * Allowed image mime type
+ */
+$image_mime = array('image/pjpeg', 'image/jpeg', 'image/gif', 
+                    'image/bmp', 'image/x-png', 'image/png');
+/**
+ * Allowed ebook mime type
+ */
+$ebook_mime = array('application/pdf');
 
 if (initialize_session()){
     if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])
@@ -63,13 +81,23 @@ if (initialize_session()){
                         __UPLOADS__.$_POST['book_title'].D_S.'ebook'.D_S);
                 
                 if(!is_null($book_cvrimg) && !empty($book_cvrimg['name'])) {
-                    if(!user_upload($book_cvrimg, $cvr_upld_dir)){
-                        $status_code = USER_ERR_UPLOAD;
+                    if(is_mime_accepted($book_cvrimg, $image_mime)) {
+                        if(!user_upload($book_cvrimg, $cvr_upld_dir)){
+                            $status_code = USER_ERR_UPLOAD;
+                        }
+                    }
+                    else {
+                        $cvr_img_status = USER_CVR_MIME_ERR;
                     }
                 }
                 if(!is_null($book_ebook) && !empty($book_ebook['name'])) {
-                    if(!user_upload($book_ebook, $ebook_upld_dir)){
-                        $status_code = USER_ERR_UPLOAD;
+                    if(is_mime_accepted($book_ebook, $ebook_mime)) {
+                        if(!user_upload($book_ebook, $ebook_upld_dir)){
+                            $status_code = USER_ERR_UPLOAD;
+                        }
+                    }
+                    else {
+                        $ebook_status = USER_EBOOK_MIME_ERR;
                     }
                 }
 
@@ -114,5 +142,7 @@ else {
 return array(
     'books_list'     => $books_list,
     'status_code'    => $status_code,
-    'searched_books' => $searched_books
+    'searched_books' => $searched_books,
+    'cvr_img_status' => $cvr_img_status,
+    'ebook_status'   => $ebook_status
     );
