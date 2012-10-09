@@ -16,7 +16,7 @@ li.menu{display:inline;margin:2px;}
 #wrapper {
     width: 99%;
     border:none;
-    padding:1px; //bugfix
+    padding:1px;
 }
 
 #picture {
