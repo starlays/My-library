@@ -60,7 +60,7 @@ function insert_author($mysql_link, $author){
 }
 
 /**
- * Insert given user in to database
+ * Add an book to database
  * 
  * @param resource $mysql_link an resource object link to the database
  * @param array $book_infos containing informations about the book
@@ -115,7 +115,8 @@ function retrive_user_books($mysql_link, $uID, $order_by, $type) {
 
     $SQL = "SELECT 
     title AS book_title, name AS author_name, description AS book_description,
-    insert_date AS book_insert_date FROM `books`
+    insert_date AS book_insert_date, cvr_img_path, e_book_path
+    FROM `books`
     INNER JOIN authors ON books.id_author = authors.id 
     WHERE id_insert_user = ".$uID." 
     ORDER BY ".$order_by." ".$type.";";
