@@ -86,7 +86,7 @@ if(initialize_session()) {
                 if(isset($_POST['rm_users'])){
                     
                     $rm_users = datafilter($_POST['rm_users']);
-                    $rm_users = implode(',', $rm_users);
+                    $rm_users = implode("','", $rm_users);
 
                     $SQL = "DELETE FROM `users` WHERE `username` IN ('$rm_users');";
                     
