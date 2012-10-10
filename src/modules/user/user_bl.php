@@ -48,7 +48,8 @@ if (initialize_session()){
                                     && is_usr_logged($_SESSION['username'])) {
         $uID = $_SESSION['user_ID'];
         $books_list = retrive_user_books($mysql_link, $uID, 'title', 'ASC');
-
+        $admin_messages = retrive_admin_messages($mysql_link);
+        
         if(isset($_POST['usr_add_book'])) {
             $book_cvrimg = NULL;
             $book_ebook  = NULL;
@@ -144,5 +145,6 @@ return array(
     'status_code'    => $status_code,
     'searched_books' => $searched_books,
     'cvr_img_status' => $cvr_img_status,
-    'ebook_status'   => $ebook_status
+    'ebook_status'   => $ebook_status,
+    'admin_messages' => $admin_messages,
     );
