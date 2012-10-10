@@ -34,3 +34,25 @@ function insert_new_message($mysql_link,  $userinformations = array()) {
         return FALSE;
     }
 }
+
+/**
+ * Retrive all users from database
+ * retrive_users($mysql_link)
+ * 
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $order_by the criteria by witch the books are ordered
+ * @param string $type order asccendent or descendentent default ASC
+ * 
+ * @return array $users, the users retrived from database
+ */
+function retrive_users($mysql_link, $order_by, $type) {
+
+    $SQL = "SELECT `username` FROM `users` ORDER BY ".$order_by." ".$type.";";
+
+    if($result = mysqli_query($mysql_link, $SQL)) {
+        if($users = mysqli_fetch_all($result, MYSQLI_ASSOC)) {
+            mysqli_free_result($result);
+            return $users;
+        }
+    }
+}
