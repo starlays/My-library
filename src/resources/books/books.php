@@ -60,7 +60,7 @@ function insert_author($mysql_link, $author){
 }
 
 /**
- * Insert given user in to database
+ * Insert a book in to database
  * 
  * @param resource $mysql_link an resource object link to the database
  * @param array $book_infos containing informations about the book
