@@ -217,7 +217,7 @@ function files_scand_dir($path, $mime_type) {
             if ($entry != "." && $entry != "..") {
                 $file_mime = finfo_file($finfo, $path.$entry);
                  if(in_array($file_mime, $mime_type)) {
-                    $readed_files[] = $path.$entry;
+                    $readed_files[] = $entry;
                 }
             }
         }
