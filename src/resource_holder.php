@@ -20,4 +20,7 @@ return array (
     'admin'          => array (
         'resource_file' => 'admin.php'
     ),
+    'user'          => array (
+        'resource_file' => 'user.php'
+    ),
 );
