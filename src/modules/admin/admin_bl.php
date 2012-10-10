@@ -55,6 +55,9 @@ if(initialize_session()) {
                     $status_code = ERR_FIELDMISS;
                 }
             }
+            if(isset($_POST['send_admin_msg'])){
+                
+            }
         }
         else {
             $status_code = ERR_USRISNOADMIN;
