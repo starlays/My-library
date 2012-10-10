@@ -23,6 +23,24 @@
     </form>
 </div>
 <div>
+    <form action="" method="POST">
+    <fieldset>
+    <legend> Delete simple users: </legend>
+    <p>ATTENTION: Admin users will show here only if you change their rights!</p>
+    <?php
+        if(!is_null($users) && is_array($users)){
+            foreach($users as $user) {
+                if(isset($user['username'])) {
+                    echo '<input type="checkbox" name="rm_users[]" value="',$user['username'],'" />',$user['username'],'<br />';
+                }
+            }
+        }
+    ?>
+    </fieldset>
+    <input type="submit" name="delete_user" value="Delete Users" />
+    </form>
+</div>
+<div>
 <?php }
 
 if(!is_null($status_code)) {
@@ -47,6 +65,15 @@ if(!is_null($status_code)) {
             break;
         case ADMIN_MSGSUCCESS:
             echo 'The message was sent.';
+            break;
+        case ERR_NOUSERRETRIVED;
+            echo 'No user retrived';
+            break;
+        case USERS_DELSUCCESS;
+            echo 'Users were deleted';
+            break;
+        case ERR_DELUSERS;
+            echo 'User cannot be deleted or he has books related to his account';
             break;
         case ERR_NOMSGSENT:
             echo 'The message was not sent.';
