@@ -44,6 +44,12 @@ if(!is_null($status_code)) {
             break;
         case REGISTER_SUCCESS:
             echo 'Registration Successful';
+            break;
+        case ADMIN_MSGSUCCESS:
+            echo 'The message was sent.';
+            break;
+        case ERR_NOMSGSENT:
+            echo 'The message was not sent.';
     }
 }
 unset($status_code);
