@@ -17,6 +17,9 @@ const USER_SESSIONOTSTART = 455;
 const ERR_USRNOTLOGGED    = 456;
 const ERR_USRISNOADMIN    = 457;
 const ERR_NOMSGSENT       = 458;
+const ERR_NOUSERRETRIVED  = 458;
+const USERS_DELSUCCESS    = 459;
+const ERR_DELUSERS        = 460;
 /**
  * Status code container
  */
@@ -27,6 +30,15 @@ if(initialize_session()) {
                                     && is_usr_logged($_SESSION['username'])) {
         
         if(is_admin($mysql_link, $_SESSION['username'])){
+            
+            // retrive users from db
+            if($mysql_link) {
+                $users  = retrive_users($mysql_link, 'username', 'ASC');
+            }
+            else {
+                $status_code = ERR_NOUSERRETRIVED;
+            }
+            
             if(isset($_POST['add_user'])){
                 $reginfo = array(
                                 'fn'   => $_POST['fn'],
@@ -70,6 +82,26 @@ if(initialize_session()) {
                     }
                 }
             }
+            if(isset($_POST['delete_user'])){
+                if(isset($_POST['rm_users'])){
+                    
+                    $rm_users = datafilter($_POST['rm_users']);
+                    $rm_users = implode(',', $rm_users);
+
+                    $SQL = "DELETE FROM `users` WHERE `username` IN ('$rm_users');";
+                    
+                    if(mysqli_query($mysql_link, $SQL)){
+                        $status_code = USERS_DELSUCCESS;
+                        mysqli_close($mysql_link);
+                    }
+                    else{
+                        $status_code = ERR_DELUSERS;
+                        mysqli_close($mysql_link);
+                     }   
+                    
+                    
+                }
+            }
         }
         else {
             $status_code = ERR_USRISNOADMIN;
@@ -83,4 +115,7 @@ else {
     $status_code = USER_SESSIONOTSTART;
 }
 
-return array('status_code' => $status_code);
+return array(
+                'status_code' => $status_code,
+                'users' => $users,
+            );
