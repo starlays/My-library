@@ -116,7 +116,7 @@ if (initialize_session()){
         elseif(isset($_POST['delete_book'])) {
             if(isset($_POST['rm_books'])) {
                 $rm_books = datafilter($_POST['rm_books']);
-                $rm_books = implode(',', $rm_books);
+                $rm_books = implode("','", $rm_books);
 
                 $sql_dbooks = "DELETE FROM `books` WHERE `title` IN ('$rm_books');";
                 mysqli_query($mysql_link, $sql_dbooks);
