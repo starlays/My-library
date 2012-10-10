@@ -30,31 +30,31 @@ if(!is_null($status_code)){
 } 
 else {
     if(!is_null($books) && is_array($books)) {
-        foreach($books as $book) {
-        
+       foreach($books as $book) {
             $book_title = $book['book_title'];
-            echo '<div id="group_book">';
 
-            foreach($book as $book_metadata => $book_data){
-                
-                if(!is_null($books_covers)) {
-
-                    foreach($books_covers as $cvr_data) {
-                        if(isset($cvr_data[$book_metadata])
-                            && $cvr_data['book_title'] === $book_data) {
-                            
-                            foreach($cvr_data['book_img'] as $image) {
-                                echo '<img border="0" src="uploads/'.$book_title.'/cvr_img/'.$image.'" width="200" height="200">';
+            foreach($book as $book_meta => $book_data) {
+                if(is_array($book_data)) {
+                    foreach($book_data as $assets) {
+                        foreach($assets as $asset) {
+                            if('book_img' === $book_meta) {
+                                echo '<img border="0" src="uploads/',$book_title,'/cvr_img/',$asset,'" width="200" height="200"><br>';
                             }
-                            break;                        
-                            
+                            elseif('book_ebook' === $book_meta) {
+                                echo '<a href="uploads/',$book_title,'/ebook/',$asset,'">',$asset,'</a>';
                             }
+                        }
                     }
                 }
-                
-               echo   $book_metadata, ' : ',$book_data, ' ';
+                else {
+                    if('cvr_img_path' !== $book_meta && 'e_book_path' !== $book_meta) {
+                        echo $book_meta,' : ', $book_data, '<br>';
+                    }
+                }
             }
-            echo '</div>';
+
         }
     }
 }
+?>
+</div>
