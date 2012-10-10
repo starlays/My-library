@@ -1,7 +1,18 @@
 <?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && is_usr_logged($_SESSION['username'])) { ?>
 <div>
+<p>Messages from Admins</p>
+<?php
+    if(!is_null($admin_messages) && is_array($admin_messages)){
+        
+        foreach($admin_messages as $admin_message) {
+            echo '<p>',$admin_message['message'],', date added:',$admin_message['date'],', by ',$admin_message['admin_name'],'.';
+        }
+    }
+?>
+</div>
+<div>
       <form action="" method="post">
-      Which book do you want to delete?<br />
+      <p>Which book do you want to delete?</p>
 <?php
 if(!is_null($books_list) && is_array($books_list)){
     foreach($books_list as $book) {
