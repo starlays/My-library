@@ -30,17 +30,29 @@ if(!is_null($status_code)){
 } 
 else {
     if(!is_null($books) && is_array($books)) {
-        foreach($books as $informations) {
+        foreach($books as $book) {
+        
+            $book_title = $book['book_title'];
             echo '<div id="group_book">';
-            foreach($informations as $metadata => $data){
-                if(!is_null($books_covers) && isset($books_covers[$data])) {
-                    foreach($books_covers[$data] as $image) {
-                        echo '<img border="0" src="'.$image.'" width="100" height="100">';
+
+            foreach($book as $book_metadata => $book_data){
+                
+                if(!is_null($books_covers)) {
+
+                    foreach($books_covers as $cvr_data) {
+                        if(isset($cvr_data[$book_metadata])
+                            && $cvr_data['book_title'] === $book_data) {
+                            
+                            foreach($cvr_data['book_img'] as $image) {
+                                echo '<img border="0" src="uploads/'.$book_title.'/cvr_img/'.$image.'" width="200" height="200">';
+                            }
+                            break;                        
+                            
+                            }
                     }
                 }
-                else {
-                    echo   $metadata, ' : ',$data, ' ';
-                }
+                
+               echo   $book_metadata, ' : ',$book_data, ' ';
             }
             echo '</div>';
         }
