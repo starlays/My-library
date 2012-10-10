@@ -17,7 +17,7 @@
     <form action="" method="POST">
     <fieldset>
     <legend> Send important messages to all users: </legend>
-    <label for="msg">* Message:</label><input id="fn" name="msg" type="text" size="100"/><br />
+        <textarea placeholder="Type u`r txt here!" name="message" cols="35" rows="8"></textarea>
     </fieldset>
     <input type="submit" name="send_admin_msg" value="Send Message" />
     </form>
