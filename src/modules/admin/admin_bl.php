@@ -63,7 +63,7 @@ if(initialize_session()) {
                 $reginfo = datafilter($reginfo);
                 if(!isEmpty_array_vals($reginfo)) {
                     if(insert_new_message($mysql_link, $reginfo)){
-                        $status_code = ERR_USRNOTLOGGED;
+                        $status_code = ADMIN_MSGSUCCESS;
                     }
                     else {
                         $status_code = ERR_NOMSGSENT;
