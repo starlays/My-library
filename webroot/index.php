@@ -76,11 +76,12 @@ define('__MODULES__', __APPROOT__.'modules'.D_S);
  * resources path
  */
 define('__RESOURCES__', __APPROOT__.'resources'.D_S);
+
 /**
  * uploads location
  * Note: upload dir must be owned by your apache user
  */
-define('__UPLOADS__', dirname(__WEBROOT__).D_S.'uploads'.D_S);
+define('__UPLOADS__', __WEBROOT__.'uploads'.D_S);
 /**
  * base app functions file
  */

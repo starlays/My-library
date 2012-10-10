@@ -25,11 +25,20 @@ if(!is_null($books_list) && is_array($books_list)){
     </fieldset>
     <fieldset>
     <legend> Book atachements: </legend>
-    <label for="bkcvr">Cover image:</label><input id="bkcvr" name="book_cvrimg" type="file" />
-    <label for="bkebook">E-book:</label><input id=""bkebook" name="book_ebook" type="file" />
+    <label for="bkcvr">Cover image:</label><input id="bkcvr" name="book_cvrimg" type="file" accept="image/x-png, image/gif, image/jpeg"/>
+    <label for="bkebook">E-book:</label><input id="bkebook" name="book_ebook" type="file" accept="application/pdf"/>
     </fieldset>
     <input type="submit" name="usr_add_book" value="Add book" />
     </form>
+    <?php
+    if(!is_null($cvr_img_status) && USER_CVR_MIME_ERR === $cvr_img_status) { 
+        echo 'Cover image file not valid! ';
+        
+    }
+    if(!is_null($ebook_status) && USER_EBOOK_MIME_ERR === $ebook_status) { 
+       echo 'Ebook file not valid! ';
+        
+    } ?>
     </div>
     <div>
     <form action="" method="POST">
