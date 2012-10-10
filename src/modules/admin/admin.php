@@ -1,4 +1,4 @@
-<?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && $status_code !== 456) { ?>
+<?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && $status_code !== 457) { ?>
 <div>
     <form action="" method="POST">
     <fieldset>
