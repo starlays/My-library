@@ -6,15 +6,17 @@
  * Constant retun when user is logged in
  */
 const REGISTER_SUCCESS = 450;
+const ADMIN_MSGSUCCESS = 451;
 /**
  * Error constants 
  */
-const ERR_PASSNOMATCH     = 451;
-const ERR_USEREXISTS      = 452;
-const ERR_FIELDMISS       = 453;
-const USER_SESSIONOTSTART = 454;
-const ERR_USRNOTLOGGED    = 455;
-const ERR_USRISNOADMIN    = 456;
+const ERR_PASSNOMATCH     = 452;
+const ERR_USEREXISTS      = 453;
+const ERR_FIELDMISS       = 454;
+const USER_SESSIONOTSTART = 455;
+const ERR_USRNOTLOGGED    = 456;
+const ERR_USRISNOADMIN    = 457;
+const ERR_NOMSGSENT       = 458;
 /**
  * Status code container
  */
@@ -56,7 +58,17 @@ if(initialize_session()) {
                 }
             }
             if(isset($_POST['send_admin_msg'])){
-                
+                $reginfo = array(
+                        'message'   => $_POST['message'] );
+                $reginfo = datafilter($reginfo);
+                if(!isEmpty_array_vals($reginfo)) {
+                    if(insert_new_message($mysql_link, $reginfo)){
+                        $status_code = ERR_USRNOTLOGGED;
+                    }
+                    else {
+                        $status_code = ERR_NOMSGSENT;
+                    }
+                }
             }
         }
         else {
