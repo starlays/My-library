@@ -43,14 +43,21 @@ if (initialize_session()){
                 $default_asc   = $_POST['asc'];
             }
             $books = retrive_user_books($mysql_link, $uID, $default_order, $default_asc);
+            if(isset($books)) {
+                foreach($books as $book) {
+                     if(check_dir($book['cvr_img_path'])){
+                        $books_covers[] = array(
+                            'book_title' => $book['book_title'], 
+                            'book_img'   => files_scand_dir($book['cvr_img_path'], $image_mime)
+                                );
 
-            foreach($books as $book) {
-                 if(check_dir($book['cvr_img_path'])){
-                    $books_covers[$book['book_title']] = files_scand_dir($book['cvr_img_path'], $image_mime);
-
-                }
-                if(check_dir($book['e_book_path'])) {
-                    $ebook_doc[$book['book_title']] = files_scand_dir($book['e_book_path'], $ebook_mime);
+                    }
+                    if(check_dir($book['e_book_path'])) {
+                        $ebook_doc[] = array(
+                            'book_title' => $book['book_title'],
+                            'book_ebook' => files_scand_dir($book['e_book_path'], $ebook_mime)
+                            );
+                    }
                 }
             }
         }
