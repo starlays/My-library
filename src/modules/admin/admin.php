@@ -1,4 +1,4 @@
-<?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])) { ?>
+<?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && $status_code !== 456) { ?>
 <div>
     <form action="" method="POST">
     <fieldset>
@@ -12,6 +12,17 @@
     </fieldset>
     <input type="submit" name="add_user" value="Add User" />
     </form>
+</div>
+<div>
+    <form action="" method="POST">
+    <fieldset>
+    <legend> Send important messages to all users: </legend>
+    <label for="msg">* Message:</label><input id="fn" name="msg" type="text" size="100"/><br />
+    </fieldset>
+    <input type="submit" name="send_admin_msg" value="Send Message" />
+    </form>
+</div>
+<div>
 <?php }
 
 if(!is_null($status_code)) {
@@ -25,13 +36,17 @@ if(!is_null($status_code)) {
         case ERR_USEREXISTS:
             echo 'This user already exists';
             break;
-        case ADM_NOTLOGGED :
+        case ERR_USRISNOADMIN :
+            echo 'You are not allowed here!';
+            break;
+        case ERR_USRNOTLOGGED :
             echo 'You are not logged in!';
             break;
         case REGISTER_SUCCESS:
             echo 'Registration Successful';
     }
 }
+unset($status_code);
 ?>
 </div>
 

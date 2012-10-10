@@ -131,3 +131,26 @@ function destroy_session() {
         return FALSE;
     }
 }
+
+/**
+ * Verify is an user has admin rights;
+ *
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $username
+ *
+ * @return bool TRUE on success otherwise FALSE
+ */
+function is_admin($mysql_link, $username) {
+    
+    $SQL = "SELECT COUNT(*) AS admin FROM users WHERE username ='$username' AND rights='1111';";
+    
+    $qresult = mysqli_query($mysql_link, $SQL);
+    $qresult = mysqli_fetch_assoc($qresult);
+    
+    if(1 === (int)$qresult['admin']) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}

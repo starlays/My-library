@@ -4,7 +4,7 @@ v0.4.0 - v0.6.0
 User features
 --------
 
-1. Account activation (optional if more than one user and not running on localhost) (4h/day 2 days)
+1. Account activation (optional if only one user and running on localhost) (4h/day 2 days)
 2. E-mail title/author and personal rating to friend/friends (4h/day 2 days) 
 
 Books features
