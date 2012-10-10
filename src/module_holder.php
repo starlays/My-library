@@ -26,7 +26,7 @@ return array (
         'in_menu'       => 1,
         'content_VL'    => 'admin.php',
         'content_BL'    => 'admin_bl.php',
-        'resources'     => array('mysql', 'authentication')
+        'resources'     => array('mysql', 'authentication','admin')
     ),
      'register' => array (
         'title'         => 'Register',
