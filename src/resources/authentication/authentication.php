@@ -82,14 +82,14 @@ function mail_validation($mail) {
  *
  * @return bool TRUE on success FALSE on failure
  */
-function insert_new_usr($mysql_link, $userinformations = array()) {
+function insert_new_usr($mysql_link, $userinformations = array(), $hash = NULL) {
     
     $firstname = $userinformations['fn'];
     $lastname = $userinformations['ln'];
     $username = $userinformations['usr'];
     $email = $userinformations['mail'];
     $password = $userinformations['pwd'];
-    $hash = md5(mt_rand(0,1000));
+    
 
     $SQL = "INSERT INTO `users`
     (`username`, `first_name`, `last_name`, `mail`, `password`, `hash`)
@@ -103,7 +103,25 @@ function insert_new_usr($mysql_link, $userinformations = array()) {
     }
 
 }
+function send_validation_link($mail,$username,$hash){
+    $to = $email;
+    $subject = 'MyLibrary user validation';
+    $message = '
+        Thanks for signing up to MyLibrary!
+        Your account has been created, you can login with the following 
+        credentials after you have activated your account by pressing the url below.
+        
+	------------------------
+	Username: "$username"
+	Password: \'********\'
+	------------------------
 
+	Please click this link to activate your account:
+	http://www.mylibrary.ro/../verify.php?email='.$mail.'&hash='.$hash.'
+    ';
+    $headers = 'From:noreply@mylibrary.ro' . "\r\n";
+    mail($to, $subject, $message, $headers);
+}
 /**
  * Check to see if the user is logged in
  *
