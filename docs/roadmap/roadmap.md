@@ -1,26 +1,19 @@
-v0.4.0 - v0.6.0 
+v0.6.0 - v0.8.0 
 ===============
 
 User features
---------
+-------------
 
-1. Account activation (optional if only one user and running on localhost) (4h/day 2 days)
-2. E-mail title/author and personal rating to friend/friends (4h/day 2 days) 
-
-Books features
---------
-
-3. Have cover image (2h/day 1 days)
-4. Download book if e-book variant attached (4h/day 2 days) 
+1. store an e-book for a certain book (if it has the proper rights) (S: 2, X: 2, M: 2) (4h/day 2 days)
 
 Admin panel
---------
+-----------
 
-5. Delete an user (2h/day 1 days)
-6. Send system message to all users (optional if more then one account) (4h/day 2 days)
+2. ban an user (S: 2, X: 3, M: 2) (4h/day 2 days)
+3. view informations for an certain user (S: 3, X: 2, M: 2) (4h/day 2 days)
 
-Total mh:   18
+Total mh:   24
 
-Total days: 10+3(todo,issues) = 13
+Total days: 6+3(todo,issues) = 8
 
-Estimated V0.6.0 11/10/2012
+Estimated V0.8.0 19/10/2012
