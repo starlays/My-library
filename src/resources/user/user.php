@@ -6,7 +6,7 @@
  * 
  * @param resource $mysql_link an resource object link to the database
  * 
- * @return array $users, the users retrived from database
+ * @return array $admin_messages, the messages retrived from database
  */
 function retrive_admin_messages($mysql_link) {
 
