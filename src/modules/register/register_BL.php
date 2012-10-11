@@ -35,6 +35,7 @@ if(initialize_session()) {
         if(!isEmpty_array_vals($reginfo)) {
             if($_POST['pwd'] === $_POST['rpwd']) {
                 if(!user_exists($mysql_link, $reginfo['usr'])) {
+                    if(mail_validation($reginfo['mail'])){
                         if(!mail_exists($mysql_link, $reginfo['mail'])){
                             if(insert_new_usr($mysql_link, $reginfo)){
 
@@ -44,6 +45,9 @@ if(initialize_session()) {
                         else{
                             $status_code = ERR_MAILEXISTS;
                         }
+                    }
+                    else {
+                        $status_code = ERR_INVALIDMAIL;
                     }
                 }
                 else {
