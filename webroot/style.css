@@ -29,14 +29,14 @@ li.menu{display:inline;margin:2px;}
 }
 #header {
     float: left;
-    width:77%;
+    width:72%;
     height:81px;
     margin-top:5px;
     margin-bottom:5px;
     }
 #user-area {
     float: right;
-    width:15%;
+    width:20%;
     height:81px;
     margin-top:5px;
     margin-bottom:5px;
@@ -54,4 +54,6 @@ li.menu{display:inline;margin:2px;}
 fieldset{
 	margin:10px;
 }
-
+#greetings {
+    margin-left:15px;
+}
