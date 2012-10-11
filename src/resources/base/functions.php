@@ -243,3 +243,29 @@ function files_scand_dir($path, $mime_type) {
     
     return $readed_files;
 }
+
+/**
+ * Send a message to a given e-mail from a given e-mail with a given 
+ * e-mail body
+ * 
+ * @param string $from_user the email that sends the e-mail
+ * @param string $to_email the addres that the e-mail will go
+ * @param string $subject the email subject
+ * @param string $email_body the content of the e-mail
+ * 
+ * @return bool TRUE if the e-mail was delivered false otherwise. Warning: 
+ * returns TRUE if e-mail was delivereded!! there is no guaranty that the e-mail
+ * hase reached destination
+ */
+
+function email_infos($from_email, $to_email, $subject, $email_body) {
+     
+    $headers = 'From: ' .$from_email. "\r\n";
+    $headers.= 'Reply-To: ' .$to_email. "\r\n";
+    $headers.= 'X-Mailer: PHP/' . phpversion();
+    
+    if(mail($to_email,$subject,$email_body, $headers)) {
+        return TRUE;
+    }
+    return FALSE;
+}
