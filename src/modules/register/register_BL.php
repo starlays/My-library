@@ -18,6 +18,7 @@ const ERR_INVALIDMAIL     = 62;
 const USER_ACCACTIVATED   = 63;
 const ERR_ACTIVATION      = 64;
 const ERR_SENDVALIDATION  = 65;
+const ERR_MQSLACTIVATION  = 66;
 /**
  * Status code container
  */
@@ -83,8 +84,12 @@ if(initialize_session()) {
             $check_hash = mysqli_real_escape_string($mysql_link, $_GET['hash']);
             
             if(verify_data($mysql_link,$check_mail,$check_hash)){
-                
-                $status_code = USER_ACCACTIVATED;
+                if(activate_account($mysql_link,$check_mail,$check_hash)){
+                    $status_code = USER_ACCACTIVATED;
+                }
+                else{
+                    $status_code = ERR_MQSLACTIVATION;
+                }
             }
             else{
                 $status_code = ERR_ACTIVATION;
