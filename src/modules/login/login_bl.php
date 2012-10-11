@@ -10,6 +10,12 @@ const ERR_AUTH_MISSINFO  = 50;
 const ERR_AUTH_NOUSER    = 51;
 const ERR_AUTH_RETRVINFO = 52;
 const ERR_AUTH_STARTSESS = 53;
+const LOGIN_NO_ACTION    = 55;
+const ERR_USERNOTACTIVE  = 56;
+/**
+ * Status code container
+ */
+$status_code = NULL;
 
 initialize_session();
 if(isset($_POST['login'])){
@@ -19,9 +25,10 @@ if(isset($_POST['login'])){
         list($username, $pass) = datafilter($reginfo);
 
         if(user_exists($mysql_link, $username, $pass)){
-            $SQL = "SELECT id AS uid, username, first_name, last_name, mail AS e_mail
+            $SQL = "SELECT id AS uid, username, first_name, last_name, mail AS e_mail, active
                     FROM `users` WHERE username='$username' AND password='$pass';";
             if($userdata = retrive_assoc($mysql_link, $SQL)) {
+                if(0 !== (int)$userdata['active']){
                     $ses_key = generate_unique_str($username);
                     $_SESSION['ses_key']    = $ses_key;
                     $_SESSION['username']   = $username;
@@ -32,17 +39,26 @@ if(isset($_POST['login'])){
                     unset($userdata);
                     mysqli_close($mysql_link);
 
-                    return LOGIN_SUCCESS;
+                    $status_code = LOGIN_SUCCESS;
+                }
+                else{
+                    $status_code = ERR_USERNOTACTIVE;
+                }
             }
             else {
-                return ERR_AUTH_RETRVINFO;
+                $status_code = ERR_AUTH_RETRVINFO;
             }
         }
         else {
-            return ERR_AUTH_NOUSER;
+             $status_code = ERR_AUTH_NOUSER ;
         }
     }
     else {
-        return ERR_AUTH_MISSINFO;
+        $status_code = ERR_AUTH_MISSINFO;
     }
 }
+else{
+    $status_code = LOGIN_NO_ACTION;
+}
+
+return array('status_code' => $status_code);

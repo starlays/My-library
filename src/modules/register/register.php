@@ -13,20 +13,37 @@ if(!(isset($_SESSION['username']) && isset($_SESSION['ses_key']))){
     <input type='submit' name='register' value='Register' />
     </form>";
 }
-if(is_numeric($page_vl_vars)) {
-    switch($page_vl_vars) {
+
+if(!is_null($status_code)){
+    switch($status_code) {
         case ERR_FIELDMISS:
             echo 'Fields marked with * are necessary.';
             break;
         case ERR_PASSNOMATCH:
-            echo 'The passwords are not matching';
+            echo 'The passwords are not matching.';
             break;
         case ERR_USEREXISTS:
-            echo 'This user already exists';
+            echo 'This user already exists.';
+            break;
+        case ERR_MAILEXISTS:
+            echo 'This e-mail is already registered.';
+            break;
+        case ERR_INVALIDMAIL:
+            echo 'This e-mail is invalid.';
             break;
         case REGISTER_SUCCESS:
-            echo 'Registration Successful';
+            echo 'Registration Successful. A validation link was sent to you e-mail account, please validate your account in order to login.';
             break;
+        case USER_ACCACTIVATED:
+            echo 'Your account is activated you can now login!';
+            break;
+        case ERR_ACTIVATION:
+            echo 'Invalid approach, please use the link that has been send to your email';
+            break;
+        case ERR_MQSLACTIVATION:
+            echo 'The URL is either invalid or you already have activated your account.';
+            break;
+        case ERR_SENDVALIDATION:
+            echo 'The activation link wasn`t sent.';
     }
 }
-?>

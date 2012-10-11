@@ -16,7 +16,7 @@ li.menu{display:inline;margin:2px;}
 #wrapper {
     width: 99%;
     border:none;
-    padding:1px; //bugfix
+    padding:1px;
 }
 
 #picture {
@@ -29,14 +29,14 @@ li.menu{display:inline;margin:2px;}
 }
 #header {
     float: left;
-    width:77%;
+    width:72%;
     height:81px;
     margin-top:5px;
     margin-bottom:5px;
     }
 #user-area {
     float: right;
-    width:15%;
+    width:20%;
     height:81px;
     margin-top:5px;
     margin-bottom:5px;
@@ -46,14 +46,14 @@ li.menu{display:inline;margin:2px;}
     margin-top:90px;
 }
 #footer {
-    position: absolute;
     bottom:0;
     left:5px;
     right:5px;
     clear: both;
 }
 fieldset{
-	
 	margin:10px;
 }
-
+#greetings {
+    margin-left:15px;
+}

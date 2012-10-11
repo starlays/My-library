@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.5.0
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 28, 2012 at 05:02 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Oct 11, 2012 at 01:06 PM
+-- Server version: 5.5.22
+-- PHP Version: 5.3.10
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -25,6 +25,28 @@ USE `mylibrary`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin_msg`
+--
+
+CREATE TABLE IF NOT EXISTS `admin_msg` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `id_admin` mediumint(9) NOT NULL,
+  `message` text CHARACTER SET utf8 NOT NULL,
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_admin` (`id_admin`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `admin_msg`
+--
+
+INSERT INTO `admin_msg` (`id`, `id_admin`, `message`, `date`) VALUES
+(1, 13, 'Salutare...', '2012-10-11');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `authors`
 --
 
@@ -33,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `authors` (
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `authors`
@@ -54,7 +76,9 @@ INSERT INTO `authors` (`id`, `name`) VALUES
 (13, 'author'),
 (14, 'Gheorge'),
 (15, 'muc cel mic4'),
-(16, 'muc cel mic123');
+(16, 'muc cel mic123'),
+(17, 'george'),
+(18, 'tata');
 
 -- --------------------------------------------------------
 
@@ -77,16 +101,15 @@ CREATE TABLE IF NOT EXISTS `books` (
   KEY `id_rate` (`id_rate`,`id_insert_user`),
   KEY `id_author` (`id_author`),
   KEY `id_insert_user` (`id_insert_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `books`
 --
 
 INSERT INTO `books` (`id`, `title`, `id_author`, `description`, `insert_date`, `cvr_img_path`, `e_book_path`, `id_rate`, `id_insert_user`) VALUES
-(5, 'alab ca zapada', 6, 'blablabla', '2012-09-26', '', '', 1, 3),
-(11, 'muc cel mic123', 16, 'muc cel mic123', '2012-09-27', '', '', 1, 3),
-(12, 'muc cel mic123', 16, 'muc cel mic123', '2012-09-27', 'D:\\webdev\\apache\\htdocs\\uploads\\muc cel mic123\\cvr_img\\', 'D:\\webdev\\apache\\htdocs\\uploads\\muc cel mic123\\ebook\\', 1, 3);
+(13, 'alba ca zapada', 17, 'alala', '2012-10-09', 'E:\\webdev\\apache\\htdocs\\uploads\\alba ca zapada\\cvr_img\\', 'E:\\webdev\\apache\\htdocs\\uploads\\alba ca zapada\\ebook\\', 1, 13),
+(14, 'george', 18, 'sdasdasd', '2012-10-09', 'E:\\webdev\\apache\\htdocs\\uploads\\george\\cvr_img\\', 'E:\\webdev\\apache\\htdocs\\uploads\\george\\ebook\\', 1, 13);
 
 -- --------------------------------------------------------
 
@@ -166,27 +189,36 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` char(30) DEFAULT NULL,
   `ban_status` tinyint(1) NOT NULL DEFAULT '0',
   `rights` int(4) unsigned zerofill NOT NULL DEFAULT '0001',
+  `hash` varchar(32) NOT NULL,
+  `active` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `mail`, `password`, `ban_status`, `rights`) VALUES
-(1, 'foo', NULL, NULL, NULL, 'foobar', 0, 0001),
-(2, 'bar', NULL, NULL, NULL, 'barfoo', 0, 0001),
-(3, 'baz', NULL, NULL, NULL, 'baz', 0, 0001),
-(4, 'test', 'test', 'test', 'test', 'test', 0, 0001),
-(5, 'test', 'test', 'test', 'test', 'test', 0, 0001),
-(8, 'newuser', 'newuser', 'newuser', 'newuser', 'newuser', 0, 0001),
-(12, 'usr', 'fn', 'ln', 'mail', 'psw', 0, 0001),
-(13, 'root', 'root', 'root', 'root', 'recovery', 0, 1111);
+INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `mail`, `password`, `ban_status`, `rights`, `hash`, `active`) VALUES
+(1, 'foo', NULL, NULL, NULL, 'foobar', 0, 0001, '', 0),
+(2, 'bar', NULL, NULL, NULL, 'barfoo', 0, 0001, '', 0),
+(3, 'baz', 'Dicu', 'George', NULL, 'baz', 0, 0001, '', 0),
+(4, 'test', 'test', 'test', 'test', 'test', 0, 0001, '', 0),
+(8, 'newuser', 'newuser', 'newuser', 'newuser', 'newuser', 0, 0001, '', 0),
+(12, 'usr', 'fn', 'ln', 'mail', 'psw', 0, 0001, '', 0),
+(13, 'root', 'root', 'root', 'root', 'root', 0, 1111, '', 1),
+(14, 'mama', 'mama', 'mama', 'dicugeorge1987@yahoo.com', '123', 0, 0001, '', 0),
+(15, 'xao', 'Dicu', 'George', 'xao_geo007@yahoo.com', 'test', 0, 0001, '0ff39bbbf981ac0151d340c9aa40e63e', 0);
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `admin_msg`
+--
+ALTER TABLE `admin_msg`
+  ADD CONSTRAINT `admin_msg_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `books`

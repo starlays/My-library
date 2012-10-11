@@ -36,6 +36,94 @@ function user_exists($mysql_link, $username=NULL, $password=NULL) {
 }
 
 /**
+ * Verify to se if the given data exists in dadabase
+ * bool verify_data($mysql_link, $mail, $hash)
+ *
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $mail, the mail that must be check if exists
+ * @param string $hash, the unique account identifier
+ *
+ * @return bool TRUE if data verifies otherwise FALSE
+ */
+function verify_data($mysql_link, $mail, $hash) {
+
+    $SQL = "SELECT `mail`, `hash`, `active` FROM `users` 
+            WHERE `mail`='$mail' AND `hash`='$hash' AND `active`='0';";
+    
+    $qresult = mysqli_query($mysql_link, $SQL);
+    if($result  = mysqli_num_rows($qresult)) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
+ * Check to se if the given mail is already in DB
+ * bool mail_exists($mysql_link, $username, $mail)
+ *
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $mail, the mail that need to be check if exists
+ *
+ * @return bool TRUE if mail exists, otherwise FALSE
+ */
+function mail_exists($mysql_link, $mail=NULL) {
+
+    $SQL = "SELECT `mail` FROM `users` WHERE `mail`='$mail'";
+
+    $qresult = mysqli_query($mysql_link, $SQL);
+    if($result  = mysqli_num_rows($qresult)) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
+ * Activate an account
+ * bool activate_account($mysql_link, $mail, $hash)
+ *
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $mail, the mail that must be check if exists
+ * @param string $hash, the unique account identifier
+ *
+ * @return bool TRUE if activated otherwise FALSE
+ */
+function activate_account($mysql_link, $mail, $hash) {
+
+    $SQL = "UPDATE users SET active='1' 
+            WHERE mail='$mail' AND hash='$hash' AND active='0'";
+    
+    $qresult = mysqli_query($mysql_link, $SQL);
+
+    if($qresult) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
+ * Check to se if the given mail is a valid mail
+ * bool mail_validation($mail)
+ *
+ * @param string $mail, the mail string that need to be check
+ *
+ * @return bool TRUE if mail is valid, otherwise FALSE
+ */
+function mail_validation($mail) {
+    if(preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5})$^", $mail)){
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
  * Insert new registered user in to database
  *
  * @param resource $mysql_link an resource object link to the database
@@ -43,18 +131,19 @@ function user_exists($mysql_link, $username=NULL, $password=NULL) {
  *
  * @return bool TRUE on success FALSE on failure
  */
-function insert_new_usr($mysql_link, $userinformations = array()) {
+function insert_new_usr($mysql_link, $userinformations = array(), $hash = NULL) {
     
     $firstname = $userinformations['fn'];
     $lastname = $userinformations['ln'];
     $username = $userinformations['usr'];
     $email = $userinformations['mail'];
     $password = $userinformations['pwd'];
+    
 
     $SQL = "INSERT INTO `users`
-    (`username`, `first_name`, `last_name`, `mail`, `password`)
+    (`username`, `first_name`, `last_name`, `mail`, `password`, `hash`)
     VALUES
-    ('$username','$firstname','$lastname','$email','$password');";
+    ('$username','$firstname','$lastname','$email','$password','$hash');";
     if(mysqli_query($mysql_link, $SQL)){
         return TRUE;
     }
@@ -64,6 +153,26 @@ function insert_new_usr($mysql_link, $userinformations = array()) {
 
 }
 
+/**
+ * Insert new registered user in to database
+ * bool send_mail($mail,$username,$hash = NULL,$maildata = array())
+ * 
+ * @param string $mail, the email where you sent the message
+ * @param string $username, used to inform the user of his username
+ * @param string $hash, unique string to identify the users
+ * @param array $maildata, the subject, message, headers and others
+ *
+ * @return bool TRUE on success FALSE on failure
+ */
+function send_mail($username,$hash = NULL,$maildata = array()){
+    if(mail($maildata['mail'], $maildata['subject'], 
+         $maildata['message'], $maildata['headers'])){
+        return TRUE;
+    }
+    else{
+        return FALSE;
+    }
+}
 /**
  * Check to see if the user is logged in
  *
@@ -131,3 +240,27 @@ function destroy_session() {
         return FALSE;
     }
 }
+
+/**
+ * Verify is an user has admin rights;
+ *
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $username
+ *
+ * @return bool TRUE on success otherwise FALSE
+ */
+function is_admin($mysql_link, $username) {
+    
+    $SQL = "SELECT COUNT(*) AS admin FROM users WHERE username ='$username' AND rights='1111';";
+    
+    $qresult = mysqli_query($mysql_link, $SQL);
+    $qresult = mysqli_fetch_assoc($qresult);
+    
+    if(1 === (int)$qresult['admin']) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+

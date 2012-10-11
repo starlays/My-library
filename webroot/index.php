@@ -40,10 +40,29 @@
  * @defgroup GLOBALCONSTANTS this are the application global constants
  * @{
  */
+/**
+ * base error constants
+ */
+const ERR_BASEFN      = 10;
+const ERR_LDMODBL     = 12;
+const ERR_LDMODDEPRES = 14;
+/**
+ * constant returned if the module has no BL file
+ */
+const MODLDBL_NO_BL   = 15;
+/**
+ * constant returned if the upload direcotry is missing
+ */
+const ERR_UPLDDIR     = 16;
+/**
+ * Directory separator constant
+ */
 const D_S = DIRECTORY_SEPARATOR;
 
+/**
+ * Define webroot
+ */
 define('__WEBROOT__', __DIR__.D_S);
-
 /**
  * define app root
  */
@@ -57,11 +76,12 @@ define('__MODULES__', __APPROOT__.'modules'.D_S);
  * resources path
  */
 define('__RESOURCES__', __APPROOT__.'resources'.D_S);
+
 /**
  * uploads location
  * Note: upload dir must be owned by your apache user
  */
-define('__UPLOADS__', dirname(__WEBROOT__).D_S.'uploads'.D_S);
+define('__UPLOADS__', __WEBROOT__.'uploads'.D_S);
 /**
  * base app functions file
  */
@@ -80,20 +100,9 @@ $resources_fl = __APPROOT__.'resource_holder.php';
  */
 $tpl_flname = __APPROOT__.'layout.php';
 /**
- * base error constants
+ * Conainer for view logic vars
  */
-const ERR_BASEFN      = 10;
-const ERR_LDMODDEP    = 11;
-const ERR_LDMODBL     = 12;
-const ERR_LDMODDEPRES = 14;
-/**
- * constant returned if the module has no BL file
- */
-const MODLDBL_NO_BL   = 15;
-/**
- * constant returned if the upload direcotry is missing
- */
-const ERR_UPLDDIR     = 16;
+$view_vars = array();
 /**
  * @}
  */
@@ -110,7 +119,7 @@ else {
     exit();
 }
 /**
- * Check if UPLOADS dir is exists and it is writable
+ * Check if UPLOADS dir exists and it is writable
  */
 if(!check_dir(__UPLOADS__)) {
     echo sprintf('Error: %d', ERR_UPLDDIR);
@@ -133,27 +142,12 @@ else {
     exit();
 }
 
-// module dependency loader
-$load_deps = require_once __APPROOT__.'dependency_loader.php';
-$loaded_deps =array();
-
-if(isset($load_deps)){
-    foreach($load_deps as $load_dep) {
-        $loaded_deps[] = require_once $load_dep;
-    }
-}
-else {
-    echo sprintf('Error: %d', ERR_LDMODDEP);
-    exit();
-}
-
 //load module BL file
 $moduleBL = require_once __APPROOT__.'moduleBL_loader.php';
-$page_vl_vars = NULL;
 
 if($moduleBL !== MODLDBL_NO_BL) {
     if($moduleBL !== NULL) {
-        $page_vl_vars = require_once $moduleBL;
+        $view_vars = require_once $moduleBL;
     }
     else {
         echo sprintf('Error: %d', ERR_LDMODBL);
@@ -161,9 +155,18 @@ if($moduleBL !== MODLDBL_NO_BL) {
     }
 }
 
-$tpl_vars = compact('modules', 'page', 'page_vl_vars', 'loaded_deps');
+$view_vars['active_page_title']  = $modules[$page]['title'];
+$view_vars['active_page']        = $page;
 
-$render = render($tpl_flname, $tpl_vars);
+foreach($modules as $metadata => $data) {
+    if(isset($modules[$metadata]['in_menu']) && !empty($modules[$metadata]['in_menu'])){
+        $view_vars['menu_items'][$metadata]['name']        = $modules[$metadata]['title'];
+        $view_vars['menu_items'][$metadata]['menu_number'] = $modules[$metadata]['in_menu'];
+        $view_vars['menu_items'][$metadata]['content_VL']  = $modules[$metadata]['content_VL'];
+    }
+}
+
+$render = render($tpl_flname, $view_vars);
 
 switch($render) {
     case RENDER_ERFLIS:

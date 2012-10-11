@@ -55,19 +55,34 @@ function build_menu($active_menu, $menu_values=array(), $menu_number) {
     $menu = '<ul id="menu">' .PHP_EOL;
 
     foreach($menu_values as $metadata=>$values) {
-        if($menu_values[$metadata]['in_menu'] === $menu_number) {
+        if($menu_values[$metadata]['menu_number'] === $menu_number) {
             if($active_menu == $metadata) {
-                    $menu .= '<li class="title">'.$menu_values[$metadata]['title'].'</li>'.PHP_EOL;
+                    $menu .= '<li class="title">'.$menu_values[$metadata]['name'].'</li>'.PHP_EOL;
                 }
                 else{
                     $menu .= '<li class="menu"><a href="?page='.$metadata.'">'
-                        .$menu_values[$metadata]['title'].'</a></li>'.PHP_EOL;
+                        .$menu_values[$metadata]['name'].'</a></li>'.PHP_EOL;
                 }
         }
     }
     $menu .= '</ul>' .PHP_EOL;
 
     return $menu;
+}
+
+/**
+ * Builds greetings using session
+ *
+ * @return string , gteetings 
+ */
+function build_greetings($id_name) {
+    if(isset($_SESSION['username'])){
+        $greetings =  '<p id='.$id_name.'>Hello '.$_SESSION['last_name'].' '.$_SESSION['first_name'].'!</p>';
+    }
+    else {
+        $greetings = '<p id='.$id_name.'>Not Logged in!</p>';
+    }
+    return $greetings;
 }
 
 /**
@@ -195,4 +210,62 @@ function retrive_assoc($mysql_link, $sql = NULL) {
      else{
          return FALSE;
      }
+}
+
+/**
+ * Scan a given dir for given mime type
+ * 
+ * @param string $path the path which contains the files
+ * @param array $mime_type an list containing mime type for the 
+ *  
+ * @return array $readed_files an array containing all the files that exists in path
+ */
+function files_scand_dir($path, $mime_type) {
+    $readed_files = NULL;
+    
+    if (!$finfo = finfo_open(FILEINFO_MIME_TYPE)) { /* get the predefinded mime type from extension */
+            return FALSE; /* can't load the extension database */
+    }
+    
+    if ($handle = opendir($path)) {
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                $file_mime = finfo_file($finfo, $path.$entry);
+                 if(in_array($file_mime, $mime_type)) {
+                    $readed_files[] = $entry;
+                }
+            }
+        }
+        closedir($handle);
+    }
+    /* close connection */
+    finfo_close($finfo);
+    
+    return $readed_files;
+}
+
+/**
+ * Send a message to a given e-mail from a given e-mail with a given 
+ * e-mail body
+ * 
+ * @param string $from_user the email that sends the e-mail
+ * @param string $to_email the addres that the e-mail will go
+ * @param string $subject the email subject
+ * @param string $email_body the content of the e-mail
+ * 
+ * @return bool TRUE if the e-mail was delivered false otherwise. Warning: 
+ * returns TRUE if e-mail was delivereded!! there is no guaranty that the e-mail
+ * hase reached destination
+ */
+
+function email_infos($from_email, $to_email, $subject, $email_body) {
+     
+    $headers = 'From: ' .$from_email. "\r\n";
+    $headers.= 'Reply-To: ' .$to_email. "\r\n";
+    $headers.= 'X-Mailer: PHP/' . phpversion();
+    
+    if(mail($to_email,$subject,$email_body, $headers)) {
+        return TRUE;
+    }
+    return FALSE;
 }

@@ -16,5 +16,11 @@ return array (
     ),
     'books'          => array (
         'resource_file' => 'books.php'
-    )
+    ),
+    'admin'          => array (
+        'resource_file' => 'admin.php'
+    ),
+    'user'          => array (
+        'resource_file' => 'user.php'
+    ),
 );
