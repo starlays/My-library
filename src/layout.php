@@ -15,7 +15,10 @@
         <?php echo build_menu($active_page, $menu_items, 1); ?>
     </div>
     <div id="user-area">
-        <?php echo build_menu($active_page, $menu_items, 2); ?>
+        <?php 
+            echo build_menu($active_page, $menu_items, 2); 
+            echo build_greetings('greetings');
+        ?>
     </div>
 <div id="books-wrapper">
 <?php
