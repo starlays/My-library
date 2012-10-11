@@ -36,6 +36,30 @@ function user_exists($mysql_link, $username=NULL, $password=NULL) {
 }
 
 /**
+ * Verify to se if the given data exists in dadabase
+ * bool verify_data($mysql_link, $mail, $hash)
+ *
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $mail, the mail that must be check if exists
+ * @param string $hash, the unique account identifier
+ *
+ * @return bool TRUE if data verifies otherwise FALSE
+ */
+function verify_data($mysql_link, $mail, $hash) {
+
+    $SQL = "SELECT `mail`, `hash`, `active` FROM `users` 
+            WHERE `mail`='$mail' AND `hash`='$hash' AND `active`='0';";
+    var_dump($SQL);
+    $qresult = mysqli_query($mysql_link, $SQL);
+    if($result  = mysqli_num_rows($qresult)) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
  * Check to se if the given mail is already in DB
  * bool mail_exists($mysql_link, $username, $mail)
  *
@@ -214,3 +238,4 @@ function is_admin($mysql_link, $username) {
         return FALSE;
     }
 }
+
