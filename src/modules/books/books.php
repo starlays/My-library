@@ -55,6 +55,9 @@ else {
 
         }
     }
+    else {
+        echo '<p>You have no books associated with your account</p>';
+    }
 }
 ?>
 </div>
