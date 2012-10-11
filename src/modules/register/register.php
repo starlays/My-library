@@ -20,16 +20,19 @@ if(!is_null($status_code)){
             echo 'Fields marked with * are necessary.';
             break;
         case ERR_PASSNOMATCH:
-            echo 'The passwords are not matching';
+            echo 'The passwords are not matching.';
             break;
         case ERR_USEREXISTS:
-            echo 'This user already exists';
+            echo 'This user already exists.';
             break;
         case ERR_MAILEXISTS:
-            echo 'This e-mail is already registered';
+            echo 'This e-mail is already registered.';
+            break;
+        case ERR_INVALIDMAIL:
+            echo 'This e-mail is invalid.';
             break;
         case REGISTER_SUCCESS:
-            echo 'Registration Successful';
+            echo 'Registration Successful.';
             break;
     }
 }
