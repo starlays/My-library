@@ -26,13 +26,26 @@ if(!is_null($status_code)){
     switch($status_code){
         case BOOKS_NOT_LOGGED:
             echo 'You are not logged in!';
+            break;
+        case BOOKS_ERR_EMAIL_TP:
+            echo 'Email template missing!';
+            break;
+         case BOOKS_ERR_EMAIL_BK:
+            echo 'Email template is empty!';
+            break;
+         case BOOKS_ERR_EMAILSEND:
+            echo 'Error sending e-mail!';
+            break;
     }
 } 
 else {
-    if(!is_null($books) && is_array($books)) {
-       foreach($books as $book) {
+    if(!is_null($books) && is_array($books)) {?>
+        <form action="" method="post">
+   <?php foreach($books as $book) {
             $book_title = $book['book_title'];
-
+            
+            echo '<input type="checkbox" name="email_books_collection[]" value="',$book['book_title'],'" />';
+            
             foreach($book as $book_meta => $book_data) {
                 if(is_array($book_data)) {
                     foreach($book_data as $assets) {
@@ -52,9 +65,10 @@ else {
                     }
                 }
             }
-
-        }
-    }
+        }?>
+       <input type="submit" name="email_books" value="E-mail books to a friend!" />
+       </form> 
+<?php }
     else {
         echo '<p>You have no books associated with your account</p>';
     }
