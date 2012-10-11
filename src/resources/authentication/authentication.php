@@ -36,6 +36,31 @@ function user_exists($mysql_link, $username=NULL, $password=NULL) {
 }
 
 /**
+ * Check to se if the given mail is already in DB
+ * bool mail_exists($mysql_link, $username, $mail)
+ *
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $mail, the mail that need to be check if exists
+ *
+ * @return bool TRUE if mail exists, otherwise FALSE
+ */
+function mail_exists($mysql_link, $mail=NULL) {
+
+    $SQL = "SELECT `mail` FROM `users` WHERE `mail`='$mail'";
+
+    $qresult = mysqli_query($mysql_link, $SQL);
+    if($result  = mysqli_num_rows($qresult)) {
+        var_dump($result);
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+
+
+/**
  * Insert new registered user in to database
  *
  * @param resource $mysql_link an resource object link to the database
