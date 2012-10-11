@@ -5,7 +5,10 @@
 /**
  * Constants
  */
-const BOOKS_NOT_LOGGED = 340;
+const BOOKS_NOT_LOGGED    = 340;
+const BOOKS_ERR_EMAIL_BK  = 341;
+const BOOKS_ERR_EMAIL_TP  = 342;
+const BOOKS_ERR_EMAILSEND = 343;
 /**
  * User book list conainer
  */
@@ -46,13 +49,44 @@ if (initialize_session()){
                         $books[$key]['book_img'] = array(
                                files_scand_dir($book['cvr_img_path'], $image_mime)
                                 );
-
                     }
                     if(check_dir($book['e_book_path'])) {
                         $books[$key]['book_ebook'] = array(
                             files_scand_dir($book['e_book_path'], $ebook_mime)
                             );
                     }
+                }
+            }
+        }
+        if(isset($_POST['email_books'])) {
+            if(isset($_POST['email_books_collection']) 
+                    && !empty($_POST['email_books_collection'])) {
+                
+                $from_email     = 'noreply@my-library.com';
+                $subject        = $_SESSION['username'].' favorite books';
+                $email_bookslst = $_POST['email_books_collection'];
+                $email_tpl_path = __MODULES__.'books'.D_S;
+                $email_body     = NULL;
+                $var_holders    = array('%user_name%', '%email_addres%', '%books_list%');
+                //TODO: get user reg e-mail
+                $var_replacers  = array($_SESSION['username'], 'foo@bar.com' ,$email_bookslst);
+                
+                if(check_file('email_bk_title.php',$email_tpl_path)) {
+                    $email_body = require_once $email_tpl_path.'email_bk_title.php';
+                }
+                else {
+                    $status_code = BOOKS_ERR_EMAIL_TP;
+                }
+                
+                if(!is_string($email_body)) {
+                    $status_code = BOOKS_ERR_EMAIL_BK;
+                }
+                else {
+                    $email_body = str_replace($var_holders, $var_replacers, $email_body);
+                }
+                //TODO: get the e-mail from a form in books, /!\ask if it is ok!
+                if(!email_infos($from_email, 'foo@bar.com', $subject, $email_body)) {
+                    $status_code = BOOKS_ERR_EMAILSEND;
                 }
             }
         }
