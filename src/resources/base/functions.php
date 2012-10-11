@@ -77,7 +77,7 @@ function build_menu($active_menu, $menu_values=array(), $menu_number) {
  */
 function build_greetings($id_name) {
     if(isset($_SESSION['username'])){
-        $greetings =  '<p id='.$id_name.'>Hello '.$_SESSION['username'].'!</p>';
+        $greetings =  '<p id='.$id_name.'>Hello '.$_SESSION['last_name'].' '.$_SESSION['first_name'].'!</p>';
     }
     else {
         $greetings = '<p id='.$id_name.'>Not Logged in!</p>';
