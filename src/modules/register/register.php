@@ -25,6 +25,9 @@ if(!is_null($status_code)){
         case ERR_USEREXISTS:
             echo 'This user already exists';
             break;
+        case ERR_MAILEXISTS:
+            echo 'This e-mail is already registered';
+            break;
         case REGISTER_SUCCESS:
             echo 'Registration Successful';
             break;
