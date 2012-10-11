@@ -35,7 +35,7 @@ if(!is_null($status_code)){
             echo 'Registration Successful. A validation link was sent to you e-mail account, please validate your account in order to login.';
             break;
         case USER_ACCACTIVATED:
-            echo 'Your account is activated you cand now login';
+            echo 'Your account is activated you can now login!';
             break;
         case ERR_ACTIVATION:
             echo 'Your account cannot be activated or it is already activated';
