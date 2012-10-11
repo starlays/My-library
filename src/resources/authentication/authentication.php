@@ -58,7 +58,22 @@ function mail_exists($mysql_link, $mail=NULL) {
     }
 }
 
-
+/**
+ * Check to se if the given mail is a valid mail
+ * bool mail_validation($mail)
+ *
+ * @param string $mail, the mail string that need to be check
+ *
+ * @return bool TRUE if mail is valid, otherwise FALSE
+ */
+function mail_validation($mail) {
+    if(preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5})$^", $mail)){
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
 
 /**
  * Insert new registered user in to database
