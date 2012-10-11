@@ -50,7 +50,6 @@ function mail_exists($mysql_link, $mail=NULL) {
 
     $qresult = mysqli_query($mysql_link, $SQL);
     if($result  = mysqli_num_rows($qresult)) {
-        var_dump($result);
         return TRUE;
     }
     else {
@@ -90,11 +89,12 @@ function insert_new_usr($mysql_link, $userinformations = array()) {
     $username = $userinformations['usr'];
     $email = $userinformations['mail'];
     $password = $userinformations['pwd'];
+    $hash = md5(mt_rand(0,1000));
 
     $SQL = "INSERT INTO `users`
-    (`username`, `first_name`, `last_name`, `mail`, `password`)
+    (`username`, `first_name`, `last_name`, `mail`, `password`, `hash`)
     VALUES
-    ('$username','$firstname','$lastname','$email','$password');";
+    ('$username','$firstname','$lastname','$email','$password','$hash');";
     if(mysqli_query($mysql_link, $SQL)){
         return TRUE;
     }
