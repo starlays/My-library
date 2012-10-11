@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.5.0
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 09, 2012 at 10:45 PM
--- Server version: 5.5.25a
--- PHP Version: 5.4.4
+-- Generation Time: Oct 11, 2012 at 01:06 PM
+-- Server version: 5.5.22
+-- PHP Version: 5.3.10
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -30,10 +30,19 @@ USE `mylibrary`;
 
 CREATE TABLE IF NOT EXISTS `admin_msg` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `id_admin` mediumint(9) NOT NULL,
   `message` text CHARACTER SET utf8 NOT NULL,
   `date` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`),
+  KEY `id_admin` (`id_admin`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `admin_msg`
+--
+
+INSERT INTO `admin_msg` (`id`, `id_admin`, `message`, `date`) VALUES
+(1, 13, 'Salutare...', '2012-10-11');
 
 -- --------------------------------------------------------
 
@@ -180,35 +189,43 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` char(30) DEFAULT NULL,
   `ban_status` tinyint(1) NOT NULL DEFAULT '0',
   `rights` int(4) unsigned zerofill NOT NULL DEFAULT '0001',
+  `hash` varchar(32) NOT NULL,
+  `active` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `mail`, `password`, `ban_status`, `rights`) VALUES
-(1, 'foo', NULL, NULL, NULL, 'foobar', 0, 0001),
-(2, 'bar', NULL, NULL, NULL, 'barfoo', 0, 0001),
-(3, 'baz', NULL, NULL, NULL, 'baz', 0, 0001),
-(4, 'test', 'test', 'test', 'test', 'test', 0, 0001),
-(5, 'test', 'test', 'test', 'test', 'test', 0, 0001),
-(8, 'newuser', 'newuser', 'newuser', 'newuser', 'newuser', 0, 0001),
-(12, 'usr', 'fn', 'ln', 'mail', 'psw', 0, 0001),
-(13, 'root', 'root', 'root', 'root', 'recovery', 0, 1111),
-(14, 'mama', 'mama', 'mama', 'dicugeorge1987@yahoo.com', '123', 0, 0001);
+INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `mail`, `password`, `ban_status`, `rights`, `hash`, `active`) VALUES
+(1, 'foo', NULL, NULL, NULL, 'foobar', 0, 0001, '', 0),
+(2, 'bar', NULL, NULL, NULL, 'barfoo', 0, 0001, '', 0),
+(3, 'baz', 'Dicu', 'George', NULL, 'baz', 0, 0001, '', 0),
+(4, 'test', 'test', 'test', 'test', 'test', 0, 0001, '', 0),
+(8, 'newuser', 'newuser', 'newuser', 'newuser', 'newuser', 0, 0001, '', 0),
+(12, 'usr', 'fn', 'ln', 'mail', 'psw', 0, 0001, '', 0),
+(13, 'root', 'root', 'root', 'root', 'root', 0, 1111, '', 1),
+(14, 'mama', 'mama', 'mama', 'dicugeorge1987@yahoo.com', '123', 0, 0001, '', 0),
+(15, 'xao', 'Dicu', 'George', 'xao_geo007@yahoo.com', 'test', 0, 0001, '0ff39bbbf981ac0151d340c9aa40e63e', 0);
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `admin_msg`
+--
+ALTER TABLE `admin_msg`
+  ADD CONSTRAINT `admin_msg_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `books`
 --
 ALTER TABLE `books`
   ADD CONSTRAINT `books_ibfk_2` FOREIGN KEY (`id_rate`) REFERENCES `rating_value` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `books_ibfk_3` FOREIGN KEY (`id_insert_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `books_ibfk_3` FOREIGN KEY (`id_insert_user`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `books_ibfk_4` FOREIGN KEY (`id_author`) REFERENCES `authors` (`id`) ON UPDATE CASCADE;
 
 --
