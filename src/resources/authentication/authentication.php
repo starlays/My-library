@@ -82,6 +82,31 @@ function mail_exists($mysql_link, $mail=NULL) {
 }
 
 /**
+ * Activate an account
+ * bool activate_account($mysql_link, $mail, $hash)
+ *
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $mail, the mail that must be check if exists
+ * @param string $hash, the unique account identifier
+ *
+ * @return bool TRUE if activated otherwise FALSE
+ */
+function activate_account($mysql_link, $mail, $hash) {
+
+    $SQL = "UPDATE users SET active='1' 
+            WHERE mail='$mail' AND hash='$hash' AND active='0'";
+    
+    $qresult = mysqli_query($mysql_link, $SQL);
+
+    if($qresult) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
  * Check to se if the given mail is a valid mail
  * bool mail_validation($mail)
  *
