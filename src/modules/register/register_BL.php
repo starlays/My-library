@@ -15,6 +15,10 @@ const ERR_FIELDMISS       = 59;
 const USER_SESSIONOTSTART = 60;
 const ERR_MAILEXISTS      = 61;
 const ERR_INVALIDMAIL     = 62;
+const USER_ACCACTIVATED   = 63;
+const ERR_ACTIVATION      = 64;
+const ERR_SENDVALIDATION  = 65;
+const ERR_MQSLACTIVATION  = 66;
 /**
  * Status code container
  */
@@ -39,8 +43,18 @@ if(initialize_session()) {
                         if(!mail_exists($mysql_link, $reginfo['mail'])){
                             $hash = md5(mt_rand(0,1000));
                             if(insert_new_usr($mysql_link, $reginfo,$hash)){
-                                send_validation_link($reginfo['mail'],$reginfo['usr'],$hash);
-                                $status_code = REGISTER_SUCCESS;
+                                
+                                $maildata['mail'] = $reginfo['mail'];
+                                $maildata['subject'] = 'MyLibrary account validation';
+                                $maildata['message'] = '';
+                                $maildata['headers'] = 'From:noreply@mylibrary.ro' . "\r\n";
+                                
+                                if(send_mail($reginfo['usr'],$hash,$maildata)){
+                                    $status_code = REGISTER_SUCCESS;
+                                }
+                                else{
+                                    $status_code = ERR_SENDVALIDATION;
+                                }
                             }
                         }
                         else{
@@ -62,6 +76,24 @@ if(initialize_session()) {
         else {
             $status_code = ERR_FIELDMISS;
         }
+    }
+    if(isset($_GET['mail']) && !empty($_GET['mail']) AND
+        isset($_GET['hash']) && !empty($_GET['hash'])){
+        
+            $check_mail = mysqli_real_escape_string($mysql_link, $_GET['mail']);
+            $check_hash = mysqli_real_escape_string($mysql_link, $_GET['hash']);
+            
+            if(verify_data($mysql_link,$check_mail,$check_hash)){
+                if(activate_account($mysql_link,$check_mail,$check_hash)){
+                    $status_code = USER_ACCACTIVATED;
+                }
+                else{
+                    $status_code = ERR_MQSLACTIVATION;
+                }
+            }
+            else{
+                $status_code = ERR_ACTIVATION;
+            }
     }
 }
 else {

@@ -34,5 +34,16 @@ if(!is_null($status_code)){
         case REGISTER_SUCCESS:
             echo 'Registration Successful. A validation link was sent to you e-mail account, please validate your account in order to login.';
             break;
+        case USER_ACCACTIVATED:
+            echo 'Your account is activated you can now login!';
+            break;
+        case ERR_ACTIVATION:
+            echo 'Invalid approach, please use the link that has been send to your email';
+            break;
+        case ERR_MQSLACTIVATION:
+            echo 'The URL is either invalid or you already have activated your account.';
+            break;
+        case ERR_SENDVALIDATION:
+            echo 'The activation link wasn`t sent.';
     }
 }
