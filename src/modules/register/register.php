@@ -38,7 +38,10 @@ if(!is_null($status_code)){
             echo 'Your account is activated you can now login!';
             break;
         case ERR_ACTIVATION:
-            echo 'Your account cannot be activated or it is already activated';
+            echo 'Invalid approach, please use the link that has been send to your email';
+            break;
+        case ERR_MQSLACTIVATION:
+            echo 'The URL is either invalid or you already have activated your account.';
             break;
         case ERR_SENDVALIDATION:
             echo 'The activation link wasn`t sent.';
