@@ -34,6 +34,10 @@ $cvr_img_status = NULL;
  */
 $ebook_status = NULL;
 /**
+ * Admin messages status code container
+ */
+$admin_messages = NULL;
+/**
  * Allowed image mime type
  */
 $image_mime = array('image/pjpeg', 'image/jpeg', 'image/gif', 
