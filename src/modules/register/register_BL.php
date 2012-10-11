@@ -37,8 +37,9 @@ if(initialize_session()) {
                 if(!user_exists($mysql_link, $reginfo['usr'])) {
                     if(mail_validation($reginfo['mail'])){
                         if(!mail_exists($mysql_link, $reginfo['mail'])){
-                            if(insert_new_usr($mysql_link, $reginfo)){
-
+                            $hash = md5(mt_rand(0,1000));
+                            if(insert_new_usr($mysql_link, $reginfo,$hash)){
+                                send_validation_link($reginfo['mail'],$reginfo['usr'],$hash);
                                 $status_code = REGISTER_SUCCESS;
                             }
                         }
