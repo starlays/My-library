@@ -71,6 +71,21 @@ function build_menu($active_menu, $menu_values=array(), $menu_number) {
 }
 
 /**
+ * Builds greetings using session
+ *
+ * @return string , gteetings 
+ */
+function build_greetings($id_name) {
+    if(isset($_SESSION['username'])){
+        $greetings =  '<p id='.$id_name.'>Hello '.$_SESSION['username'].'!</p>';
+    }
+    else {
+        $greetings = '<p id='.$id_name.'>Not Logged in!</p>';
+    }
+    return $greetings;
+}
+
+/**
  * Check if the given file exist and it is readable
  *
  * @param string $file file to be check
