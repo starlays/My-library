@@ -23,6 +23,9 @@ if(!is_null($status_code)) {
         case ERR_AUTH_STARTSESS:
             echo sprintf('Can\'t start the session! Error: %d', ERR_AUTH_STARTSESS);
             break;
+        case ERR_USERNOTACTIVE:
+            echo sprintf('You did not activate this user, plese verify your email. Click <a href="#">here</a> to resend the activation code. Error: %d', ERR_USERNOTACTIVE);
+            break;
         case LOGIN_SUCCESS:
             echo 'You are now logged in';
     }
