@@ -32,7 +32,7 @@ if(!is_null($status_code)){
             echo 'This e-mail is invalid.';
             break;
         case REGISTER_SUCCESS:
-            echo 'Registration Successful.';
+            echo 'Registration Successful. A validation link was sent to you e-mail account, please validate your account in order to login.';
             break;
     }
 }
