@@ -39,5 +39,8 @@ if(!is_null($status_code)){
             break;
         case ERR_ACTIVATION:
             echo 'Your account cannot be activated or it is already activated';
+            break;
+        case ERR_SENDVALIDATION:
+            echo 'The activation link wasn`t sent.';
     }
 }
