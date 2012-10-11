@@ -49,7 +49,7 @@ function verify_data($mysql_link, $mail, $hash) {
 
     $SQL = "SELECT `mail`, `hash`, `active` FROM `users` 
             WHERE `mail`='$mail' AND `hash`='$hash' AND `active`='0';";
-    var_dump($SQL);
+    
     $qresult = mysqli_query($mysql_link, $SQL);
     if($result  = mysqli_num_rows($qresult)) {
         return TRUE;
