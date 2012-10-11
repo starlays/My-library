@@ -24,6 +24,10 @@ const ERR_DELUSERS        = 460;
  * Status code container
  */
 $status_code = NULL;
+/**
+ * Status users container
+ */
+$users = NULL;
 
 if(initialize_session()) {
     if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])
