@@ -27,15 +27,43 @@
     <fieldset>
     <legend> Delete simple users: </legend>
     <p>ATTENTION: Admin users will show here only if you change their rights!</p>
+    <table border="1">
+        <tr>
+            <td>Username</td>
+            <td>Fist Name</td>
+            <td>Last Name</td>
+            <td>Mail</td>
+            <td>Ban Status</td>
+            <td>Active</td>
+            <td>Rights</td>
+            <td>Hash</td>
+        </tr>
     <?php
         if(!is_null($users) && is_array($users)){
-            foreach($users as $user) {
+            foreach($users as $user) {?>
+        
+                <tr>
+                    
+                <?php
                 if(isset($user['username'])) {
-                    echo '<input type="checkbox" name="rm_users[]" value="',$user['username'],'" />',$user['username'],'<br />';
-                }
+                    echo '<td><input type="checkbox" name="rm_users[]" value="',$user['username'],'" />',$user['username'],'</td>';
+                    echo '<td>',$user['first_name'],'</td>
+                          <td>',$user['last_name'],'</td>
+                          <td>',$user['mail'],'</td>
+                          <td>',$user['ban_status'],'</td>
+                          <td>',$user['active'],'</td>
+                          <td>',$user['rights'],'</td>
+                          <td>',$user['hash'],'</td>';
+                }?>
+                    
+                </tr>
+                
+                <?php
             }
+            unset($users);
         }
     ?>
+    </table>
     </fieldset>
     <input type="submit" name="delete_user" value="Delete Users" />
     </form>
