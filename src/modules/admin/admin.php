@@ -75,6 +75,15 @@ if(!is_null($status_code)) {
         case ERR_DELUSERS;
             echo 'User cannot be deleted or he has books related to his account';
             break;
+        case ERR_MAILEXISTS:
+            echo 'This e-mail is already registered.';
+            break;
+        case ERR_INVALIDMAIL:
+            echo 'This e-mail is invalid.';
+            break;
+        case ERR_SENDVALIDATION:
+            echo 'The activation link wasn`t sent.';
+            break;
         case ERR_NOMSGSENT:
             echo 'The message was not sent.';
     }
