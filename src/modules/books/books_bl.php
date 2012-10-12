@@ -64,7 +64,7 @@ if (initialize_session()){
                 
                 $from_email     = 'noreply@my-library.com';
                 $subject        = $_SESSION['username'].' favorite books';
-                $email_bookslst = $_POST['email_books_collection'];
+                $email_bookslst = implode(', ', $_POST['email_books_collection']);
                 $email_tpl_path = __MODULES__.'books'.D_S;
                 $email_body     = NULL;
                 $var_holders    = array('%user_name%', '%email_addres%', '%books_list%');
@@ -85,7 +85,7 @@ if (initialize_session()){
                     $email_body = str_replace($var_holders, $var_replacers, $email_body);
                 }
                 //TODO: get the e-mail from a form in books, /!\ask if it is ok!
-                if(!email_infos($from_email, 'foo@bar.com', $subject, $email_body)) {
+                if(!email_infos($from_email, '/*email here*/', $subject, $email_body)) {
                     $status_code = BOOKS_ERR_EMAILSEND;
                 }
             }
