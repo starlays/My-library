@@ -20,6 +20,10 @@ const ERR_NOMSGSENT       = 458;
 const ERR_NOUSERRETRIVED  = 458;
 const USERS_DELSUCCESS    = 459;
 const ERR_DELUSERS        = 460;
+const ERR_MAILEXISTS      = 461;
+const ERR_INVALIDMAIL     = 462;
+const ERR_SENDVALIDATION  = 463;
+
 /**
  * Status code container
  */
@@ -57,8 +61,30 @@ if(initialize_session()) {
                 if(!isEmpty_array_vals($reginfo)) {
                     if($_POST['pwd'] === $_POST['rpwd']) {
                         if(!user_exists($mysql_link, $reginfo['usr'])) {
-                            if(insert_new_usr($mysql_link, $reginfo)){
-                                $status_code = REGISTER_SUCCESS;
+                            if(mail_validation($reginfo['mail'])){
+                                if(!mail_exists($mysql_link, $reginfo['mail'])){
+                                    $hash = md5(mt_rand(0,1000));
+                                    if(insert_new_usr($mysql_link, $reginfo,$hash)){
+                                        
+                                        $maildata['mail'] = $reginfo['mail'];
+                                        $maildata['subject'] = 'MyLibrary account validation';
+                                        $maildata['message'] = '';
+                                        $maildata['headers'] = 'From:noreply@mylibrary.ro' . "\r\n";
+
+                                        if(send_mail($reginfo['usr'],$hash,$maildata)){
+                                            $status_code = REGISTER_SUCCESS;
+                                        }
+                                        else{
+                                            $status_code = ERR_SENDVALIDATION;
+                                        }
+                                    }
+                                }
+                                else{
+                                    $status_code = ERR_MAILEXISTS;
+                                }
+                            }
+                            else {
+                                $status_code = ERR_INVALIDMAIL;
                             }
                         }
                         else {
