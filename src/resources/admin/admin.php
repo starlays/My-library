@@ -47,7 +47,7 @@ function insert_new_message($mysql_link,  $userinformations = array()) {
  */
 function retrive_users($mysql_link, $order_by, $type) {
 
-    $SQL = "SELECT `username` FROM `users` WHERE 
+    $SQL = "SELECT * FROM `users` WHERE 
             (`rights`='0001' OR `rights`='0011' OR `rights`='0111') 
             ORDER BY ".$order_by." ".$type.";";
 
