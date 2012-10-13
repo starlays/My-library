@@ -51,7 +51,7 @@
                     echo '<td>',$user['first_name'],'</td>
                           <td>',$user['last_name'],'</td>
                           <td>',$user['mail'],'</td>
-                            <td>',verify_option($user['ban_status']),'</td>
+                            <td>',arrange_ban_status($user['ban_status']),'</td>
                           <td>',$user['active'],'</td>
                           <td>',$user['rights'],'</td>
                           <td>',$user['hash'],'</td>';
