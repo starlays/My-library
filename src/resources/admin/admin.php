@@ -58,19 +58,20 @@ function retrive_users($mysql_link, $order_by, $type) {
         }
     }
 }
+
 /**
  * Retrive all users from database
- * retrive_users($mysql_link)
+ * string arrange_ban_status($user_ban_status
  * 
- * @param resource $mysql_link an resource object link to the database
- * @param string $order_by the criteria by witch the books are ordered
- * @param string $type order asccendent or descendentent default ASC
+ * @param string $user_ban_status, user ban status revceiverd from db
  * 
- * @return array $users, the users retrived from database
+ * @return string $status, witch will show the curent ban status,
+ *                           to make a dynamic selection.
  */
-function verify_option($user_ban_status) {
+function arrange_ban_status($user_ban_status) {
     
     $status = NULL;
+    
     if(0 === (int)$user_ban_status) {
         $status = '
             <select>
