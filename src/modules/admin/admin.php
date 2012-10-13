@@ -29,6 +29,7 @@
     <p>ATTENTION: Admin users will show here only if you change their rights!</p>
     <table border="1">
         <tr>
+            <td></td>
             <td>Username</td>
             <td>Fist Name</td>
             <td>Last Name</td>
@@ -46,11 +47,11 @@
                     
                 <?php
                 if(isset($user['username'])) {
-                    echo '<td><input type="checkbox" name="rm_users[]" value="',$user['username'],'" />',$user['username'],'</td>';
+                    echo '<td><input type="checkbox" name="rm_users[]" value="',$user['username'],'" /></td><td>',$user['username'],'</td>';
                     echo '<td>',$user['first_name'],'</td>
                           <td>',$user['last_name'],'</td>
                           <td>',$user['mail'],'</td>
-                          <td>',$user['ban_status'],'</td>
+                            <td>',verify_option($user['ban_status']),'</td>
                           <td>',$user['active'],'</td>
                           <td>',$user['rights'],'</td>
                           <td>',$user['hash'],'</td>';
