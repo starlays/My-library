@@ -58,3 +58,32 @@ function retrive_users($mysql_link, $order_by, $type) {
         }
     }
 }
+/**
+ * Retrive all users from database
+ * retrive_users($mysql_link)
+ * 
+ * @param resource $mysql_link an resource object link to the database
+ * @param string $order_by the criteria by witch the books are ordered
+ * @param string $type order asccendent or descendentent default ASC
+ * 
+ * @return array $users, the users retrived from database
+ */
+function verify_option($user_ban_status) {
+    
+    $status = NULL;
+    if(0 === (int)$user_ban_status) {
+        $status = '
+            <select>
+                <option value="'.$user_ban_status.'">OK</option>
+                <option value="1">Banned</option>
+            </select>';
+    }
+    else {
+        $status = '
+            <select>
+                <option value="'.$user_ban_status.'">Banned</option>
+                <option value="0">OK</option>
+            </select>';
+    }
+    return $status;
+}
