@@ -11,6 +11,6 @@ return '
 
     Please click this link to activate your account:
     
-    mylibrary/?page=register&email='.$reginfo['mail'].'&hash='.$hash.'
+    mylibrary/?page=register&mail='.$reginfo['mail'].'&hash='.$hash.'
     ';
 ?>
