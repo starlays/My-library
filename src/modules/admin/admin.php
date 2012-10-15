@@ -25,7 +25,7 @@
 <div>
     <form action="" method="POST">
     <fieldset>
-    <legend> Delete simple users: </legend>
+    <legend> Delete/Update users: </legend>
     <table border="1">
         <tr>
             <td></td>
@@ -52,7 +52,7 @@
                           <td>',$user['last_name'],'</td>
                           <td>',$user['mail'],'</td>
                             <td>',arrange_ban_status($user['ban_status']),'</td>
-                          <td>',$user['active'],'</td>
+                          <td>',((int)$user['active'] === 0 ? 'Inactive' : 'Active'),'</td>
                           <td>',arrange_rights_status($user['rights']),'</td>
                           <td>',$user['hash'],'</td>';
                 }?>
