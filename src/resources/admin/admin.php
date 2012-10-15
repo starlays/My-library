@@ -47,9 +47,8 @@ function insert_new_message($mysql_link,  $userinformations = array()) {
  */
 function retrive_users($mysql_link, $order_by, $type) {
 
-    $SQL = "SELECT username,first_name,last_name,mail,ban_status,rights,hash,active FROM `users` WHERE 
-            (`rights`='0001' OR `rights`='0011' OR `rights`='0111') 
-            ORDER BY ".$order_by." ".$type.";";
+    $SQL = "SELECT username,first_name,last_name,mail,ban_status,rights,hash,active 
+            FROM `users` ORDER BY ".$order_by." ".$type.";";
 
     if($result = mysqli_query($mysql_link, $SQL)) {
         if($users = mysqli_fetch_all($result, MYSQLI_ASSOC)) {
