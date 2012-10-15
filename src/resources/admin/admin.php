@@ -88,3 +88,29 @@ function arrange_ban_status($user_ban_status) {
     }
     return $status;
 }
+
+/**
+ * Retrive all users from database
+ * string arrange_ban_status($user_ban_status
+ * 
+ * @param string $user_ban_status, user ban status revceiverd from db
+ * 
+ * @return string $status, witch will show the curent ban status,
+ *                           to make a dynamic selection.
+ */
+function arrange_rights_status($user_rights_status) {
+    
+    $rights = array(
+        'Registered' => '0001',
+        'Right2'     => '0011',
+        'Right3'     => '0111',
+        'Admin'      => '1111',
+    );
+    $html = '<select><option value="'.$user_rights_status.'">'.array_search($user_rights_status,$rights).'</option>';
+    unset($rights[array_search($user_rights_status,$rights)]);
+    foreach($rights as $right => $value){
+        $html .= '<option value="'.$value.'">'.$right.'</option>';
+    }
+    $html .= '</select>';        
+    return $html;
+}
