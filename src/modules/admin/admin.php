@@ -67,6 +67,7 @@
     </table>
     </fieldset>
     <input type="submit" name="delete_user" value="Delete Users" />
+    <input type="submit" name="update_user" value="Update Users" />
     </form>
 </div>
 <div>
