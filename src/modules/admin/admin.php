@@ -26,7 +26,6 @@
     <form action="" method="POST">
     <fieldset>
     <legend> Delete simple users: </legend>
-    <p>ATTENTION: Admin users will show here only if you change their rights!</p>
     <table border="1">
         <tr>
             <td></td>
@@ -42,18 +41,19 @@
     <?php
         if(!is_null($users) && is_array($users)){
             foreach($users as $user) {?>
-        
+            
                 <tr>
                     
                 <?php
                 if(isset($user['username'])) {
+
                     echo '<td><input type="checkbox" name="rm_users[]" value="',$user['username'],'" /></td><td>',$user['username'],'</td>';
                     echo '<td>',$user['first_name'],'</td>
                           <td>',$user['last_name'],'</td>
                           <td>',$user['mail'],'</td>
                             <td>',arrange_ban_status($user['ban_status']),'</td>
                           <td>',$user['active'],'</td>
-                          <td>',$user['rights'],'</td>
+                          <td>',arrange_rights_status($user['rights']),'</td>
                           <td>',$user['hash'],'</td>';
                 }?>
                     
