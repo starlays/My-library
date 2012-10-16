@@ -60,44 +60,44 @@ function retrive_users($mysql_link, $order_by, $type) {
 
 /**
  * Retrive all users from database
- * string arrange_ban_status($user_ban_status
+ * string arrange_ban_status($user_ban_status,$user)
  * 
  * @param string $user_ban_status, user ban status revceiverd from db
+ * @param string $user, user that has that ban status
  * 
- * @return string $status, witch will show the curent ban status,
- *                           to make a dynamic selection.
+ * @return string $html, html option list
  */
-function arrange_ban_status($user_ban_status) {
+function arrange_ban_status($user_ban_status,$user) {
     
-    $status = NULL;
+    $html = NULL;
     
     if(0 === (int)$user_ban_status) {
-        $status = '
-            <select>
-                <option value="'.$user_ban_status.'">OK</option>
+        $html = '
+            <select name="'.$user.'_ban">
+                <option selected="selected" value="'.$user_ban_status.'">OK</option>
                 <option value="1">Banned</option>
             </select>';
     }
     else {
-        $status = '
-            <select>
-                <option value="'.$user_ban_status.'">Banned</option>
+        $html = '
+            <select name="'.$user.'_ban">
+                <option selected="selected" value="'.$user_ban_status.'">Banned</option>
                 <option value="0">OK</option>
             </select>';
     }
-    return $status;
+    return $html;
 }
 
 /**
  * Retrive all users from database
- * string arrange_ban_status($user_ban_status
+ * string arrange_rights_status($user_ban_status,$user)
  * 
- * @param string $user_ban_status, user ban status revceiverd from db
+ * @param string $user_rights_status, user right status revceiverd from db
+ * @param string $user, user that has that right status
  * 
- * @return string $status, witch will show the curent ban status,
- *                           to make a dynamic selection.
+ * @return string $html, html option list
  */
-function arrange_rights_status($user_rights_status) {
+function arrange_rights_status($user_rights_status,$user) {
     
     $rights = array(
         'Registered' => '0001',
@@ -105,11 +105,43 @@ function arrange_rights_status($user_rights_status) {
         'Right3'     => '0111',
         'Admin'      => '1111',
     );
-    $html = '<select><option value="'.$user_rights_status.'">'.array_search($user_rights_status,$rights).'</option>';
+    $html = '<select name="'.$user.'_right"><option value="'.$user_rights_status.'">'.array_search($user_rights_status,$rights).'</option>';
     unset($rights[array_search($user_rights_status,$rights)]);
     foreach($rights as $right => $value){
         $html .= '<option value="'.$value.'">'.$right.'</option>';
     }
     $html .= '</select>';        
     return $html;
+}
+
+/**
+ * UPDATE user with given data
+ * bool update_user($mysql_link, $data);
+ * 
+ * @param resource $mysql_link, an resource object link to the database
+ * @param string $users, data with user that will be updated
+ * @param string $users_datas, data with update info
+ * 
+ * @return bool TRUE if the user were updated, otherwise FALSE
+ */
+function update_user($mysql_link, $users, $users_data){
+    
+    //use MySQL transactions to be on the safe side
+    mysqli_autocommit($mysql_link, FALSE);
+    
+    foreach($users as $id => $user){
+        $SQL = "UPDATE `users` 
+               SET `ban_status`= '".$users_data[$user.'_ban']."', 
+                       `rights`= '".$users_data[$user.'_right']."'
+               WHERE `username`= '".$user."'";
+        $result = mysqli_query($mysql_link,$SQL);
+    }
+    if($result){
+        mysqli_commit($mysql_link);
+        mysqli_close($mysql_link);
+    }
+    else{
+        mysqli_rollback($mysql_link);
+        mysqli_close($mysql_link);
+    }
 }
