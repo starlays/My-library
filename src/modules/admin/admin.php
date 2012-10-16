@@ -25,7 +25,7 @@
 <div>
     <form action="" method="POST">
     <fieldset>
-    <legend> Delete/Update users: </legend>
+    <legend> Delete/Update Users: </legend>
     <table border="1">
         <tr>
             <td></td>
@@ -51,9 +51,9 @@
                     echo '<td>',$user['first_name'],'</td>
                           <td>',$user['last_name'],'</td>
                           <td>',$user['mail'],'</td>
-                            <td>',arrange_ban_status($user['ban_status']),'</td>
+                            <td>',arrange_ban_status($user['ban_status'],$user['username']),'</td>
                           <td>',((int)$user['active'] === 0 ? 'Inactive' : 'Active'),'</td>
-                          <td>',arrange_rights_status($user['rights']),'</td>
+                          <td>',arrange_rights_status($user['rights'],$user['username']),'</td>
                           <td>',$user['hash'],'</td>';
                 }?>
                     
@@ -113,6 +113,12 @@ if(!is_null($status_code)) {
             break;
         case ERR_SENDVALIDATION:
             echo 'The activation link wasn`t sent.';
+            break;
+        case SUCCES_USRUPDATED:
+            echo 'Users were updated successfully';
+            break;
+         case ERR_NOUSERRETRIVED:
+            echo 'User update failed!';
             break;
         case ERR_NOMSGSENT:
             echo 'The message was not sent.';
