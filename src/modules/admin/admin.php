@@ -117,7 +117,7 @@ if(!is_null($status_code)) {
         case SUCCES_USRUPDATED:
             echo 'Users were updated successfully';
             break;
-         case ERR_NOUSERRETRIVED:
+         case ERR_NOUSRUPDATED:
             echo 'User update failed!';
             break;
         case ERR_NOMSGSENT:
