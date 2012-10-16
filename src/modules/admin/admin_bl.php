@@ -23,6 +23,8 @@ const ERR_DELUSERS        = 460;
 const ERR_MAILEXISTS      = 461;
 const ERR_INVALIDMAIL     = 462;
 const ERR_SENDVALIDATION  = 463;
+const SUCCES_USRUPDATED   = 464;
+const ERR_NOUSERRETRIVED  = 465;
 
 /**
  * Status code container
@@ -130,6 +132,23 @@ if(initialize_session()) {
                      }   
                     
                     
+                }
+            }
+            if(isset($_POST['update_user'])){
+                if(!empty($_POST['rm_users'])){
+                    foreach($_POST['rm_users'] as $index => $username){
+                           $users_data[$username.'_ban'] = $_POST[$username.'_ban'];
+                           $users_data[$username.'_right'] = $_POST[$username.'_right'];
+                    }
+                    if(update_user($mysql_link, $_POST['rm_users'],$users_data)){
+                        $status_code = SUCCES_USRUPDATED;
+                    }
+                    else{
+                        $status_code = ERR_NOUSRUPDATED;
+                    }
+                }
+                else {
+                    $status_code = ERR_NOUSERRETRIVED;
                 }
             }
         }
