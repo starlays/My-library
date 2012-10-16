@@ -40,34 +40,47 @@ if(!is_null($status_code)){
 } 
 else {
     if(!is_null($books) && is_array($books)) {?>
+        <table border="1">
+        <tr>
+            <td>Check</td>
+            <td>Book Title</td>
+            <td>Author Name</td>
+            <td>Descriptions</td>
+            <td>Inserted Date</td>
+            <td>Picture</td>
+            <td>eBook</td>
+        </tr>
         <form action="" method="post">
    <?php foreach($books as $book) {
             $book_title = $book['book_title'];
             
-            echo '<input type="checkbox" name="email_books_collection[]" value="',$book['book_title'],'" />';
+            echo '<tr><td><input type="checkbox" name="email_books_collection[]" value="',$book['book_title'],'" /></td>';
             
             foreach($book as $book_meta => $book_data) {
                 if(is_array($book_data)) {
                     foreach($book_data as $assets) {
                         foreach($assets as $asset) {
                             if('book_img' === $book_meta) {
-                                echo '<img border="0" src="uploads/',$book_title,'/cvr_img/',$asset,'" width="200" height="200"><br>';
+                                echo '<td><img border="0" src="uploads/',$book_title,'/cvr_img/',$asset,'" width="200" height="200"></td>';
                             }
                             elseif('book_ebook' === $book_meta) {
-                                echo '<a href="uploads/',$book_title,'/ebook/',$asset,'">',$asset,'</a>';
+                                echo '<td><a href="uploads/',$book_title,'/ebook/',$asset,'">',$asset,'</a></td>';
                             }
                         }
                     }
                 }
                 else {
                     if('cvr_img_path' !== $book_meta && 'e_book_path' !== $book_meta) {
-                        echo $book_meta,' : ', $book_data, '<br>';
+                        echo '<td>',$book_data, '</td>';
                     }
                 }
             }
+            echo '</tr>';
         }?>
+            
        <input type="submit" name="email_books" value="E-mail books to a friend!" />
        </form> 
+       </table>
 <?php }
     else {
         echo '<p>You have no books associated with your account</p>';
