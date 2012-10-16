@@ -24,7 +24,7 @@ const ERR_MAILEXISTS      = 461;
 const ERR_INVALIDMAIL     = 462;
 const ERR_SENDVALIDATION  = 463;
 const SUCCES_USRUPDATED   = 464;
-const ERR_NOUSERRETRIVED  = 465;
+const ERR_NOUSRUPDATED  = 465;
 
 /**
  * Status code container
