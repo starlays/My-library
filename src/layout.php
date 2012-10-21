@@ -5,8 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="style.css" />
 <title><?php echo $active_page_title; ?></title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 </head>
 <body>
+<noscript>Aceasta pagina are nevoie de java pentru a beneficia de functionalitatea completa</noscript>
 <div id="wrapper">
     <div id="picture">
         <p>Logo</p>

@@ -1,5 +1,17 @@
 <?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])){ ?>
 <div id='books'>
+<script>
+$(document).ready(function(){
+        $(".checkboxall").click(function(){
+            if($(".checkboxall").attr('checked')) {
+                $(".checkbox").attr('checked', true);
+            }
+            else {
+                $(".checkbox").attr('checked', false);    
+            }
+        })
+});
+</script>
 <form action='' method='POST'>
 <fieldset>
 <legend> Order your books by: </legend>
@@ -51,10 +63,11 @@ else {
             <td>eBook</td>
         </tr>
         <form action="" method="post">
+        <input type="checkbox" class="checkboxall"> Select / Deselect All
    <?php foreach($books as $book) {
             $book_title = $book['book_title'];
             
-            echo '<tr><td><input type="checkbox" name="email_books_collection[]" value="',$book['book_title'],'" /></td>';
+            echo '<tr><td><input type="checkbox" class="checkbox" name="email_books_collection[]" value="',$book['book_title'],'" /></td>';
             
             foreach($book as $book_meta => $book_data) {
                 if(is_array($book_data)) {
