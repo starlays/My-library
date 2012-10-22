@@ -2,6 +2,7 @@
 <div id='books'>
 <script>
 $(document).ready(function(){
+        $(".inner").prepend('<input type="checkbox" class="checkboxall"> Select/Deselect all');
         $(".checkboxall").click(function(){
             if($(".checkboxall").attr('checked')) {
                 $(".checkbox").attr('checked', true);
@@ -52,6 +53,7 @@ if(!is_null($status_code)){
 } 
 else {
     if(!is_null($books) && is_array($books)) {?>
+<form class="inner" action="" method="post">
         <table border="1">
         <tr>
             <td>Check</td>
@@ -62,8 +64,6 @@ else {
             <td>Picture</td>
             <td>eBook</td>
         </tr>
-        <form action="" method="post">
-        <input type="checkbox" class="checkboxall"> Select / Deselect All
    <?php foreach($books as $book) {
             $book_title = $book['book_title'];
             
@@ -92,12 +92,11 @@ else {
         }?>
             
        <input type="submit" name="email_books" value="E-mail books to a friend!" />
-       </form> 
        </table>
+</form>    
 <?php }
     else {
         echo '<p>You have no books associated with your account</p>';
     }
 }
 ?>
-</div>
