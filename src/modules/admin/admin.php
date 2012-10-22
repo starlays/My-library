@@ -25,19 +25,49 @@
 <div>
     <form action="" method="POST">
     <fieldset>
-    <legend> Delete simple users: </legend>
-    <p>ATTENTION: Admin users will show here only if you change their rights!</p>
+    <legend> Delete/Update Users: </legend>
+    <table border="1">
+        <tr>
+            <td></td>
+            <td>Username</td>
+            <td>Fist Name</td>
+            <td>Last Name</td>
+            <td>Mail</td>
+            <td>Ban Status</td>
+            <td>Active</td>
+            <td>Rights</td>
+            <td>Hash</td>
+        </tr>
     <?php
         if(!is_null($users) && is_array($users)){
-            foreach($users as $user) {
+            foreach($users as $user) {?>
+            
+                <tr>
+                    
+                <?php
                 if(isset($user['username'])) {
-                    echo '<input type="checkbox" name="rm_users[]" value="',$user['username'],'" />',$user['username'],'<br />';
-                }
+
+                    echo '<td><input type="checkbox" name="rm_users[]" value="',$user['username'],'" /></td><td>',$user['username'],'</td>';
+                    echo '<td>',$user['first_name'],'</td>
+                          <td>',$user['last_name'],'</td>
+                          <td>',$user['mail'],'</td>
+                            <td>',arrange_ban_status($user['ban_status'],$user['username']),'</td>
+                          <td>',((int)$user['active'] === 0 ? 'Inactive' : 'Active'),'</td>
+                          <td>',arrange_rights_status($user['rights'],$user['username']),'</td>
+                          <td>',$user['hash'],'</td>';
+                }?>
+                    
+                </tr>
+                
+                <?php
             }
+            unset($users);
         }
     ?>
+    </table>
     </fieldset>
     <input type="submit" name="delete_user" value="Delete Users" />
+    <input type="submit" name="update_user" value="Update Users" />
     </form>
 </div>
 <div>
@@ -74,6 +104,21 @@ if(!is_null($status_code)) {
             break;
         case ERR_DELUSERS;
             echo 'User cannot be deleted or he has books related to his account';
+            break;
+        case ERR_MAILEXISTS:
+            echo 'This e-mail is already registered.';
+            break;
+        case ERR_INVALIDMAIL:
+            echo 'This e-mail is invalid.';
+            break;
+        case ERR_SENDVALIDATION:
+            echo 'The activation link wasn`t sent.';
+            break;
+        case SUCCES_USRUPDATED:
+            echo 'Users were updated successfully';
+            break;
+         case ERR_NOUSRUPDATED:
+            echo 'User update failed!';
             break;
         case ERR_NOMSGSENT:
             echo 'The message was not sent.';

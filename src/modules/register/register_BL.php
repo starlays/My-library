@@ -46,9 +46,11 @@ if(initialize_session()) {
                                 
                                 $maildata['mail'] = $reginfo['mail'];
                                 $maildata['subject'] = 'MyLibrary account validation';
-                                $maildata['message'] = '';
-                                $maildata['headers'] = 'From:noreply@mylibrary.ro' . "\r\n";
-                                
+                                $maildata['message'] = require_once __MODULES__.
+                                        'register'.D_S.'validation_mail_content.php';
+                                $maildata['headers'] = 'From:noreply@mylibrary.ro'
+                                                        ."\r\n";
+                                var_dump($maildata['message']);
                                 if(send_mail($reginfo['usr'],$hash,$maildata)){
                                     $status_code = REGISTER_SUCCESS;
                                 }
