@@ -1,6 +1,6 @@
 <?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && $status_code !== 457) { ?>
 <script>
-$(function () {
+$(document).ready(function () {
     $('.checkall').click(function () {
         $(this).parents('form:eq(0)').find(':checkbox').attr('checked', this.checked);
     });
