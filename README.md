@@ -8,6 +8,7 @@ Installation informations:
 Requirements:
 ------------
 *  PHP, MySQL and an HTTP daemon installed
+
 Optional requirements:
 ---------------------
 *  You need to have git installed
