@@ -113,7 +113,7 @@ function add_book($mysql_link, $books_info, $book_cvr_path, $book_ebook_path, $u
  */
 function retrive_user_books($mysql_link, $uID, $order_by, $type) {
 
-    $SQL = "SELECT 
+    $SQL = "SELECT books.id AS bID, 
     title AS book_title, name AS author_name, description AS book_description,
     insert_date AS book_insert_date, cvr_img_path, e_book_path
     FROM `books`
