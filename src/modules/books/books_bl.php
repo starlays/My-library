@@ -9,6 +9,10 @@ const BOOKS_NOT_LOGGED    = 340;
 const BOOKS_ERR_EMAIL_BK  = 341;
 const BOOKS_ERR_EMAIL_TP  = 342;
 const BOOKS_ERR_EMAILSEND = 343;
+const ERR_RATEBOOK        = 344;
+const ERR_ALREADYRATED    = 345;
+const SUCCESS_BOOKRATED   = 346;
+
 /**
  * User book list conainer
  */
@@ -50,10 +54,16 @@ if (initialize_session()){
                                files_scand_dir($book['cvr_img_path'], $image_mime)
                                 );
                     }
+                    else {
+                        $books[$key]['book_img'] = NULL;
+                    }
                     if(check_dir($book['e_book_path'])) {
                         $books[$key]['book_ebook'] = array(
                             files_scand_dir($book['e_book_path'], $ebook_mime)
                             );
+                    }
+                    else {
+                        $books[$key]['book_ebook'] = NULL;
                     }
                 }
             }
@@ -94,9 +104,36 @@ if (initialize_session()){
     else {
         $status_code = BOOKS_NOT_LOGGED; 
     }
+    if (isset($_GET['uID'],$_GET['bID'],$_GET['rID']) && 
+            !empty($_GET['uID']) && !empty($_GET['bID']) && !empty($_GET['rID'])){
+        
+        $uID = (int)strip_tags($_GET['uID']);
+        $bID = (int)strip_tags($_GET['bID']);
+        $rID = (int)strip_tags($_GET['rID']);
+        
+        
+        
+        if(($uID >= 1) && ($bID >= 1) && ($rID >= 1)){
+            if (!rating_check($mysql_link,$uID,$bID,$rID)){
+                if(rating_insert($mysql_link,$uID,$bID,$rID)){
+                    $status_code = SUCCESS_BOOKRATED;
+                }
+                else{
+                    $status_code = ERR_RATEBOOK;
+                }
+            }
+            else{
+                $status_code = ERR_ALREADYRATED;
+            }
+        }
+        else{
+            $status_code = ERR_RATEBOOK;
+        }
+    }
 }
 
 return array(
     'status_code'  => $status_code,
     'books'        => $books,
+    'mysql_link'   => $mysql_link,
     );
