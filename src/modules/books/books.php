@@ -71,7 +71,6 @@ if(!is_null($status_code)){
             <td>Inserted Date</td>
             <td>Picture</td>
             <td>eBook</td>
-            <td>Curent Rate</td>
             <td colspan="5">Rate Book</td>
         </tr>
    <?php foreach($books as $book) {
@@ -101,8 +100,7 @@ if(!is_null($status_code)){
                     }
                 }
             }
-            echo '<td>'.rating_avg($mysql_link,$book['bID']).'</td>';
-            echo rate_links_gen($_GET['page'],$_SESSION['user_ID'],$book['bID']);
+            echo rate_links_gen($mysql_link,$_GET['page'],$_SESSION['user_ID'],$book['bID']);
             echo '</tr>';
         }
         unset($mysql_link);
