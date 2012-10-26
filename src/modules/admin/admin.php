@@ -1,4 +1,11 @@
 <?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && $status_code !== 457) { ?>
+<script>
+$(document).ready(function () {
+    $('.checkall').click(function () {
+        $(this).parents('form:eq(0)').find(':checkbox').attr('checked', this.checked);
+    });
+});
+</script>
 <div>
     <form action="" method="POST">
     <fieldset>
@@ -23,21 +30,22 @@
     </form>
 </div>
 <div>
-    <form action="" method="POST">
+    <form class="inner" action="" method="POST">
     <fieldset>
     <legend> Delete/Update Users: </legend>
     <table border="1">
         <tr>
-            <td></td>
-            <td>Username</td>
-            <td>Fist Name</td>
-            <td>Last Name</td>
-            <td>Mail</td>
-            <td>Ban Status</td>
-            <td>Active</td>
-            <td>Rights</td>
-            <td>Hash</td>
+            <th>Check All</th>
+            <th rowspan="2">Username</th>
+            <th rowspan="2">Fist Name</th>
+            <th rowspan="2">Last Name</th>
+            <th rowspan="2">Mail</th>
+            <th rowspan="2">Ban Status</th>
+            <th rowspan="2">Active</th>
+            <th rowspan="2">Rights</th>
+            <th rowspan="2">Hash</th>
         </tr>
+        <tr><td><input type="checkbox" class="checkall"/></td></tr>
     <?php
         if(!is_null($users) && is_array($users)){
             foreach($users as $user) {?>
