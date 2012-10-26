@@ -166,7 +166,7 @@ function search_book_bytitle($mysql_link, $search_title) {
  * @return string $rate_links, rate stars links
  */
 
-function rate_links_gen($page,$uID,$bID) {
+function rate_links_gen($mysql_link,$page,$uID,$bID) {
      $rate_links = NULL;
      for($i=1;$i<=5;$i++){
          $rate_links .= 
@@ -175,6 +175,7 @@ function rate_links_gen($page,$uID,$bID) {
                                                    '&bID='.$bID.
                                                    '&rID='.$i.'">
                     <img src="star.png" alt="Give '.$i.' '.(1===$i?'Star':'Stars').'" 
+                        title="Give '.$i.' '.(1===$i?'Star':'Stars').' Curent Rating: '.rating_avg($mysql_link,$bID).'" 
                         width="32" height="32"/>
                 </a>
             </td>';
