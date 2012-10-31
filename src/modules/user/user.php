@@ -24,15 +24,28 @@ $(document).ready(function () {
     <tr>
         <th>Check All</th>
         <th rowspan="2">Book Name</th>
+        <th rowspan="2">Your rights on book</th>
     </tr>
      <tr>
         <td><input type="checkbox" class="checkall"/></td>
     </tr>
 <?php
+
 if(!is_null($books_list) && is_array($books_list)){
     foreach($books_list as $book) {
         if(isset($book['book_title'])) {
-             echo '<tr><td><input type="checkbox" name="rm_books[]" value="',$book['book_title'],'" /></td><td>',$book['book_title'],'</td></tr>';
+            $comp_rights = (int)$book['computed_rights'];
+             echo '<tr>
+                       <td>';
+              echo     ($comp_rights & BOOKS_DELETE) ? '<input type="checkbox" name="rm_books[]" value="'.$book['book_title'].'" />' : '';
+              echo     '</td>
+                       <td>',$book['book_title'],'</td>
+                       <td>';
+             echo ($comp_rights & BOOKS_READ)   ? 'Read '   : '';
+             echo ($comp_rights & BOOKS_WRITE)  ? 'Write '  : '';
+             echo ($comp_rights & BOOKS_DELETE) ? 'Delete ' : '';
+             echo     '</td>
+                  </tr>';
         }
     }
 }

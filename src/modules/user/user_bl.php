@@ -18,6 +18,10 @@ const USER_EBOOK_MIME_ERR = 47;
  */
 $books_list     = NULL;
 /**
+ * Book list rights container
+ */
+$books_rights    = NULL;
+/**
  * Status code container
  */
 $status_code    = NULL;
@@ -47,12 +51,28 @@ $image_mime = array('image/pjpeg', 'image/jpeg', 'image/gif',
  */
 $ebook_mime = array('application/pdf');
 
+/**
+ * Rights
+ */
+
+const BOOKS_READ   = 0X01;
+const BOOKS_WRITE  = 0X02;
+const BOOKS_DELETE = 0X04;
+
 if (initialize_session()){
     if(isset($_SESSION['username']) && isset($_SESSION['ses_key'])
                                     && is_usr_logged($_SESSION['username'])) {
         $uID = $_SESSION['user_ID'];
         $books_list = retrive_user_books($mysql_link, $uID, 'title', 'ASC');
         $admin_messages = retrive_admin_messages($mysql_link);
+        $books_rights = get_user_books_rights($mysql_link, $_SESSION['username']);
+
+        foreach($books_list as $key => $book) {
+            $merged_values[] = array_merge($books_list[$key], $books_rights[$key]);
+        }
+        
+        $books_list = $merged_values;
+            
         
         if(isset($_POST['usr_add_book'])) {
             $book_cvrimg = NULL;
@@ -105,7 +125,7 @@ if (initialize_session()){
                         $ebook_status = USER_EBOOK_MIME_ERR;
                     }
                 }
-
+                               
                 if(add_book($mysql_link, $required_info, 
                                         $cvr_upld_dir, $ebook_upld_dir, $uID)) {
                     $status_code = USER_DB_INSERT_OK;
@@ -150,5 +170,5 @@ return array(
     'searched_books' => $searched_books,
     'cvr_img_status' => $cvr_img_status,
     'ebook_status'   => $ebook_status,
-    'admin_messages' => $admin_messages,
+    'admin_messages' => $admin_messages
     );
