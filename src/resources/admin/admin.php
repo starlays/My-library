@@ -92,18 +92,17 @@ function arrange_ban_status($user_ban_status,$user) {
  * Retrive all users from database
  * string arrange_rights_status($user_ban_status,$user)
  * 
- * @param string $user_rights_status, user right status revceiverd from db
+ * @param string $user_rights_status, user right status received from db
  * @param string $user, user that has that right status
  * 
  * @return string $html, html option list
  */
 function arrange_rights_status($user_rights_status,$user) {
-    
+
     $rights = array(
-        'Registered' => '0001',
-        'Right2'     => '0011',
-        'Right3'     => '0111',
-        'Admin'      => '1111',
+        'Registered' => 1,
+        'Moderator'  => 3,
+        'Admin'      => 7,
     );
     $html = '<select name="'.$user.'_right"><option value="'.$user_rights_status.'">'.array_search($user_rights_status,$rights).'</option>';
     unset($rights[array_search($user_rights_status,$rights)]);
@@ -139,9 +138,11 @@ function update_user($mysql_link, $users, $users_data){
     if($result){
         mysqli_commit($mysql_link);
         mysqli_close($mysql_link);
+        return TRUE;
     }
     else{
         mysqli_rollback($mysql_link);
         mysqli_close($mysql_link);
+        return FALSE;
     }
 }
