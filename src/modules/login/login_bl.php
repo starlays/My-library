@@ -12,13 +12,18 @@ const ERR_AUTH_RETRVINFO = 52;
 const ERR_AUTH_STARTSESS = 53;
 const LOGIN_NO_ACTION    = 55;
 const ERR_USERNOTACTIVE  = 56;
+const LOGOUT_SUCCESS      = 90;
+const LOGOUT_CANNOTSTOP   = 91;
+
 /**
  * Status code container
  */
 $status_code = NULL;
 
 initialize_session();
+
 if(isset($_POST['login'])){
+    
     $reginfo = array($_POST['usr'], $_POST['pwd']);
     
     if(!isEmpty_array_vals($reginfo)) {
@@ -59,6 +64,20 @@ if(isset($_POST['login'])){
 }
 else{
     $status_code = LOGIN_NO_ACTION;
+}
+/**
+ * Logout constants
+ */
+if(isset($_POST['logout'])){
+    
+    if(destroy_session()) {
+        //TODO: use a header to manipulate page redirect
+        //header("Location ".$_SERVER['SCRIPT_FILENAME']);
+        $status_code = LOGOUT_SUCCESS;
+    }
+    else {
+        $status_code = LOGOUT_CANNOTSTOP;
+    }
 }
 
 return array('status_code' => $status_code);
