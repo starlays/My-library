@@ -14,11 +14,11 @@
         <p>Logo</p>
     </div>
     <div id="header">
-        <?php echo build_menu($active_page, $menu_items, 1); ?>
+        <?php echo build_menu($active_page, $menu_items, 1, 'menu'); ?>
     </div>
     <div id="user-area">
         <?php 
-            echo build_menu($active_page, $menu_items, 2); 
+            echo build_menu($active_page, $menu_items, 2, 'menu'); 
             echo build_greetings('greetings');
         ?>
     </div>
