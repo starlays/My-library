@@ -174,7 +174,7 @@ function rate_links_gen($mysql_link,$page,$uID,$bID) {
                 <a href="?page='.$page.'&uID='.$uID.
                                                    '&bID='.$bID.
                                                    '&rID='.$i.'">
-                    <img src="star.png" alt="Give '.$i.' '.(1===$i?'Star':'Stars').'" 
+                    <img src="images/star.png" alt="Give '.$i.' '.(1===$i?'Star':'Stars').'" 
                         title="Give '.$i.' '.(1===$i?'Star':'Stars').' Curent Rating: '.rating_avg($mysql_link,$bID).'" 
                         width="32" height="32"/>
                 </a>

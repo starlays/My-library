@@ -11,7 +11,7 @@
 <noscript>Aceasta pagina are nevoie de java pentru a beneficia de functionalitatea completa</noscript>
 <div id="wrapper">
     <div id="picture">
-        <p>Logo</p>
+        <a href="<?php ?>"><image src="images/my-library.png" title="My library" alt="My library logo"></a>
     </div>
     <div id="header">
         <?php echo build_menu($active_page, $menu_items, 1, 'menu'); ?>
