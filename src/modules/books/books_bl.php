@@ -9,6 +9,10 @@ const BOOKS_NOT_LOGGED    = 340;
 const BOOKS_ERR_EMAIL_BK  = 341;
 const BOOKS_ERR_EMAIL_TP  = 342;
 const BOOKS_ERR_EMAILSEND = 343;
+const ERR_RATEBOOK        = 344;
+const ERR_ALREADYRATED    = 345;
+const SUCCESS_BOOKRATED   = 346;
+
 /**
  * User book list conainer
  */
@@ -50,10 +54,16 @@ if (initialize_session()){
                                files_scand_dir($book['cvr_img_path'], $image_mime)
                                 );
                     }
+                    else {
+                        $books[$key]['book_img'] = NULL;
+                    }
                     if(check_dir($book['e_book_path'])) {
                         $books[$key]['book_ebook'] = array(
                             files_scand_dir($book['e_book_path'], $ebook_mime)
                             );
+                    }
+                    else {
+                        $books[$key]['book_ebook'] = NULL;
                     }
                 }
             }
@@ -64,7 +74,7 @@ if (initialize_session()){
                 
                 $from_email     = 'noreply@my-library.com';
                 $subject        = $_SESSION['username'].' favorite books';
-                $email_bookslst = $_POST['email_books_collection'];
+                $email_bookslst = implode(', ', $_POST['email_books_collection']);
                 $email_tpl_path = __MODULES__.'books'.D_S;
                 $email_body     = NULL;
                 $var_holders    = array('%user_name%', '%email_addres%', '%books_list%');
@@ -85,7 +95,7 @@ if (initialize_session()){
                     $email_body = str_replace($var_holders, $var_replacers, $email_body);
                 }
                 //TODO: get the e-mail from a form in books, /!\ask if it is ok!
-                if(!email_infos($from_email, 'foo@bar.com', $subject, $email_body)) {
+                if(!email_infos($from_email, '/*email here*/', $subject, $email_body)) {
                     $status_code = BOOKS_ERR_EMAILSEND;
                 }
             }
@@ -94,9 +104,36 @@ if (initialize_session()){
     else {
         $status_code = BOOKS_NOT_LOGGED; 
     }
+    if (isset($_GET['uID'],$_GET['bID'],$_GET['rID']) && 
+            !empty($_GET['uID']) && !empty($_GET['bID']) && !empty($_GET['rID'])){
+        
+        $uID = (int)strip_tags($_GET['uID']);
+        $bID = (int)strip_tags($_GET['bID']);
+        $rID = (int)strip_tags($_GET['rID']);
+        
+        
+        
+        if(($uID >= 1) && ($bID >= 1) && ($rID >= 1)){
+            if (!rating_check($mysql_link,$uID,$bID,$rID)){
+                if(rating_insert($mysql_link,$uID,$bID,$rID)){
+                    $status_code = SUCCESS_BOOKRATED;
+                }
+                else{
+                    $status_code = ERR_RATEBOOK;
+                }
+            }
+            else{
+                $status_code = ERR_ALREADYRATED;
+            }
+        }
+        else{
+            $status_code = ERR_RATEBOOK;
+        }
+    }
 }
 
 return array(
     'status_code'  => $status_code,
     'books'        => $books,
+    'mysql_link'   => $mysql_link,
     );

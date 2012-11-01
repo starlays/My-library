@@ -5,18 +5,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="style.css" />
 <title><?php echo $active_page_title; ?></title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 </head>
 <body>
+<noscript>Aceasta pagina are nevoie de java pentru a beneficia de functionalitatea completa</noscript>
 <div id="wrapper">
     <div id="picture">
-        <p>Logo</p>
+        <a href="<?php ?>"><image src="images/my-library.png" title="My library" alt="My library logo"></a>
     </div>
     <div id="header">
-        <?php echo build_menu($active_page, $menu_items, 1); ?>
+        <?php echo build_menu($active_page, $menu_items, 1, 'menu'); ?>
     </div>
     <div id="user-area">
         <?php 
-            echo build_menu($active_page, $menu_items, 2); 
+            echo build_menu($active_page, $menu_items, 2, 'menu'); 
             echo build_greetings('greetings');
         ?>
     </div>

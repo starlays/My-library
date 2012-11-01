@@ -47,12 +47,13 @@ function render($tpl_flname, $tpl_vars = array()) {
  * @param string $active_menu
  * @param array  $menu_values
  * @param array  $menu_number chooses witch module appears
+ * @param string $css_id the css id for the menu
  *
  * @return string html menu
  */
-function build_menu($active_menu, $menu_values=array(), $menu_number) {
+function build_menu($active_menu, $menu_values=array(), $menu_number, $css_id) {
 
-    $menu = '<ul id="menu">' .PHP_EOL;
+    $menu = "<ul id=".$css_id.">".PHP_EOL;
 
     foreach($menu_values as $metadata=>$values) {
         if($menu_values[$metadata]['menu_number'] === $menu_number) {

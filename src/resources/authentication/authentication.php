@@ -251,7 +251,7 @@ function destroy_session() {
  */
 function is_admin($mysql_link, $username) {
     
-    $SQL = "SELECT COUNT(*) AS admin FROM users WHERE username ='$username' AND rights='1111';";
+    $SQL = "SELECT COUNT(*) AS admin FROM users WHERE username ='$username' AND rights=7;";
     
     $qresult = mysqli_query($mysql_link, $SQL);
     $qresult = mysqli_fetch_assoc($qresult);

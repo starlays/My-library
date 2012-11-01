@@ -42,19 +42,6 @@ return array (
         'content_BL'    => 'login_bl.php',
         'resources'     => array('mysql', 'authentication')
     ),
-     'recover'  => array (
-        'title'         => 'Recover',
-        'in_menu'       => 2,
-        'content_VL'    => 'recover.php', //where is the file?
-        'resources'     => array('mysql', 'authentication')
-    ),
-     'logout'   => array (
-        'title'         => 'Logout',
-        'in_menu'       => 2,
-        'content_VL'    => 'logout.php',
-        'content_BL'    => 'logout_bl.php',
-        'resources'     => array('authentication')
-    ),
     'upload'   => array(
         'title'         => 'File upload',
         'in_menu'       => 1,

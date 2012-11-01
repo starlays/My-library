@@ -4,8 +4,20 @@
         <legend> Login : </legend>
         <label for='usr'>Username:</label><input id='usr' name='usr' type='text' /><br />
         <label for='pwd'>Password:</label><input id='pwd' name='pwd' type='password' /><br />
-        </fieldset>
         <input type='submit' name='login' value='Login' />
+        </fieldset>
+        </form>
+<?php
+}
+else{
+?>
+
+    <form action='' method='POST'>
+        <fieldset>
+        <legend> Logout : </legend>
+            <input type='submit' name='logout' value='Logout' />
+        </fieldset>
+        
         </form>
 <?php
 }
@@ -25,6 +37,12 @@ if(!is_null($status_code)) {
             break;
         case ERR_USERNOTACTIVE:
             echo sprintf('You did not activate this user, plese verify your email. Click <a href="#">here</a> to resend the activation code. Error: %d', ERR_USERNOTACTIVE);
+            break;
+        case LOGOUT_CANNOTSTOP:
+            echo sprintf('Can\'t stop the session! Error: %d', LOGOUT_CANNOTSTOP);
+            break;
+        case LOGOUT_SUCCESS:
+            echo 'You are now logged out';
             break;
         case LOGIN_SUCCESS:
             echo 'You are now logged in';

@@ -1,4 +1,11 @@
 <?php if(isset($_SESSION['username']) && isset($_SESSION['ses_key']) && is_usr_logged($_SESSION['username'])) { ?>
+<script>
+$(document).ready(function () {
+    $('.checkall').click(function () {
+        $(this).parents('form:eq(0)').find(':checkbox').attr('checked', this.checked);
+    });
+});
+</script>
 <div>
 <p>Messages from Admins</p>
 <?php
@@ -13,15 +20,37 @@
 <div>
       <form action="" method="post">
       <p>Which book do you want to delete?</p>
+<table border="1">
+    <tr>
+        <th>Check All</th>
+        <th rowspan="2">Book Name</th>
+        <th rowspan="2">Your rights on book</th>
+    </tr>
+     <tr>
+        <td><input type="checkbox" class="checkall"/></td>
+    </tr>
 <?php
+
 if(!is_null($books_list) && is_array($books_list)){
     foreach($books_list as $book) {
         if(isset($book['book_title'])) {
-             echo '<input type="checkbox" name="rm_books[]" value="',$book['book_title'],'" />',$book['book_title'],'<br />';
+            $comp_rights = (int)$book['computed_rights'];
+             echo '<tr>
+                       <td>';
+              echo     ($comp_rights & BOOKS_DELETE) ? '<input type="checkbox" name="rm_books[]" value="'.$book['book_title'].'" />' : '';
+              echo     '</td>
+                       <td>',$book['book_title'],'</td>
+                       <td>';
+             echo ($comp_rights & BOOKS_READ)   ? 'Read '   : '';
+             echo ($comp_rights & BOOKS_WRITE)  ? 'Write '  : '';
+             echo ($comp_rights & BOOKS_DELETE) ? 'Delete ' : '';
+             echo     '</td>
+                  </tr>';
         }
     }
 }
 ?>
+</table>   
 <input type="submit" name="delete_book" value="Remove selected books!" />
 </form>
 </div>
