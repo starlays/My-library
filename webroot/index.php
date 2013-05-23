@@ -3,7 +3,7 @@
  * @file index.php
  * @brief Application main file and integrator
  * @author Lazar Florentin <florentin[dot]lazar[at]gmail[dot]com>
- * @author Dicu George <john.doe@example.com>
+ * @author Dicu George <dicu[dot]george007[at]gmail[dot]com>
  * 
  * @mainpage
  * 
