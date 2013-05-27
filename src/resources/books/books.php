@@ -155,6 +155,25 @@ function search_book_bytitle($mysql_link, $search_title) {
 }
 
 /**
+ * Generates qr codes using on google api and based on book data.
+ * 
+ * string qr_gen($btitle)
+ * 
+ * @param string $btitle, the book title
+ * @param string $bauthor, the book author
+ * 
+ * @return string $qrlink, witch is a QR Code image redirecting to google search
+ * about the book info
+ */
+
+function qr_gen($btitle, $bauthor) {
+     $qrlink = "<img src=
+         'https://chart.googleapis.com/chart?chs=64x64&cht=qr&chl=
+         https://www.google.ro/search?q='.$btitle.' '.$bauthor.&choe=UTF-8' >";
+     return $qrlink;
+}
+
+/**
  * Generates 5 links with book id, author id and rate id.
  * 
  * string rate_links_gen($page, $uID, $bID)
