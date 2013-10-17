@@ -23,4 +23,4 @@ define('WEBROOT', __DIR__.DS);
  /**
   * Application source file
   */
-define('APPSRC', DS.'src'.DS)
+define('APPSRC', dirname(WEBROOT).DS.'src'.DS)
