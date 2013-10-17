@@ -8,9 +8,11 @@
   * webroot dir
   */
 define('MyLibrary', TRUE);
-
 /**
  * Require webroot config file
  */
 require_once('webroot.config.php');
-
+/**
+ * Require the router
+ */
+require_once(APPSRC.'/controllers/'.'router.php');
