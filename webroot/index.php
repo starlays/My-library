@@ -15,4 +15,4 @@ require_once('webroot.config.php');
 /**
  * Require the router
  */
-require_once(APPSRC . DS.'controllers'.DS . 'router.php');
+require_once(APPSRC . DS . 'router.php');
