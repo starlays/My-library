@@ -6,7 +6,7 @@
 /**
  * Prevent this file direct access
  */
-if(!defined('MyLibrar')) {
+if(!defined('MyLibrary')) {
     header("HTTP/1.1 403.8 Site access denied");
     header("Status: 403.8 Site access denied");
     exit('Access forbiten!');
@@ -23,4 +23,4 @@ define('WEBROOT', __DIR__.DS);
  /**
   * Application source file
   */
-define('APPSRC', dirname(WEBROOT).DS.'src'.DS)
+define('APPSRC', dirname(WEBROOT).DS.'src'.DS);
