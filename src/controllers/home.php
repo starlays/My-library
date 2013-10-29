@@ -17,6 +17,6 @@ class homeController
     public function main(array $getVars)
     {
         // TODO: implement the function handle
-        $homeModel = new homeModel;
+        $model = new homeModel;
     }
 }
